@@ -1,0 +1,44 @@
+{
+  "id": "2517457",
+  "name": "vueapp",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "522755",
+      "name": "商品",
+      "font_class": "shangpin",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "3635314",
+      "name": "电影",
+      "font_class": "movie02",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
+      "icon_id": "11372783",
+      "name": "影院",
+      "font_class": "yingyuan",
+      "unicode": "e8c7",
+      "unicode_decimal": 59591
+    },
+    {
+      "icon_id": "15147985",
+      "name": "我 的",
+      "font_class": "wode",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "15544707",
+      "name": "资讯",
+      "font_class": "zixun",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    }
+  ]
+}
