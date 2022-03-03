@@ -5,25 +5,33 @@
         <div class="logo">
           <a href="//www.decunt.com/home" class="logoAir" title="BLOG">BLOG</a>
         </div>
-<!--        <h1 @click="router.push('/home')"><img class="logo" src="@/assets/images/m13.png" alt="BLOG"></h1>-->
-<!--        <div class="title">BLOG</div>-->
+        <!--        <h1 @click="router.push('/home')"><img class="logo" src="@/assets/images/m13.png" alt="BLOG"></h1>-->
+        <!--        <div class="title">BLOG</div>-->
         <Nav />
-        <div class="search"><a-input-search class="searchInp"  v-model:value="searchValue" placeholder="搜索" /></div>
+        <div class="search">
+          <a-input-search class="searchInp" v-model:value="searchValue" placeholder="搜索" />
+        </div>
         <div v-if="!store.state.app.token" class="loginOrRegister">
           <span @click="router.push('/login')">登录</span>
           <span @click="router.push('/register')">注册</span>
         </div>
         <div v-else class="userinfo">
-           <div class="avatar">
-             <img v-if="userInfo.userId" :src="avatarImg" alt="">
-              <a-avatar v-else style="background-color: #87d068">
-                <template #icon>
-                  <UserOutlined />
-                </template>
-              </a-avatar>
-            </div>
+          <div class="avatar">
+            <img v-if="userInfo.userId" :src="avatarImg" alt />
+            <a-avatar v-else style="background-color: #87d068">
+              <template #icon>
+                <UserOutlined />
+              </template>
+            </a-avatar>
+          </div>
           <a-dropdown>
-            <span class="welcome">欢迎您,<span>{{userInfo.username}}</span><span class="iconDown"><setting-outlined /></span></span>
+            <span class="welcome">
+              欢迎您,
+              <span>{{userInfo.username}}</span>
+              <span class="iconDown">
+                <setting-outlined />
+              </span>
+            </span>
             <template #overlay>
               <a-menu>
                 <a-menu-item>
@@ -39,68 +47,61 @@
             </template>
           </a-dropdown>
         </div>
-<!--        <div class="modal">-->
-<!--          <div class="username">欢迎您,<span>{{userInfo.username}}</span></div>-->
-<!--          <ul>-->
-<!--            <li><a href="javascript:;" @click="modalVisible.settingModal = true">账号设置</a></li>-->
-<!--            <li><a href="javascript:;" @click="modalVisible.passwordModal = true">密码修改</a></li>-->
-<!--            <li class="line"></li>-->
-<!--          </ul>-->
-<!--        </div>-->
+        <!--        <div class="modal">-->
+        <!--          <div class="username">欢迎您,<span>{{userInfo.username}}</span></div>-->
+        <!--          <ul>-->
+        <!--            <li><a href="javascript:;" @click="modalVisible.settingModal = true">账号设置</a></li>-->
+        <!--            <li><a href="javascript:;" @click="modalVisible.passwordModal = true">密码修改</a></li>-->
+        <!--            <li class="line"></li>-->
+        <!--          </ul>-->
+        <!--        </div>-->
       </div>
     </div>
-<!--    账号设置弹框-->
-    <a-modal :width="420" :footer="null" :visible="modalVisible.settingModal" title="账号设置" @cancel="closeSettingModal">
+    <!--    账号设置弹框-->
+    <a-modal
+      :width="420"
+      :footer="null"
+      :visible="modalVisible.settingModal"
+      title="账号设置"
+      @cancel="closeSettingModal"
+    >
       <a-form
-          :model="settingFormState"
-          name="basic"
-          :label-col="{ span: 4 }"
-          :wrapper-col="{ span: 20 }"
-          autocomplete="off"
+        :model="settingFormState"
+        name="basic"
+        :label-col="{ span: 4 }"
+        :wrapper-col="{ span: 20 }"
+        autocomplete="off"
       >
-
-        <a-form-item
-            label="用户名"
-            name="username"
-        >
+        <a-form-item label="用户名" name="username">
           <a-input v-model:value="settingFormState.username" />
         </a-form-item>
 
-        <a-form-item
-            label="手机号"
-            name="phone"
-        >
+        <a-form-item label="手机号" name="phone">
           <a-input v-model:value="settingFormState.phone" :disabled="!editPhoneFlag.flag">
             <template #addonAfter>
-              <span style="cursor: pointer;" @click="changeFlag">{{ editPhoneFlag.flag ? '取消' : '修改' }}</span>
+              <span
+                style="cursor: pointer;"
+                @click="changeFlag"
+              >{{ editPhoneFlag.flag ? '取消' : '修改' }}</span>
             </template>
           </a-input>
         </a-form-item>
 
-        <a-form-item
-            v-if="editPhoneFlag.flag"
-            label="验证码"
-            name="code"
-        >
+        <a-form-item v-if="editPhoneFlag.flag" label="验证码" name="code">
           <a-input v-model:value="settingFormState.code" />
         </a-form-item>
 
-        <a-form-item
-            label="邮箱地址"
-            name="email"
-        >
+        <a-form-item label="邮箱地址" name="email">
           <a-input v-model:value="settingFormState.email" />
         </a-form-item>
 
-        <a-form-item
-            label="用户头像"
-        >
+        <a-form-item label="用户头像">
           <a-upload
-              v-model:fileList="settingFormState.avatar"
-              name="avatar"
-              list-type="picture-card"
-              :show-upload-list="false"
-              class="avatar-uploader"
+            v-model:fileList="settingFormState.avatar"
+            name="avatar"
+            list-type="picture-card"
+            :show-upload-list="false"
+            class="avatar-uploader"
           >
             <img v-if="imageUrl" :src="imageUrl" alt="avatar" />
             <div v-else>
@@ -113,63 +114,60 @@
         <a-form-item :wrapper-col="{ offset: 10, span: 14 }">
           <a-button type="primary" html-type="submit">确认修改</a-button>
         </a-form-item>
-
-
       </a-form>
     </a-modal>
     <!--    修改密码弹框-->
-    <a-modal :footer="null" :visible="modalVisible.passwordModal" title="修改密码" @cancel="closePasswordModal">
+    <a-modal
+      :footer="null"
+      :visible="modalVisible.passwordModal"
+      title="修改密码"
+      @cancel="closePasswordModal"
+    >
       <a-form
-          :model="passwordFormState"
-          name="basic"
-          :label-col="{ span: 5 }"
-          :wrapper-col="{ span: 19 }"
-          autocomplete="off"
-          :rules="pwdRule"
-          ref="pwdRef"
-          @finish="submitPwd"
+        :model="passwordFormState"
+        name="basic"
+        :label-col="{ span: 5 }"
+        :wrapper-col="{ span: 19 }"
+        autocomplete="off"
+        :rules="pwdRule"
+        ref="pwdRef"
+        @finish="submitPwd"
       >
-        <a-form-item
-            label="旧密码"
-            name="oldPwd"
-        >
+        <a-form-item label="旧密码" name="oldPwd">
           <a-input-password v-model:value="passwordFormState.oldPwd" />
         </a-form-item>
 
-        <a-form-item
-            label="新密码"
-            name="newPwd"
-        >
+        <a-form-item label="新密码" name="newPwd">
           <a-input-password v-model:value="passwordFormState.newPwd" />
         </a-form-item>
 
-        <a-form-item
-            label="确认新密码"
-            name="cNewPwd"
-        >
+        <a-form-item label="确认新密码" name="cNewPwd">
           <a-input-password v-model:value="passwordFormState.cNewPwd" />
         </a-form-item>
 
         <a-form-item :wrapper-col="{ offset: 10, span: 14 }">
           <a-button type="primary" html-type="submit">确认修改</a-button>
         </a-form-item>
-
       </a-form>
     </a-modal>
   </div>
 </template>
 
 <script setup>
-import { UserOutlined, SettingOutlined, PlusOutlined } from '@ant-design/icons-vue'
-import Nav from "@/components/Home/Nav";
-import {reactive, ref} from "vue";
-import {reg} from "../../utils/util";
-import router from "../../router";
-import {editPwd, loginByGithub, logout as logoutApi} from "../../api/home";
-import { useStore } from "vuex";
-import {message} from "ant-design-vue";
-import {Encrypt} from "../../utils/aes";
-import {useRoute} from "vue-router";
+import {
+  UserOutlined,
+  SettingOutlined,
+  PlusOutlined,
+} from '@ant-design/icons-vue'
+import Nav from '@/components/Home/Nav'
+import { reactive, ref } from 'vue'
+import { reg } from '../../utils/util'
+import router from '../../router'
+import { editPwd, loginByGithub, logout as logoutApi } from '../../api/home'
+import { useStore } from 'vuex'
+import { message } from 'ant-design-vue'
+import { Encrypt } from '../../utils/aes'
+import { useRoute } from 'vue-router'
 //
 const store = useStore()
 const route = useRoute()
@@ -177,121 +175,120 @@ const route = useRoute()
 const userInfo = store.state.app.userInfo
 
 const modalVisible = reactive({
-    settingModal: false,
-    passwordModal: false
-  })
+  settingModal: false,
+  passwordModal: false,
+})
 
-  const pwdRef = ref(null)
+const pwdRef = ref(null)
 
-  // 关闭弹框
-  const closeSettingModal = () => {
-    modalVisible.settingModal = false
+// 关闭弹框
+const closeSettingModal = () => {
+  modalVisible.settingModal = false
+}
+const closePasswordModal = () => {
+  pwdRef.value.resetFields()
+  modalVisible.passwordModal = false
+}
+
+const settingFormState = reactive({
+  username: '',
+})
+
+const passwordFormState = reactive({
+  oldPwd: '',
+  newPwd: '',
+  cNewPwd: '',
+})
+
+const isOldPwd = () => {
+  if (!passwordFormState.oldPwd) {
+    return Promise.reject('旧密码不能为空!')
   }
-  const closePasswordModal = () => {
-    pwdRef.value.resetFields();
-    modalVisible.passwordModal = false
+  if (!reg.pwd.test(passwordFormState.oldPwd)) {
+    return Promise.reject('请输入6-16位字母加数字!')
+  } else {
+    return Promise.resolve()
   }
+}
+const isNewPwd = () => {
+  if (!passwordFormState.newPwd) {
+    return Promise.reject('新密码不能为空!')
+  }
+  if (!reg.pwd.test(passwordFormState.newPwd)) {
+    return Promise.reject('请输入6-16位字母加数字!')
+  } else {
+    return Promise.resolve()
+  }
+}
+const isCNewPwd = () => {
+  if (!passwordFormState.cNewPwd) {
+    return Promise.reject('确认密码不能为空!')
+  }
+  if (passwordFormState.cNewPwd !== passwordFormState.newPwd) {
+    return Promise.reject('两次密码不一致!')
+  } else {
+    return Promise.resolve()
+  }
+}
 
-  const settingFormState = reactive({
-    username: ''
-  })
+const pwdRule = reactive({
+  oldPwd: [{ validator: isOldPwd, trigger: 'blur' }],
+  newPwd: [{ validator: isNewPwd, trigger: 'blur' }],
+  cNewPwd: [{ validator: isCNewPwd, trigger: 'blur' }],
+})
 
-  const passwordFormState = reactive({
-    oldPwd: '',
-    newPwd: '',
-    cNewPwd: ''
-  })
-
-  const isOldPwd = () => {
-    if (!passwordFormState.oldPwd) {
-      return Promise.reject('旧密码不能为空!')
+// 修改密码提交
+const submitPwd = async (v) => {
+  if (v.oldPwd === v.newPwd) {
+    return message.error('新密码不能与旧密码一致!')
+  } else {
+    const params = {
+      userId: userInfo.userId,
+      password: Encrypt(v.oldPwd),
+      newPassWord: Encrypt(v.newPwd),
     }
-    if (!reg.pwd.test(passwordFormState.oldPwd)) {
-      return Promise.reject('请输入6-16位字母加数字!')
-    } else {
-      return Promise.resolve()
+    const { code, message: msg } = await editPwd(params)
+    if (code !== 200) {
+      return message.error(msg)
     }
+    message.success('密码修改成功,请重新登录')
+    closePasswordModal()
+    logout()
   }
-  const isNewPwd = () => {
-    if (!passwordFormState.newPwd) {
-      return Promise.reject('新密码不能为空!')
-    }
-    if (!reg.pwd.test(passwordFormState.newPwd)) {
-      return Promise.reject('请输入6-16位字母加数字!')
-    } else {
-      return Promise.resolve()
-    }
-  }
-  const isCNewPwd = () => {
-    if (!passwordFormState.cNewPwd) {
-      return Promise.reject('确认密码不能为空!')
-    }
-    if (passwordFormState.cNewPwd !== passwordFormState.newPwd) {
-      return Promise.reject('两次密码不一致!')
-    } else {
-      return Promise.resolve()
-    }
-  }
+}
 
-  const pwdRule = reactive({
-    oldPwd: [{ validator: isOldPwd, trigger: 'blur' }],
-    newPwd: [{ validator: isNewPwd, trigger: 'blur' }],
-    cNewPwd: [{ validator: isCNewPwd, trigger: 'blur' }]
-  })
+// 推出登录
+const logout = async () => {
+  delete localStorage.BLOG_USER_TOKEN
+  delete localStorage.BLOG_USER_INFO
+  store.commit('app/setToken', '')
+  store.commit('app/setUserInfo', '')
+  await logoutApi()
+  await router.replace('/login')
+}
 
-  // 修改密码提交
-  const submitPwd = async (v) => {
-    if (v.oldPwd === v.newPwd) {
-      return message.error('新密码不能与旧密码一致!')
-    } else {
-      const params = {
-        userId: userInfo.userId,
-        password: Encrypt(v.oldPwd),
-        newPassWord: Encrypt(v.newPwd)
-      }
-      const { code, message:msg } = await editPwd(params)
-        if (code !== 200) {
-          return message.error(msg)
-        }
-        message.success('密码修改成功,请重新登录')
-        closePasswordModal()
-        logout()
-    }
-  }
+let searchValue = ref('')
 
-  // 推出登录
-  const logout = async () => {
-    delete localStorage.BLOG_USER_TOKEN
-    delete localStorage.BLOG_USER_INFO
-    store.commit('app/setToken', '')
-    store.commit('app/setUserInfo', '')
-    await logoutApi()
-    await router.replace('/login')
-  }
+let imageUrl = ref('')
 
-  let searchValue = ref('')
+const editPhoneFlag = reactive({
+  flag: false,
+})
+const changeFlag = () => {
+  editPhoneFlag.flag = !editPhoneFlag.flag
+}
 
-  let imageUrl = ref('')
-
-  const editPhoneFlag = reactive({
-    flag: false
-  })
-  const changeFlag = () => {
-    editPhoneFlag.flag = !editPhoneFlag.flag
-  }
-
-  const token = ref('')
-  const avatarImg = `http://106.15.186.163/user/headImg/9/headShot.jpg`
-  const init = async () => {
-    // console.log(route.query.)
-    // token.value = localStorage.getItem('BLOG_USER_TOKEN') || ''
-    // if (route.query.code) {
-    //   const res = await loginByGithub(route.query.code).catch(err=>message.error('登录失败'))
-    //   console.log(res)
-    // }
-  }
-  init()
-
+const token = ref('')
+const avatarImg = `http://106.15.186.163/user/headImg/9/headShot.jpg`
+const init = async () => {
+  // console.log(route.query.)
+  // token.value = localStorage.getItem('BLOG_USER_TOKEN') || ''
+  // if (route.query.code) {
+  //   const res = await loginByGithub(route.query.code).catch(err=>message.error('登录失败'))
+  //   console.log(res)
+  // }
+}
+init()
 </script>
 
 <style lang="scss" scoped>
@@ -322,7 +319,7 @@ const modalVisible = reactive({
     }
     .search {
       .searchInp {
-        opacity: .6;
+        opacity: 0.6;
       }
     }
     .loginOrRegister {
@@ -381,7 +378,7 @@ const modalVisible = reactive({
           text-align: center;
           line-height: 40px;
           &:hover {
-            background-color: #E3E5E7;
+            background-color: #e3e5e7;
             border-radius: 5px;
           }
         }
