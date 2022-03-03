@@ -127,7 +127,7 @@ import router from "../router";
     })
     // 发送验证码
     const sendCode = async () => {
-      const { code, message: msg } = await verification({email: formState.email})
+      const { code, message: msg } = await verification({email: formState.email, emailType: 1,})
       if ( code !== 200 ) return message.error(msg)
       message.success('验证码发送成功')
       countDown()
@@ -155,7 +155,6 @@ import router from "../router";
       const params = {
         username: v.username,
         email: v.email,
-        emailType: 1,
         password: Encrypt(v.password),
         verificationCode: v.code
       }
