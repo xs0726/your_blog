@@ -3,11 +3,11 @@ $yh:"Microsoft yahei";
 $base_width:750;
 $base_font:75;
 
-// 750:75 = 375:x  ==>  x== 75*375 / 750  = 37.5 
+// 750:75 = 375:x  ==>  x== 75*375 / 750  = 37.5
 // 300px   300/75  = 4   4rem
 // 150px   37.5 *4 = 150              4rem
 
-// 量出 多少 除以 75  
+// 量出 多少 除以 75
 @function rem($px) {
     @return ($px/$base_font) * 1rem;
 }
@@ -16,10 +16,10 @@ $base_font:75;
 html {
     font-size: 62.5%;
     font-family: $yh;
-    font-size: calc(10vw); // 淘宝适配 
-    //    font-size:-webket-calc(10vw); 
+    font-size: calc(10vw); // 淘宝适配
+    //    font-size:-webket-calc(10vw);
     //    font-size:calc(100vw/3.75);      //网易 移动端 适配    375:100 = 100vw:x  7.5:1 = 100vw:x  x =100vw/7.5
-    //    font-size:-webket-calc(100vw/7.5);   // 设计稿宽度  750px 
+    //    font-size:-webket-calc(100vw/7.5);   // 设计稿宽度  750px
 }
 
 * {
