@@ -1,60 +1,51 @@
 <template>
   <div class="top">
-    <div class="content">
-      <div class="top-nav">
+    <div class="top-nav">
+      <div class="nav-top">
         <div class="logo">
           <a href="//www.decunt.com/home" class="logoAir" title="BLOG">BLOG</a>
         </div>
-        <!--        <h1 @click="router.push('/home')"><img class="logo" src="@/assets/images/m13.png" alt="BLOG"></h1>-->
-        <!--        <div class="title">BLOG</div>-->
         <Nav />
-        <div class="search">
-          <a-input-search class="searchInp" v-model:value="searchValue" placeholder="搜索" />
-        </div>
-        <div v-if="!store.state.app.token" class="loginOrRegister">
-          <span @click="router.push('/login')">登录</span>
-          <span @click="router.push('/register')">注册</span>
-        </div>
-        <div v-else class="userinfo">
-          <div class="avatar">
-            <img v-if="userInfo.userId" :src="avatarImg" alt />
-            <a-avatar v-else style="background-color: #87d068">
-              <template #icon>
-                <UserOutlined />
-              </template>
-            </a-avatar>
-          </div>
-          <a-dropdown>
-            <span class="welcome">
-              欢迎您,
-              <span>{{userInfo.username}}</span>
-              <span class="iconDown">
-                <setting-outlined />
-              </span>
-            </span>
-            <template #overlay>
-              <a-menu>
-                <a-menu-item>
-                  <a href="javascript:;" @click="modalVisible.settingModal = true">账号设置</a>
-                </a-menu-item>
-                <a-menu-item>
-                  <a href="javascript:;" @click="modalVisible.passwordModal = true">密码修改</a>
-                </a-menu-item>
-                <a-menu-item>
-                  <a href="javascript:;" @click="logout">退出登录</a>
-                </a-menu-item>
-              </a-menu>
+      </div>
+      <div class="search">
+        <input class="searchInp" v-model="searchValue" placeholder="请输入搜索内容！" />
+        <div class="search1">搜索</div>
+      </div>
+      <div v-if="!store.state.app.token" class="loginOrRegister">
+        <span @click="router.push('/login')">登录</span>
+        <span @click="router.push('/register')">注册</span>
+      </div>
+      <div v-else class="userinfo">
+        <div class="avatar">
+          <img v-if="userInfo.userId" :src="avatarImg" alt />
+          <a-avatar v-else style="background-color: #87d068">
+            <template #icon>
+              <UserOutlined />
             </template>
-          </a-dropdown>
+          </a-avatar>
         </div>
-        <!--        <div class="modal">-->
-        <!--          <div class="username">欢迎您,<span>{{userInfo.username}}</span></div>-->
-        <!--          <ul>-->
-        <!--            <li><a href="javascript:;" @click="modalVisible.settingModal = true">账号设置</a></li>-->
-        <!--            <li><a href="javascript:;" @click="modalVisible.passwordModal = true">密码修改</a></li>-->
-        <!--            <li class="line"></li>-->
-        <!--          </ul>-->
-        <!--        </div>-->
+        <a-dropdown>
+          <span class="welcome">
+            欢迎您,
+            <span>{{userInfo.username}}</span>
+            <span class="iconDown">
+              <setting-outlined />
+            </span>
+          </span>
+          <template #overlay>
+            <a-menu>
+              <a-menu-item>
+                <a href="javascript:;" @click="modalVisible.settingModal = true">账号设置</a>
+              </a-menu-item>
+              <a-menu-item>
+                <a href="javascript:;" @click="modalVisible.passwordModal = true">密码修改</a>
+              </a-menu-item>
+              <a-menu-item>
+                <a href="javascript:;" @click="logout">退出登录</a>
+              </a-menu-item>
+            </a-menu>
+          </template>
+        </a-dropdown>
       </div>
     </div>
     <!--    账号设置弹框-->
@@ -297,37 +288,73 @@ init()
   top: 0;
   width: 100%;
   height: 50px;
-  background-color: rgba(255, 255, 255);
-  line-height: 50px;
+  box-shadow: 0 2px 8px 2px rgba(194, 194, 194, 0.329);
   z-index: 2;
+
   .top-nav {
     display: flex;
+    background-color: rgba(255, 255, 255);
     justify-content: space-between;
+    align-items: center;
+    min-width:1120px;
+    .nav-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     .logo {
-      //width: 50px;
-      //height: 100%;
-      //margin-left: 50px;
       .logoAir {
         display: block;
+        margin-right: 60px;
         width: 56px;
         height: 56px;
         overflow: hidden;
         font-size: 0;
-        background: url('../../assets/images/m13.png');
-        background-size: 56px;
+        background: url('../../assets/images/m13.png') no-repeat;
+        background-size: 100% 100%;
       }
     }
     .search {
+      flex: 1;
+      height: 34px;
+      margin: 0 50px;
+      border-radius: 60px;
+      max-width: 600px;
+      display: flex;
+      background: #f5f6f7;
+      align-items: center;
+      overflow: hidden;
+      border: 1px solid rgb(224, 224, 224);
+      text-align: center;
+      justify-content: center;
       .searchInp {
-        opacity: 0.6;
+        padding-left: 10px;
+        flex: 1;
+        border: 0;
+        background: #f5f6f7;
+        padding: 4px 0;
+        font-size: 14px;
+        text-indent: 1em;
+        outline: none;
+      }
+      .search1 {
+        white-space: nowrap;
+        padding: 0 30px;
+        height: 100%;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+
+        background: #fc5632;
+        color: #fff;
       }
     }
     .loginOrRegister {
       width: 100px;
       display: flex;
       justify-content: space-around;
+      align-items: center;
       font-size: 14px;
-      font-weight: 800;
       cursor: pointer;
       span {
         &:hover {
@@ -398,10 +425,6 @@ init()
     }
   }
 }
-//.ant-upload-select-picture-card i {
-//  font-size: 32px;
-//  color: #999;
-//}
 
 .content {
   width: 1120px;
