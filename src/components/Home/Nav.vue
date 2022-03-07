@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import router from "../../router";
+import router from '../../router'
 import { useRoute } from 'vue-router'
 const route = useRoute()
 const navList = [
@@ -153,6 +153,33 @@ const navList = [
         }
       }
     }
+    li:hover {
+      background: #f0f0f5;
+    }
+
+    .active {
+      background: #f5f5ff;
+      position: relative;
+    }
+    .active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 2px;
+      background: #517df8;
+      animation: op 0.3s linear alternate;
+    }
+  }
+}
+@keyframes op {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    background: #e9e9f8;
   }
 }
 </style>

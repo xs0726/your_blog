@@ -22,7 +22,7 @@ module.exports = {
   lintOnSave: false,  // 取消ESLint 的书写规范限制
 
   devServer: { // Vue 服务器的配置文件
-      host: "localhost",
+    //   host: "localhost",
       port: '2101',
       open: true, // 自动打开浏览器
       hot: true, // 自动更新 热更新

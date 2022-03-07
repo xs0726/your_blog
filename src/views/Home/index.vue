@@ -32,7 +32,7 @@ init()
 <style lang="scss" scoped>
 .home {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow-y: auto;
   background: url('../../../src/assets/home_bg1.png');
   background-size: 100% 100%;
