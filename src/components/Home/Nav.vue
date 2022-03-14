@@ -2,12 +2,14 @@
   <div class="nav">
     <div class="container">
       <ul>
-<!--        <li><router-link to="/">首页</router-link></li>-->
-        <li v-for="(nav, index) in navList" :key="index">
-          <router-link :to="`/home/${nav.path}`">{{nav.name}}</router-link>
+        <!--        <li><router-link to="/">首页</router-link></li>-->
+        <li class="fsc" v-for="(nav, index) in navList" :key="index">
+          <router-link :to="`/home/${nav.path}`">{{ nav.name }}</router-link>
           <div v-if="nav.children.length" class="layer">
-            <ul>
-              <li v-for="(sub, index) in nav.children" :key="index">{{ sub.name }}</li>
+            <ul >
+              <li v-for="(sub, index) in nav.children" :key="index">
+                {{ sub.name }}
+              </li>
             </ul>
           </div>
         </li>
@@ -17,92 +19,95 @@
 </template>
 
 <script setup>
-import router from '../../router'
-import { useRoute } from 'vue-router'
-const route = useRoute()
+import router from "../../router";
+import { useRoute } from "vue-router";
+const route = useRoute();
 const navList = [
   {
     name: "首页",
-    path: 'home',
-    children: []
+    path: "home",
+    children: [],
   },
   {
     name: "编程",
-    path: '',
+    path: "",
     children: [
       {
         name: "Java",
-        path: '',
+        path: "",
       },
       {
         name: "python",
-        path: '',
+        path: "",
       },
       {
         name: "C语言",
-        path: '',
+        path: "",
       },
       {
         name: "Go",
-        path: '',
+        path: "",
       },
       {
         name: "C++",
-        path: '',
+        path: "",
       },
       {
         name: "C#",
-        path: '',
+        path: "",
       },
       {
         name: "JavaScript",
-        path: '',
+        path: "",
       },
       {
         name: "Vue",
-        path: '',
+        path: "",
       },
       {
         name: "React",
-        path: '',
-      }
-    ]
+        path: "",
+      },
+    ],
   },
   {
     name: "资讯",
-    path: '',
+    path: "",
     children: [
       {
-        name: '新闻'
+        name: "新闻",
       },
       {
-        name: '体育'
-      }
-    ]
+        name: "体育",
+      },
+    ],
   },
   {
     name: "留言板",
-    path: '',
-    children: []
+    path: "",
+    children: [],
   },
   {
     name: "关于",
-    path: 'about',
-    children: []
-  }
-]
+    path: "about",
+    children: [],
+  },
+];
 </script>
 
 <style lang="scss" scoped>
 .nav {
-  position: relative;
+  height: 50px;
   .container {
-    ul {
+    height: 50px;
+    >ul {
+      height: 50px;
       display: flex;
-      li {
-        margin: 0 20px;
+      >li {
+        width: 60px;
         font-weight: 800;
         font-size: 14px;
+        height: 100%;
         cursor: pointer;
         a {
           color: #000;
@@ -114,18 +119,18 @@ const navList = [
           }
         }
         .layer {
-          width: 1120px;
+          width: 100%;
           background-color: #fff;
           margin: 0 auto;
-          position: absolute;
-          left: -192px;
+          position: fixed;
+          left: 0;
           top: 50px;
           height: 0;
           overflow: hidden;
           opacity: 0;
           box-shadow: 0 0 5px #ccc;
           transition: all 0.2s 0.1s;
-          ul {
+          >ul {
             display: flex;
             flex-wrap: wrap;
             padding: 0 50px;
@@ -141,15 +146,9 @@ const navList = [
             }
           }
         }
-        &:hover {
-          //> a {
-          //  color: @xtxColor;
-          //  border-bottom: 1px solid @xtxColor;
-          //}
-          > .layer {
-            height: 120px;
-            opacity: 1;
-          }
+        &:hover .layer {
+          height: 120px;
+          opacity: 1;
         }
       }
     }
@@ -162,7 +161,7 @@ const navList = [
       position: relative;
     }
     .active::after {
-      content: '';
+      content: "";
       position: absolute;
       left: 0;
       top: 0;

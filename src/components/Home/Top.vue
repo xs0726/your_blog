@@ -8,7 +8,11 @@
         <Nav />
       </div>
       <div class="search">
-        <input class="searchInp" v-model="searchValue" placeholder="请输入搜索内容！" />
+        <input
+          class="searchInp"
+          v-model="searchValue"
+          placeholder="请输入搜索内容！"
+        />
         <div class="search1">搜索</div>
       </div>
       <div v-if="!store.state.app.token" class="loginOrRegister">
@@ -27,7 +31,7 @@
         <a-dropdown>
           <span class="welcome">
             欢迎您,
-            <span>{{userInfo.username}}</span>
+            <span>{{ userInfo.username }}</span>
             <span class="iconDown">
               <setting-outlined />
             </span>
@@ -35,10 +39,16 @@
           <template #overlay>
             <a-menu>
               <a-menu-item>
-                <a href="javascript:;" @click="modalVisible.settingModal = true">账号设置</a>
+                <a href="javascript:;" @click="modalVisible.settingModal = true"
+                  >账号设置</a
+                >
               </a-menu-item>
               <a-menu-item>
-                <a href="javascript:;" @click="modalVisible.passwordModal = true">密码修改</a>
+                <a
+                  href="javascript:;"
+                  @click="modalVisible.passwordModal = true"
+                  >密码修改</a
+                >
               </a-menu-item>
               <a-menu-item>
                 <a href="javascript:;" @click="logout">退出登录</a>
@@ -68,12 +78,14 @@
         </a-form-item>
 
         <a-form-item label="手机号" name="phone">
-          <a-input v-model:value="settingFormState.phone" :disabled="!editPhoneFlag.flag">
+          <a-input
+            v-model:value="settingFormState.phone"
+            :disabled="!editPhoneFlag.flag"
+          >
             <template #addonAfter>
-              <span
-                style="cursor: pointer;"
-                @click="changeFlag"
-              >{{ editPhoneFlag.flag ? '取消' : '修改' }}</span>
+              <span style="cursor: pointer" @click="changeFlag">{{
+                editPhoneFlag.flag ? "取消" : "修改"
+              }}</span>
             </template>
           </a-input>
         </a-form-item>
@@ -149,128 +161,128 @@ import {
   UserOutlined,
   SettingOutlined,
   PlusOutlined,
-} from '@ant-design/icons-vue'
-import Nav from '@/components/Home/Nav'
-import { reactive, ref } from 'vue'
-import { reg } from '../../utils/util'
-import router from '../../router'
-import { editPwd, loginByGithub, logout as logoutApi } from '../../api/home'
-import { useStore } from 'vuex'
-import { message } from 'ant-design-vue'
-import { Encrypt } from '../../utils/aes'
-import { useRoute } from 'vue-router'
+} from "@ant-design/icons-vue";
+import Nav from "@/components/Home/Nav";
+import { reactive, ref } from "vue";
+import { reg } from "../../utils/util";
+import router from "../../router";
+import { editPwd, loginByGithub, logout as logoutApi } from "../../api/home";
+import { useStore } from "vuex";
+import { message } from "ant-design-vue";
+import { Encrypt } from "../../utils/aes";
+import { useRoute } from "vue-router";
 //
-const store = useStore()
-const route = useRoute()
+const store = useStore();
+const route = useRoute();
 
-const userInfo = store.state.app.userInfo
+const userInfo = store.state.app.userInfo;
 
 const modalVisible = reactive({
   settingModal: false,
   passwordModal: false,
-})
+});
 
-const pwdRef = ref(null)
+const pwdRef = ref(null);
 
 // 关闭弹框
 const closeSettingModal = () => {
-  modalVisible.settingModal = false
-}
+  modalVisible.settingModal = false;
+};
 const closePasswordModal = () => {
-  pwdRef.value.resetFields()
-  modalVisible.passwordModal = false
-}
+  pwdRef.value.resetFields();
+  modalVisible.passwordModal = false;
+};
 
 const settingFormState = reactive({
-  username: '',
-})
+  username: "",
+});
 
 const passwordFormState = reactive({
-  oldPwd: '',
-  newPwd: '',
-  cNewPwd: '',
-})
+  oldPwd: "",
+  newPwd: "",
+  cNewPwd: "",
+});
 
 const isOldPwd = () => {
   if (!passwordFormState.oldPwd) {
-    return Promise.reject('旧密码不能为空!')
+    return Promise.reject("旧密码不能为空!");
   }
   if (!reg.pwd.test(passwordFormState.oldPwd)) {
-    return Promise.reject('请输入6-16位字母加数字!')
+    return Promise.reject("请输入6-16位字母加数字!");
   } else {
-    return Promise.resolve()
+    return Promise.resolve();
   }
-}
+};
 const isNewPwd = () => {
   if (!passwordFormState.newPwd) {
-    return Promise.reject('新密码不能为空!')
+    return Promise.reject("新密码不能为空!");
   }
   if (!reg.pwd.test(passwordFormState.newPwd)) {
-    return Promise.reject('请输入6-16位字母加数字!')
+    return Promise.reject("请输入6-16位字母加数字!");
   } else {
-    return Promise.resolve()
+    return Promise.resolve();
   }
-}
+};
 const isCNewPwd = () => {
   if (!passwordFormState.cNewPwd) {
-    return Promise.reject('确认密码不能为空!')
+    return Promise.reject("确认密码不能为空!");
   }
   if (passwordFormState.cNewPwd !== passwordFormState.newPwd) {
-    return Promise.reject('两次密码不一致!')
+    return Promise.reject("两次密码不一致!");
   } else {
-    return Promise.resolve()
+    return Promise.resolve();
   }
-}
+};
 
 const pwdRule = reactive({
-  oldPwd: [{ validator: isOldPwd, trigger: 'blur' }],
-  newPwd: [{ validator: isNewPwd, trigger: 'blur' }],
-  cNewPwd: [{ validator: isCNewPwd, trigger: 'blur' }],
-})
+  oldPwd: [{ validator: isOldPwd, trigger: "blur" }],
+  newPwd: [{ validator: isNewPwd, trigger: "blur" }],
+  cNewPwd: [{ validator: isCNewPwd, trigger: "blur" }],
+});
 
 // 修改密码提交
 const submitPwd = async (v) => {
   if (v.oldPwd === v.newPwd) {
-    return message.error('新密码不能与旧密码一致!')
+    return message.error("新密码不能与旧密码一致!");
   } else {
     const params = {
       userId: userInfo.userId,
       password: Encrypt(v.oldPwd),
       newPassWord: Encrypt(v.newPwd),
-    }
-    const { code, message: msg } = await editPwd(params)
+    };
+    const { code, message: msg } = await editPwd(params);
     if (code !== 200) {
-      return message.error(msg)
+      return message.error(msg);
     }
-    message.success('密码修改成功,请重新登录')
-    closePasswordModal()
-    logout()
+    message.success("密码修改成功,请重新登录");
+    closePasswordModal();
+    logout();
   }
-}
+};
 
 // 推出登录
 const logout = async () => {
-  delete localStorage.BLOG_USER_TOKEN
-  delete localStorage.BLOG_USER_INFO
-  store.commit('app/setToken', '')
-  store.commit('app/setUserInfo', '')
-  await logoutApi()
-  await router.replace('/login')
-}
+  delete localStorage.BLOG_USER_TOKEN;
+  delete localStorage.BLOG_USER_INFO;
+  store.commit("app/setToken", "");
+  store.commit("app/setUserInfo", "");
+  await logoutApi();
+  await router.replace("/login");
+};
 
-let searchValue = ref('')
+let searchValue = ref("");
 
-let imageUrl = ref('')
+let imageUrl = ref("");
 
 const editPhoneFlag = reactive({
   flag: false,
-})
+});
 const changeFlag = () => {
-  editPhoneFlag.flag = !editPhoneFlag.flag
-}
+  editPhoneFlag.flag = !editPhoneFlag.flag;
+};
 
-const token = ref('')
-const avatarImg = `http://106.15.186.163/user/headImg/9/headShot.jpg`
+const token = ref("");
+const avatarImg = `http://106.15.186.163/user/headImg/9/headShot.jpg`;
 const init = async () => {
   // console.log(route.query.)
   // token.value = localStorage.getItem('BLOG_USER_TOKEN') || ''
@@ -278,8 +290,8 @@ const init = async () => {
   //   const res = await loginByGithub(route.query.code).catch(err=>message.error('登录失败'))
   //   console.log(res)
   // }
-}
-init()
+};
+init();
 </script>
 
 <style lang="scss" scoped>
@@ -296,7 +308,8 @@ init()
     background-color: rgba(255, 255, 255);
     justify-content: space-between;
     align-items: center;
-    min-width:1120px;
+    height: 100%;
+    min-width: 1142px;
     .nav-top {
       display: flex;
       justify-content: space-between;
@@ -310,7 +323,7 @@ init()
         height: 56px;
         overflow: hidden;
         font-size: 0;
-        background: url('../../assets/images/m13.png') no-repeat;
+        background: url("../../assets/images/m13.png") no-repeat;
         background-size: 100% 100%;
       }
     }
@@ -363,6 +376,10 @@ init()
       }
     }
     .userinfo {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      margin-right: 50px;
       .welcome {
         margin-left: 10px;
         font-size: 14px;
@@ -370,15 +387,12 @@ init()
         cursor: pointer;
       }
       .avatar {
-        position: relative;
-        display: inline-block;
         width: 30px;
         height: 30px;
         img {
           width: 100%;
           height: 100%;
           border-radius: 50%;
-          margin-top: 10px;
         }
       }
       .iconDown {

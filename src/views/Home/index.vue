@@ -8,25 +8,31 @@
 </template>
 
 <script setup>
-import Top from '@/components/Home/Top'
-import { loginByGithub } from '../../api/home'
-import { message } from 'ant-design-vue'
-import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
-const store = useStore()
-const route = useRoute()
+import Top from "@/components/Home/Top";
+import { loginByGithub } from "../../api/home";
+import { message } from "ant-design-vue";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
+const store = useStore();
+const route = useRoute();
 const init = async () => {
   if (route.query.code) {
     const res = await loginByGithub(route.query.code).catch((err) => {
-      return message.error('登录失败')
-    })
+      console.log(err);
+      return message.error("登录失败");
+    });
     if (res.code === 200) {
-      store.commit('app/setToken', res.data.token)
-      store.commit('app/setUserInfo', res.data.user)
+      store.commit("app/setToken", res.data.token);
+      store.commit("app/setUserInfo", res.data.user);
+    } else if (res.code === 201) {
+      console.log(res);
+    } else {
+      console.log(res);
     }
   }
-}
-init()
+};
+
+init();
 </script>
 
 <style lang="scss" scoped>
@@ -34,11 +40,11 @@ init()
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  background: url('../../../src/assets/home_bg1.png');
+  background: url("../../../src/assets/home_bg1.png");
   background-size: 100% 100%;
   background-clip: content-box;
   .content {
-    width: 1120px;
+    width: 1142px;
     margin: 0 auto;
   }
 }
