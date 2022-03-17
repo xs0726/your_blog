@@ -75,14 +75,14 @@ init()
 <style lang="scss" scoped>
 .home {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow-y: auto;
   background-color: #ccc;
   //background: url('../../../src/assets/home_bg1.png');
   background-size: 100% 100%;
   background-clip: content-box;
   .content {
-    width: 1120px;
+    width: 1142px;
     margin: 0 auto;
   }
 }

@@ -1,60 +1,61 @@
 <template>
   <div class="top">
-    <div class="content">
-      <div class="top-nav">
+    <div class="top-nav">
+      <div class="nav-top">
         <div class="logo">
           <a href="//www.decunt.com/home" class="logoAir" title="BLOG">BLOG</a>
         </div>
-        <!--        <h1 @click="router.push('/home')"><img class="logo" src="@/assets/images/m13.png" alt="BLOG"></h1>-->
-        <!--        <div class="title">BLOG</div>-->
         <Nav />
-        <div class="search">
-          <a-input-search class="searchInp" v-model:value="searchValue" placeholder="搜索" />
-        </div>
-        <div v-if="!store.state.app.token" class="loginOrRegister">
-          <span @click="router.push('/login')">登录</span>
-          <span @click="router.push('/register')">注册</span>
-        </div>
-        <div v-else class="userinfo">
-          <div class="avatar">
-            <img v-if="userInfo.userId" :src="avatarImg" alt />
-            <a-avatar v-else style="background-color: #87d068">
-              <template #icon>
-                <UserOutlined />
-              </template>
-            </a-avatar>
-          </div>
-          <a-dropdown>
-            <span class="welcome">
-              欢迎您,
-              <span>{{userInfo.username}}</span>
-              <span class="iconDown">
-                <setting-outlined />
-              </span>
-            </span>
-            <template #overlay>
-              <a-menu>
-                <a-menu-item>
-                  <a href="javascript:;" @click="modalVisible.settingModal = true">账号设置</a>
-                </a-menu-item>
-                <a-menu-item>
-                  <a href="javascript:;" @click="modalVisible.passwordModal = true">密码修改</a>
-                </a-menu-item>
-                <a-menu-item>
-                  <a href="javascript:;" @click="logout">退出登录</a>
-                </a-menu-item>
-              </a-menu>
+      </div>
+      <div class="search">
+        <input
+          class="searchInp"
+          v-model="searchValue"
+          placeholder="请输入搜索内容！"
+        />
+        <div class="search1">搜索</div>
+      </div>
+      <div v-if="!store.state.app.token" class="loginOrRegister">
+        <span @click="router.push('/login')">登录</span>
+        <span @click="router.push('/register')">注册</span>
+      </div>
+      <div v-else class="userinfo">
+        <div class="avatar">
+          <img v-if="userInfo.userId" :src="avatarImg" alt />
+          <a-avatar v-else style="background-color: #87d068">
+            <template #icon>
+              <UserOutlined />
             </template>
-          </a-dropdown>
+          </a-avatar>
         </div>
-        <!--        <div class="modal">-->
-        <!--          <div class="username">欢迎您,<span>{{userInfo.username}}</span></div>-->
-        <!--          <ul>-->
-        <!--            <li><a href="javascript:;" @click="modalVisible.settingModal = true">账号设置</a></li>-->
-        <!--            <li><a href="javascript:;" @click="modalVisible.passwordModal = true">密码修改</a></li>-->
-        <!--            <li class="line"></li>-->
-        <!--          </ul>-->
-        <!--        </div>-->
+        <a-dropdown>
+          <span class="welcome">
+            欢迎您,
+            <span>{{ userInfo.username }}</span>
+            <span class="iconDown">
+              <setting-outlined />
+            </span>
+          </span>
+          <template #overlay>
+            <a-menu>
+              <a-menu-item>
+                <a href="javascript:;" @click="modalVisible.settingModal = true"
+                  >账号设置</a
+                >
+              </a-menu-item>
+              <a-menu-item>
+                <a
+                  href="javascript:;"
+                  @click="modalVisible.passwordModal = true"
+                  >密码修改</a
+                >
+              </a-menu-item>
+              <a-menu-item>
+                <a href="javascript:;" @click="logout">退出登录</a>
+              </a-menu-item>
+            </a-menu>
+          </template>
+        </a-dropdown>
       </div>
     </div>
     <!--    账号设置弹框-->
@@ -77,12 +78,14 @@
         </a-form-item>
 
         <a-form-item label="手机号" name="phone">
-          <a-input v-model:value="settingFormState.phone" :disabled="!editPhoneFlag.flag">
+          <a-input
+            v-model:value="settingFormState.phone"
+            :disabled="!editPhoneFlag.flag"
+          >
             <template #addonAfter>
-              <span
-                style="cursor: pointer;"
-                @click="changeFlag"
-              >{{ editPhoneFlag.flag ? '取消' : '修改' }}</span>
+              <span style="cursor: pointer" @click="changeFlag">{{
+                editPhoneFlag.flag ? "取消" : "修改"
+              }}</span>
             </template>
           </a-input>
         </a-form-item>
@@ -158,128 +161,128 @@ import {
   UserOutlined,
   SettingOutlined,
   PlusOutlined,
-} from '@ant-design/icons-vue'
-import Nav from '@/components/Home/Nav'
-import { reactive, ref } from 'vue'
-import { reg } from '../../utils/util'
-import router from '../../router'
-import { editPwd, loginByGithub, logout as logoutApi } from '../../api/home'
-import { useStore } from 'vuex'
-import { message } from 'ant-design-vue'
-import { Encrypt } from '../../utils/aes'
-import { useRoute } from 'vue-router'
+} from "@ant-design/icons-vue";
+import Nav from "@/components/Home/Nav";
+import { reactive, ref } from "vue";
+import { reg } from "../../utils/util";
+import router from "../../router";
+import { editPwd, loginByGithub, logout as logoutApi } from "../../api/home";
+import { useStore } from "vuex";
+import { message } from "ant-design-vue";
+import { Encrypt } from "../../utils/aes";
+import { useRoute } from "vue-router";
 //
-const store = useStore()
-const route = useRoute()
+const store = useStore();
+const route = useRoute();
 
-const userInfo = store.state.app.userInfo
+const userInfo = store.state.app.userInfo;
 
 const modalVisible = reactive({
   settingModal: false,
   passwordModal: false,
-})
+});
 
-const pwdRef = ref(null)
+const pwdRef = ref(null);
 
 // 关闭弹框
 const closeSettingModal = () => {
-  modalVisible.settingModal = false
-}
+  modalVisible.settingModal = false;
+};
 const closePasswordModal = () => {
-  pwdRef.value.resetFields()
-  modalVisible.passwordModal = false
-}
+  pwdRef.value.resetFields();
+  modalVisible.passwordModal = false;
+};
 
 const settingFormState = reactive({
-  username: '',
-})
+  username: "",
+});
 
 const passwordFormState = reactive({
-  oldPwd: '',
-  newPwd: '',
-  cNewPwd: '',
-})
+  oldPwd: "",
+  newPwd: "",
+  cNewPwd: "",
+});
 
 const isOldPwd = () => {
   if (!passwordFormState.oldPwd) {
-    return Promise.reject('旧密码不能为空!')
+    return Promise.reject("旧密码不能为空!");
   }
   if (!reg.pwd.test(passwordFormState.oldPwd)) {
-    return Promise.reject('请输入6-16位字母加数字!')
+    return Promise.reject("请输入6-16位字母加数字!");
   } else {
-    return Promise.resolve()
+    return Promise.resolve();
   }
-}
+};
 const isNewPwd = () => {
   if (!passwordFormState.newPwd) {
-    return Promise.reject('新密码不能为空!')
+    return Promise.reject("新密码不能为空!");
   }
   if (!reg.pwd.test(passwordFormState.newPwd)) {
-    return Promise.reject('请输入6-16位字母加数字!')
+    return Promise.reject("请输入6-16位字母加数字!");
   } else {
-    return Promise.resolve()
+    return Promise.resolve();
   }
-}
+};
 const isCNewPwd = () => {
   if (!passwordFormState.cNewPwd) {
-    return Promise.reject('确认密码不能为空!')
+    return Promise.reject("确认密码不能为空!");
   }
   if (passwordFormState.cNewPwd !== passwordFormState.newPwd) {
-    return Promise.reject('两次密码不一致!')
+    return Promise.reject("两次密码不一致!");
   } else {
-    return Promise.resolve()
+    return Promise.resolve();
   }
-}
+};
 
 const pwdRule = reactive({
-  oldPwd: [{ validator: isOldPwd, trigger: 'blur' }],
-  newPwd: [{ validator: isNewPwd, trigger: 'blur' }],
-  cNewPwd: [{ validator: isCNewPwd, trigger: 'blur' }],
-})
+  oldPwd: [{ validator: isOldPwd, trigger: "blur" }],
+  newPwd: [{ validator: isNewPwd, trigger: "blur" }],
+  cNewPwd: [{ validator: isCNewPwd, trigger: "blur" }],
+});
 
 // 修改密码提交
 const submitPwd = async (v) => {
   if (v.oldPwd === v.newPwd) {
-    return message.error('新密码不能与旧密码一致!')
+    return message.error("新密码不能与旧密码一致!");
   } else {
     const params = {
       userId: userInfo.userId,
       password: Encrypt(v.oldPwd),
       newPassWord: Encrypt(v.newPwd),
-    }
-    const { code, message: msg } = await editPwd(params)
+    };
+    const { code, message: msg } = await editPwd(params);
     if (code !== 200) {
-      return message.error(msg)
+      return message.error(msg);
     }
-    message.success('密码修改成功,请重新登录')
-    closePasswordModal()
-    logout()
+    message.success("密码修改成功,请重新登录");
+    closePasswordModal();
+    logout();
   }
-}
+};
 
 // 推出登录
 const logout = async () => {
-  delete localStorage.BLOG_USER_TOKEN
-  delete localStorage.BLOG_USER_INFO
-  store.commit('app/setToken', '')
-  store.commit('app/setUserInfo', '')
-  await logoutApi()
-  await router.replace('/login')
-}
+  delete localStorage.BLOG_USER_TOKEN;
+  delete localStorage.BLOG_USER_INFO;
+  store.commit("app/setToken", "");
+  store.commit("app/setUserInfo", "");
+  await logoutApi();
+  await router.replace("/login");
+};
 
-let searchValue = ref('')
+let searchValue = ref("");
 
-let imageUrl = ref('')
+let imageUrl = ref("");
 
 const editPhoneFlag = reactive({
   flag: false,
-})
+});
 const changeFlag = () => {
-  editPhoneFlag.flag = !editPhoneFlag.flag
-}
+  editPhoneFlag.flag = !editPhoneFlag.flag;
+};
 
-const token = ref('')
-const avatarImg = `http://106.15.186.163/user/headImg/9/headShot.jpg`
+const token = ref("");
+const avatarImg = `http://106.15.186.163/user/headImg/9/headShot.jpg`;
 const init = async () => {
   // console.log(route.query.)
   // token.value = localStorage.getItem('BLOG_USER_TOKEN') || ''
@@ -287,8 +290,8 @@ const init = async () => {
   //   const res = await loginByGithub(route.query.code).catch(err=>message.error('登录失败'))
   //   console.log(res)
   // }
-}
-init()
+};
+init();
 </script>
 
 <style lang="scss" scoped>
@@ -297,37 +300,74 @@ init()
   top: 0;
   width: 100%;
   height: 50px;
-  background-color: rgba(255, 255, 255);
-  line-height: 50px;
+  box-shadow: 0 2px 8px 2px rgba(194, 194, 194, 0.329);
   z-index: 2;
+
   .top-nav {
     display: flex;
+    background-color: rgba(255, 255, 255);
     justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    min-width: 1142px;
+    .nav-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     .logo {
-      //width: 50px;
-      //height: 100%;
-      //margin-left: 50px;
       .logoAir {
         display: block;
+        margin-right: 60px;
         width: 56px;
         height: 56px;
         overflow: hidden;
         font-size: 0;
-        background: url('../../assets/images/m13.png');
-        background-size: 56px;
+        background: url("../../assets/images/m13.png") no-repeat;
+        background-size: 100% 100%;
       }
     }
     .search {
+      flex: 1;
+      height: 34px;
+      margin: 0 50px;
+      border-radius: 60px;
+      max-width: 600px;
+      display: flex;
+      background: #f5f6f7;
+      align-items: center;
+      overflow: hidden;
+      border: 1px solid rgb(224, 224, 224);
+      text-align: center;
+      justify-content: center;
       .searchInp {
-        opacity: 0.6;
+        padding-left: 10px;
+        flex: 1;
+        border: 0;
+        background: #f5f6f7;
+        padding: 4px 0;
+        font-size: 14px;
+        text-indent: 1em;
+        outline: none;
+      }
+      .search1 {
+        white-space: nowrap;
+        padding: 0 30px;
+        height: 100%;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+
+        background: #fc5632;
+        color: #fff;
       }
     }
     .loginOrRegister {
       width: 100px;
       display: flex;
       justify-content: space-around;
+      align-items: center;
       font-size: 14px;
-      font-weight: 800;
       cursor: pointer;
       span {
         &:hover {
@@ -336,6 +376,10 @@ init()
       }
     }
     .userinfo {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      margin-right: 50px;
       .welcome {
         margin-left: 10px;
         font-size: 14px;
@@ -343,15 +387,12 @@ init()
         cursor: pointer;
       }
       .avatar {
-        position: relative;
-        display: inline-block;
         width: 30px;
         height: 30px;
         img {
           width: 100%;
           height: 100%;
           border-radius: 50%;
-          margin-top: 10px;
         }
       }
       .iconDown {
@@ -398,10 +439,6 @@ init()
     }
   }
 }
-//.ant-upload-select-picture-card i {
-//  font-size: 32px;
-//  color: #999;
-//}
 
 .content {
   width: 1120px;

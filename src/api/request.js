@@ -1,7 +1,6 @@
 import axios from "axios";
 import { message } from 'ant-design-vue';
 import { randomWord } from "../utils/util";
-
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_API ,
     timeout: 6000

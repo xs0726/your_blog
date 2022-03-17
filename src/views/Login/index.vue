@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <img class="bgImg" src="../../assets/home_top_bg.jpg" alt="">
+    <img class="bgImg" src="../../assets/home_top_bg.jpg" alt="" />
     <div class="login-container">
       <div class="title">
         <h1>博客用户登录</h1>
@@ -30,8 +30,8 @@
 </template>
 
 <script setup>
-import { BoldOutlined } from '@ant-design/icons-vue';
-import { useRouter } from 'vue-router';
+import { BoldOutlined } from "@ant-design/icons-vue";
+import { useRouter } from "vue-router";
 import LoginForm from "../../components/LoginForm";
 import { ref } from 'vue'
 import {message} from "ant-design-vue";
@@ -76,13 +76,13 @@ import {message} from "ant-design-vue";
     width: 420px;
     height: 620px;
     padding: 16px 32px;
-    opacity: .9;
+    opacity: 0.9;
     background-color: #fff;
     .otherLogin {
       display: flex;
       justify-content: space-between;
       align-items: center;
-    button {
+      button {
         line-height: 1;
         align-items: center;
         width: 40px;
@@ -91,15 +91,14 @@ import {message} from "ant-design-vue";
         margin-left: 16px;
         padding: 9px;
         border-radius: 50%;
-        border-color: rgba(0,0,0,.12);
+        border-color: rgba(0, 0, 0, 0.12);
         background-color: #fff;
         cursor: pointer;
         &:hover {
-          background-color: rgba(0,0,0,.12);
+          background-color: rgba(0, 0, 0, 0.12);
         }
         img {
           width: 20px;
-
         }
       }
     }

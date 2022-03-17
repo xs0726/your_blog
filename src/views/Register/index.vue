@@ -1,16 +1,15 @@
 <template>
   <div class="register">
-    <img class="bgImg" src="../../assets/home_top_bg.jpg" alt="">
     <div class="register-container">
       <div class="title">
         <h1>博客用户注册</h1>
       </div>
       <RegisterForm />
-<!--      <a-tabs v-model:activeKey="activeKey" centered>-->
-<!--        <a-tab-pane key="1" tab="密码登录">-->
-<!--          <LoginForm />-->
-<!--        </a-tab-pane>-->
-<!--      </a-tabs>-->
+      <!--      <a-tabs v-model:activeKey="activeKey" centered>-->
+      <!--        <a-tab-pane key="1" tab="密码登录">-->
+      <!--          <LoginForm />-->
+      <!--        </a-tab-pane>-->
+      <!--      </a-tabs>-->
       <div class="goLogin">
         已有账号,<a-button @click="goLogin" type="link">去登录</a-button>
       </div>
@@ -19,28 +18,24 @@
 </template>
 
 <script setup>
-import RegisterForm from '@/components/RegisterForm'
-import { useRouter } from 'vue-router';
+import RegisterForm from "@/components/RegisterForm";
+import { useRouter } from "vue-router";
 
-  const router = new useRouter()
+const router = new useRouter();
 
-  const goLogin = () => {
-    router.push('login')
-  }
+const goLogin = () => {
+  router.push("login");
+};
 </script>
 
 <style lang="scss" scoped>
 .register {
-  .bgImg {
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
-  }
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  background: url("../../assets/home_top_bg.jpg") no-repeat center center;
+  background-size: 100% 100%;
+  position: relative;
   .register-container {
     position: absolute;
     left: 0;
@@ -51,7 +46,7 @@ import { useRouter } from 'vue-router';
     width: 420px;
     height: 600px;
     padding: 16px 32px;
-    opacity: .9;
+    opacity: 0.9;
     background-color: #fff;
     .title {
       margin: 10px 0 70px 0;
