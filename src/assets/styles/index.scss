@@ -1,14 +1,15 @@
 $yh:"Microsoft yahei";
 $base_bg:#fff;
-$base_color:#ff5f16; // 主题色  
+$base_color:#ff5f16; // 主题色
 
 
-
+@import "variables";
 @import "animate.css";
 @import "common";
 @import "mobile";
 @import "iconfont/iconfont.css";
 @import './global';
+@import "components.scss";
 
 
 html,
@@ -73,7 +74,7 @@ body,
     }
 }
 
-// 动态切换   
+// 动态切换
 
 @keyframes move-out {
     from {

@@ -23,3 +23,10 @@ export const loginByGithub = (code) => {
         method: 'get'
     })
 }
+
+export const loginByQQ = (code) => {
+    return request({
+        url: `qqAccount/loginByQQ?code=${code}`,
+        method: 'get'
+    })
+}

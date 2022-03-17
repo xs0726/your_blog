@@ -104,7 +104,7 @@ import router from '../../router'
 <style lang="scss" scoped>
 .homeIndex {
   height: 100%;
-  background: rgba(160, 160, 160, 0.233);
+  //background: rgba(160, 160, 160, 0.233);
   padding-top: 20px;
   box-sizing: border-box;
   .first {

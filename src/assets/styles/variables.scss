@@ -1,0 +1,54 @@
+// # Variables
+// ========================================
+
+// ## Colors
+// ------------------------------
+
+// - Start with assigning color names to specific hex values.
+
+$pure-white:            #ffffff;
+$color-primary:         #446bff;
+$color-base:            #364064;
+$color-success:         #09C3C7;
+$color-warning:         #FF864C;
+$color-danger:          #F56D6D;
+
+$pure-black:            rgb(54, 64, 100);
+$color-muted:           rgba(54, 64, 100, 0.85);
+$color-gray:            rgba(54, 64, 100, 0.65);
+$color-light-gray:      rgba(54, 64, 100, 0.45);
+
+// 字体
+$font-medium: Source Han Sans CN Medium, Source Han Sans CN Medium-Medium; // 英文和数字
+$font-regular: Source Han Sans CN Regular, Source Han Sans CN Regular-Regular; // 英文和数字
+$font-arial: Arial Regular, Arial Regular-Regular; // 英文和数字
+
+// ## Module
+// ------------------------------
+
+// - HTML
+$html-background:           $pure-white;
+
+// - Body 
+$body-font-family: Source Han Sans CN Regular, Source Han Sans CN Regular-Regular, PingFang SC, Microsoft YaHei, Arial, "sans-serif";
+$body-font-size: 14px;
+
+// - Link
+$link-color:            $color-primary;
+$link-hover-color:      $color-primary;
+
+// - Brand color
+
+// - nprogress 插件
+$nprogress-bg: $color-primary;
+
+// Media queries breakpoints
+// Large screen / wide desktop
+$screen-lg: 1440px;
+$screen-lg-min: 1280px;
+
+// Extra large screen / full hd
+$screen-xl: 1680px;
+
+// Extra extra large screen / large desktop
+$screen-xxl: 1920px;

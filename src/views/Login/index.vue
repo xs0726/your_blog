@@ -17,9 +17,9 @@
       <div class="otherLogin">
         <div class="otherTitle">第三方登录</div>
         <div class="otherBtn">
-          <button><a href="https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101993751&redirect_uri=http://www.decunt.com/home"><img src="../../assets/images/QQ.png" alt=""></a></button>
-          <button><img src="../../assets/images/WeChat.png" alt=""></button>
-          <button><a href="https://github.com/login/oauth/authorize?client_id=9bc20c1d36f7d024515b"><img src="../../assets/images/GitHub.png" alt=""></a></button>
+          <button @click="loginType('qq')"><a href="https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101993751&redirect_uri=http://www.decunt.com/home"><img src="../../assets/images/QQ.png" alt=""></a></button>
+          <button @click="loginType('wx')"><img src="../../assets/images/WeChat.png" alt=""></button>
+          <button @click="loginType('github')"><a href="https://github.com/login/oauth/authorize?client_id=9bc20c1d36f7d024515b"><img src="../../assets/images/GitHub.png" alt=""></a></button>
         </div>
       </div>
       <div class="goRegister">
@@ -34,12 +34,19 @@ import { BoldOutlined } from '@ant-design/icons-vue';
 import { useRouter } from 'vue-router';
 import LoginForm from "../../components/LoginForm";
 import { ref } from 'vue'
+import {message} from "ant-design-vue";
 
   const activeKey = ref('1')
 
   const router = useRouter();
   const goRegister = () => {
     router.push('register')
+  }
+  const loginType = (type) => {
+    if (type === 'wx') {
+      message.info('暂未开放')
+    }
+      localStorage.setItem('loginType', type)
   }
 </script>
 
