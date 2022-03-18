@@ -433,6 +433,7 @@ init();
     width: 128px;
     height: 128px;
     .ant-upload-select-picture-card {
+
       .ant-upload-text {
         margin-top: 8px;
         color: #666;
