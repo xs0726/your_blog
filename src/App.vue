@@ -3,7 +3,7 @@
 </template>
 
 <style lang="scss">
-html { 
+html {
   font-size: calc(100vw / 10);
 }
 ::-webkit-scrollbar {
