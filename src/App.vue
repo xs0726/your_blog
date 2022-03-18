@@ -10,7 +10,7 @@ html {
   width: 4px;
   height: 4px;
 }
-::-webkit-scrollbar-thumb { 
+::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 6px;
 }
