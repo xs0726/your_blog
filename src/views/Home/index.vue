@@ -55,7 +55,6 @@ watermark
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  //background-color: #ccc;
   background: url('../../../src/assets/homeBg.jpg');
   background-size: 100% 100%;
   background-clip: content-box;
