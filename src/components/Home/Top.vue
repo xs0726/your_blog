@@ -310,6 +310,7 @@ init();
     align-items: center;
     height: 100%;
     min-width: 1142px;
+    padding: 0 60px;
     .nav-top {
       display: flex;
       justify-content: space-between;
@@ -332,7 +333,7 @@ init();
       height: 34px;
       margin: 0 50px;
       border-radius: 60px;
-      max-width: 600px;
+      max-width: 500px;
       display: flex;
       background: #f5f6f7;
       align-items: center;
@@ -357,8 +358,8 @@ init();
         font-size: 14px;
         display: flex;
         align-items: center;
-
-        background: #fc5632;
+        cursor: pointer;
+        background: #4f86f5;
         color: #fff;
       }
     }

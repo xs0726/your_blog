@@ -98,6 +98,7 @@ const navList = [
 <style lang="scss" scoped>
 .nav {
   height: 50px;
+  margin-left: 15px;
   .container {
     height: 50px;
     >ul {
