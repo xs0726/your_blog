@@ -29,7 +29,7 @@ const init = async () => {
           router.go(0)
         } else if (code === 201) {
           message.error(msg)
-          router.push({name: 'bindQQ', params: res.data})
+          router.push({name: 'bindQQ', params: data})
         }
       break;
       case 'wx':
