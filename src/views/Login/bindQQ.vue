@@ -6,7 +6,9 @@
         <h1>登录以完成绑定</h1>
       </div>
       <div class="bindQQ_avatar">
-        <div class="avatar1"></div>
+        <div class="avatar1">
+          <img class="avatar1_img" :src="qqInfo.url" alt="">
+        </div>
         <div class="line"></div>
         <div class="avatar2">
           <img class="avatar2_img" src="../../assets/images/m13.png" alt="">
@@ -55,6 +57,7 @@ import {reactive, ref} from "vue";
 import {getCode} from "../../api/login";
 
 const route = useRoute()
+const qqInfo = route.params
 
 let formState = reactive({
   username: '',
@@ -80,7 +83,7 @@ const getVerCode = async () => {
   uuid.value = data.uuid
 }
 getVerCode()
-console.log(route)
+console.log(qqInfo)
 </script>
 
 <style lang="scss" scoped>
@@ -147,6 +150,13 @@ console.log(route)
         //background-color: #000;
         border: 1px solid #ccc;
         border-radius: 50%;
+      }
+      .avatar1 {
+        .avatar1_img {
+          width: 80px;
+          height: 80px;
+          margin: 10px auto;
+        }
       }
       .avatar2 {
         .avatar2_img {
