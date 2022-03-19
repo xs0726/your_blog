@@ -41,6 +41,8 @@ const init = async () => {
           store.commit('app/setToken', res.data.token)
           store.commit('app/setUserInfo', res.data.user)
           router.go(0)
+        } else if (res.code === 201) {
+          router.push({name: 'bindQQ', params: res.data})
         }
       break;
     }

@@ -32,12 +32,17 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/Login')
+    component: () => import('@/views/Login'),
   },
   {
     path: '/register',
     name: 'register',
     component: () => import('@/views/Register')
+  },
+  {
+    path: '/bindQQ',
+    name: 'bindQQ',
+    component: () => import('@/views/Login/bindQQ')
   },
   { path: '/:pathMatch(.*)*', redirect: { name: 'home' } },
 ]
