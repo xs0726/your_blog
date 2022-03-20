@@ -118,7 +118,10 @@ const rules = reactive({
 });
 
 const goRegister = () => {
-  router.push({ path: "register", query: { key: qqInfo.key } });
+  router.push({
+    path: "register",
+    query: { key: qqInfo.key, imgUrl: qqInfo.url },
+  });
 };
 
 // 图片路径

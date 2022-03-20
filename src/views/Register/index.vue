@@ -7,7 +7,7 @@
       <div class="img" v-if="key">
         <div class="bindQQ_avatar">
           <div class="avatar1">
-            <img class="avatar1_img" src="" alt="" />
+            <img class="avatar1_img" :src="imgUrl" alt="" />
           </div>
           <div class="line"></div>
           <div class="avatar2">
@@ -29,11 +29,11 @@ import { useRouter, useRoute } from "vue-router";
 
 const router = new useRouter();
 const route = new useRoute();
+const imgUrl = route.query.imgUrl;
 const key = route.query.key;
 const goLogin = () => {
   router.push("login");
 };
-
 </script>
 
 <style lang="scss" scoped>
