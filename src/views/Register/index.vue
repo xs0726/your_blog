@@ -15,7 +15,7 @@
           </div>
         </div>
       </div>
-      <RegisterForm :key="key" />
+      <RegisterForm />
       <div class="goLogin">
         已有账号,<a-button @click="goLogin" type="link">去登录</a-button>
       </div>

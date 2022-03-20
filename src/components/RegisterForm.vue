@@ -59,6 +59,9 @@ import { reg } from "../utils/util";
 import { Encrypt } from "../utils/aes";
 import { message } from "ant-design-vue";
 import router from "../router";
+import { useRoute } from "vue-router";
+
+const route = useRoute()
 
 // 表单参数
 const formState = reactive({
@@ -68,9 +71,9 @@ const formState = reactive({
   cPassword: "",
   code: null,
 });
-const props = defineProps({
-  key: String, //第三方注册后 接收key值 组成 加参数 2022 3-20 胡玖
-});
+// const props = defineProps({
+//   key: String, //第三方注册后 接收key值 组成 加参数 2022 3-20 胡玖
+// });
 // 判断两次密码是否一致
 const isPwdEqual = () => {
   if (!formState.cPassword) {
@@ -174,16 +177,16 @@ const register = async (v) => {
     password: Encrypt(v.password),
     verificationCode: v.code,
   };
-  if (props.key) {
+  if (route.query.key) {
     switch (loginType) {
       case "qq":
-        params.qqCode = props.key;
+        params.qqCode = route.query.key;
         break;
       case "wx":
-        params.wechatCode = props.key;
+        params.wechatCode = route.query.key;
         break;
       case "github":
-        params.githubCode = props.key;
+        params.githubCode = route.query.key;
         break;
     }
     const { code, msg } = await registerByThr(params);
