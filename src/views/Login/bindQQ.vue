@@ -96,7 +96,7 @@ const login = async () => {
     await getVerCode();
     return message.error(msg);
   }
-  const res = await loginBindQQ({ key: qqInfo.key });
+  const res = await loginBindQQ(qqInfo.key);
   if (res.code !== 200) {
     formState.code = "";
     await getVerCode();

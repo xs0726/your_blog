@@ -37,8 +37,8 @@ export const userRegister = (data) => {
  * @param {*} data 
  * @returns 
  */
-export const loginBindQQ = (data) => request({
-    url: '/qqAccount/loginBindQQ',
-    method: 'get',
-    data
+export const loginBindQQ = (key) => request({
+    url: `/qqAccount/loginBindQQ?code=${key}`,
+    method: 'get'
+    // data
 })
