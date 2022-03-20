@@ -72,6 +72,7 @@ import { reactive, ref } from "vue";
 import { getCode, loginBindQQ } from "../../api/login";
 import { useStore } from "vuex";
 import { Encrypt } from "../../utils/aes";
+import {message} from "ant-design-vue";
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
@@ -90,7 +91,7 @@ const login = async () => {
     uuid: uuid.value,
     verificationCode: formState.code,
   };
-  const { code, message: msg } = await store.dispatch("app/login", params);
+  const { code, msg } = await store.dispatch("app/login", params);
   if (code !== 200) {
     formState.code = "";
     await getVerCode();
@@ -122,8 +123,8 @@ let imgUrl = ref("");
 let uuid = ref("");
 // 获取验证码
 const getVerCode = async () => {
-  const { code, data, message } = await getCode();
-  if (code !== 200) return message.error(message);
+  const { code, data, msg } = await getCode();
+  if (code !== 200) return message.error(msg);
   imgUrl.value = data.img;
   uuid.value = data.uuid;
 };

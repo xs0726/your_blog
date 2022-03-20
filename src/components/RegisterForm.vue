@@ -136,7 +136,7 @@ let codeSate = reactive({
 });
 // 发送验证码
 const sendCode = async () => {
-  const { code, message: msg } = await verification({
+  const { code, msg } = await verification({
     email: formState.email,
     emailType: 1,
   });
@@ -171,7 +171,7 @@ const register = async (v) => {
     password: Encrypt(v.password),
     verificationCode: v.code,
   };
-  const { code, data, message: msg } = await userRegister(params);
+  const { code, data, msg } = await userRegister(params);
   if (code !== 200) return message.error(msg);
   console.log(data);
   message.success("注册成功");

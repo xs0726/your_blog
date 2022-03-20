@@ -250,7 +250,7 @@ const submitPwd = async (v) => {
       password: Encrypt(v.oldPwd),
       newPassWord: Encrypt(v.newPwd),
     };
-    const { code, message: msg } = await editPwd(params);
+    const { code, msg } = await editPwd(params);
     if (code !== 200) {
       return message.error(msg);
     }

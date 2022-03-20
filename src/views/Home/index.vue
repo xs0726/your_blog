@@ -22,7 +22,7 @@ const init = async () => {
     switch (localStorage.getItem('loginType')) {
       case 'qq':
         // qq
-        const {code,data,message:msg} = await loginByQQ(route.query.code)
+        const {code,data,msg} = await loginByQQ(route.query.code)
         if (code === 200) {
           store.commit('app/setToken', data.token)
           store.commit('app/setUserInfo', data.user)
