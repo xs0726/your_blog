@@ -7,29 +7,39 @@
       </div>
       <div class="bindQQ_avatar">
         <div class="avatar1">
-          <img class="avatar1_img" :src="qqInfo.url" alt="">
+          <img
+            class="avatar1_img"
+            src="http://thirdqq.qlogo.cn/g?b=oidb&k=5fu0WHib6fZkoq3A72pk1icA&s=40&t=1614778066"
+            alt=""
+          />
         </div>
         <div class="line"></div>
         <div class="avatar2">
-          <img class="avatar2_img" src="../../assets/images/m13.png" alt="">
+          <img class="avatar2_img" src="../../assets/images/m13.png" alt="" />
         </div>
       </div>
       <div class="bindQQ_tip">已有账号？输入账号信息登录立即绑定</div>
       <a-form
-          :model="formState"
-          name="basic"
-          :wrapper-col="{ offset:2, span: 20 }"
-          autocomplete="off"
-          :rules="rules"
-          ref="loginForm"
-          @finish="login"
+        :model="formState"
+        name="basic"
+        :wrapper-col="{ offset: 2, span: 20 }"
+        autocomplete="off"
+        :rules="rules"
+        ref="loginForm"
+        @finish="login"
       >
         <a-form-item name="username">
-          <a-input  v-model:value="formState.username" placeholder="登录手机号/邮箱" />
+          <a-input
+            v-model:value="formState.username"
+            placeholder="登录手机号/邮箱"
+          />
         </a-form-item>
 
         <a-form-item name="password">
-          <a-input-password v-model:value="formState.password" placeholder="密码" />
+          <a-input-password
+            v-model:value="formState.password"
+            placeholder="密码"
+          />
         </a-form-item>
 
         <a-form-item name="code">
@@ -38,7 +48,12 @@
               <a-input v-model:value="formState.code" placeholder="验证码" />
             </a-col>
             <a-col :offset="1" :span="7">
-              <img @click="getVerCode" class="codeImg" :src="imgUrl" alt="验证码">
+              <img
+                @click="getVerCode"
+                class="codeImg"
+                :src="imgUrl"
+                alt="验证码"
+              />
             </a-col>
           </a-row>
         </a-form-item>
@@ -52,38 +67,68 @@
 </template>
 
 <script setup>
-import { useRoute } from "vue-router";
-import {reactive, ref} from "vue";
-import {getCode} from "../../api/login";
-
-const route = useRoute()
-const qqInfo = route.params
+import { useRoute, useRouter } from "vue-router";
+import { reactive, ref } from "vue";
+import { getCode, loginBindQQ } from "../../api/login";
+import { useStore } from "vuex";
+import { Encrypt } from "../../utils/aes";
+const store = useStore();
+const route = useRoute();
+const router = useRouter();
+const qqInfo = route.params;
 
 let formState = reactive({
-  username: '',
-  password: '',
-  code: ''
-})
+  username: "",
+  password: "",
+  code: "",
+});
+
+const login = async () => {
+  const params = {
+    email: formState.username,
+    password: Encrypt(formState.password),
+    uuid: uuid.value,
+    verificationCode: formState.code,
+  };
+  const { code, message: msg } = await store.dispatch("app/login", params);
+  if (code !== 200) {
+    formState.code = "";
+    await getVerCode();
+    return message.error(msg);
+  }
+  const res = await loginBindQQ(qqInfo.key);
+  if (res.code !== 200) {
+    formState.code = "";
+    await getVerCode();
+    return message.error(res.message);
+  }
+  localStorage.setItem("BLOG-USERINFO", JSON.stringify(formState));
+  message.success("登录成功");
+  router.push("home");
+};
 
 // 表单校验规则
 const rules = reactive({
-  username: [{ required: true, message: '手机号/邮箱不能为空!' }],
-  password: [{ required: true, message: '密码不能为空!' }, { min: 6, max: 16, message: '请输入6-16位密码!' }],
-  code: [{ required: true, message: '验证码不能为空!' }]
-})
+  username: [{ required: true, message: "手机号/邮箱不能为空!" }],
+  password: [
+    { required: true, message: "密码不能为空!" },
+    { min: 6, max: 16, message: "请输入6-16位密码!" },
+  ],
+  code: [{ required: true, message: "验证码不能为空!" }],
+});
 
 // 图片路径
-let imgUrl = ref('')
-let uuid = ref('')
+let imgUrl = ref("");
+let uuid = ref("");
 // 获取验证码
 const getVerCode = async () => {
-  const { code, data, message } = await getCode()
-  if (code !== 200) return message.error(message)
-  imgUrl.value = data.img
-  uuid.value = data.uuid
-}
-getVerCode()
-console.log(qqInfo)
+  const { code, data, message } = await getCode();
+  if (code !== 200) return message.error(message);
+  imgUrl.value = data.img;
+  uuid.value = data.uuid;
+};
+getVerCode();
+console.log(qqInfo);
 </script>
 
 <style lang="scss" scoped>
@@ -123,7 +168,7 @@ console.log(qqInfo)
     }
     .bindQQ_avatar {
       display: flex;
-      margin-top: 50px;
+      margin: 50px 0 20px 0;
       justify-content: space-between;
       align-items: center;
       .line {
@@ -143,12 +188,13 @@ console.log(qqInfo)
           border-right: 2px solid #3d60e5;
           transform: rotate(45deg);
         }
-        }
-      .avatar1, .avatar2 {
-        width: 100px;
-        height: 100px;
+      }
+      .avatar1,
+      .avatar2 {
+        width: 80px;
+        height: 80px;
         //background-color: #000;
-        border: 1px solid #ccc;
+        // border: 1px solid #ccc;
         border-radius: 50%;
       }
       .avatar1 {
@@ -156,6 +202,7 @@ console.log(qqInfo)
           width: 80px;
           height: 80px;
           margin: 10px auto;
+          border-radius: 50%;
         }
       }
       .avatar2 {
