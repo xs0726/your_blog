@@ -7,11 +7,7 @@
       </div>
       <div class="bindQQ_avatar">
         <div class="avatar1">
-          <img
-            class="avatar1_img"
-            :src="qqInfo.url"
-            alt=""
-          />
+          <img class="avatar1_img" :src="qqInfo.url" alt="" />
         </div>
         <div class="line"></div>
         <div class="avatar2">
@@ -62,12 +58,15 @@
           <a-button type="primary" html-type="submit">授权并登录</a-button>
         </a-form-item>
       </a-form>
+      <div class="goRegister">
+        没有账号,<a-button @click="goRegister" type="link">立即注册</a-button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { useRoute, useRouter} from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { reactive, ref } from "vue";
 import { getCode, loginBindQQ } from "../../api/login";
 import { useStore } from "vuex";
@@ -118,6 +117,10 @@ const rules = reactive({
   code: [{ required: true, message: "验证码不能为空!" }],
 });
 
+const goRegister = () => {
+  router.push({ path: "register", query: { key: qqInfo.key } });
+};
+
 // 图片路径
 let imgUrl = ref("");
 let uuid = ref("");
@@ -132,18 +135,18 @@ getVerCode();
 </script>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 // import { useRoute} from "vue-router";
 // const route = useRoute()
 // console.log(route);
 export default defineComponent({
   beforeRouteEnter(to, from, next) {
-    if (from.path === '/home/home' && from.query.code) {
-      next()
+    if (from.path === "/home/home" && from.query.code) {
+      next();
     }
-    next('/')
-  }
-})
+    next("/");
+  },
+});
 </script>
 
 <style lang="scss" scoped>

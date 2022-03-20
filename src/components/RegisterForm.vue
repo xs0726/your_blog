@@ -54,7 +54,7 @@
 
 <script setup>
 import { reactive } from "vue";
-import { verification, userRegister } from "../api/login";
+import { verification, userRegister, registerByThr } from "../api/login";
 import { reg } from "../utils/util";
 import { Encrypt } from "../utils/aes";
 import { message } from "ant-design-vue";
@@ -68,7 +68,9 @@ const formState = reactive({
   cPassword: "",
   code: null,
 });
-
+const props = defineProps({
+  key: String, //第三方注册后 接收key值 组成 加参数 2022 3-20 胡玖
+});
 // 判断两次密码是否一致
 const isPwdEqual = () => {
   if (!formState.cPassword) {
@@ -161,8 +163,9 @@ const countDown = () => {
     }
   }, 1000);
 };
-
+const loginType = localStorage.getItem("loginType");
 // 用户注册
+
 const register = async (v) => {
   const params = {
     username: v.username,
@@ -171,11 +174,29 @@ const register = async (v) => {
     password: Encrypt(v.password),
     verificationCode: v.code,
   };
-  const { code, data, msg } = await userRegister(params);
-  if (code !== 200) return message.error(msg);
-  console.log(data);
-  message.success("注册成功");
-  await router.push("login");
+  if (props.key) {
+    switch (loginType) {
+      case "qq":
+        params.qqCode = props.key;
+        break;
+      case "wx":
+        params.wechatCode = props.key;
+        break;
+      case "github":
+        params.githubCode = props.key;
+        break;
+    }
+    const { code, msg } = await registerByThr(params);
+    if (code !== 200) return message.error(msg);
+    message.success("注册成功");
+    await router.push("login");
+  } else {
+    //默认的注册
+    const { code, msg } = await userRegister(params);
+    if (code !== 200) return message.error(msg);
+    message.success("注册成功");
+    await router.push("login");
+  }
 };
 </script>
 

@@ -42,3 +42,14 @@ export const loginBindQQ = (key) => request({
     method: 'get'
     // data
 })
+
+/**
+ * @title 第三方注册
+ * @param {*} data 
+ * @returns 
+ */
+export const registerByThr = (data) => request({
+    url: `/user/registerByThr`,
+    method: 'post',
+    data
+})
