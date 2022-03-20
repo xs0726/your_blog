@@ -138,7 +138,7 @@ import { defineComponent } from 'vue'
 // console.log(route);
 export default defineComponent({
   beforeRouteEnter(to, from, next) {
-    if (from.path === '/home/home' && form.params.key) {
+    if (from.path === '/home/home' && from.params.key) {
       next()
     }
     console.log(to, from);
