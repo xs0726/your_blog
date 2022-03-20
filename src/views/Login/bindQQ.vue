@@ -9,7 +9,7 @@
         <div class="avatar1">
           <img
             class="avatar1_img"
-            src="http://thirdqq.qlogo.cn/g?b=oidb&k=5fu0WHib6fZkoq3A72pk1icA&s=40&t=1614778066"
+            :src="qqInfo.url"
             alt=""
           />
         </div>
@@ -138,10 +138,10 @@ import { defineComponent } from 'vue'
 // console.log(route);
 export default defineComponent({
   beforeRouteEnter(to, from, next) {
-    if (from.path === '/home/home' && from.params.key) {
+    if (from.path === '/home/home' && from.query.code) {
       next()
     }
-    console.log(to, from);
+    next('/')
   }
 })
 </script>
