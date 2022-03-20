@@ -67,12 +67,12 @@
 </template>
 
 <script setup>
-import { useRoute, useRouter } from "vue-router";
+import { useRoute, useRouter} from "vue-router";
 import { reactive, ref } from "vue";
 import { getCode, loginBindQQ } from "../../api/login";
 import { useStore } from "vuex";
 import { Encrypt } from "../../utils/aes";
-import {message} from "ant-design-vue";
+import { message } from "ant-design-vue";
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
@@ -129,7 +129,21 @@ const getVerCode = async () => {
   uuid.value = data.uuid;
 };
 getVerCode();
-console.log(qqInfo);
+</script>
+
+<script>
+import { defineComponent } from 'vue'
+// import { useRoute} from "vue-router";
+// const route = useRoute()
+// console.log(route);
+export default defineComponent({
+  beforeRouteEnter(to, from, next) {
+    if (from.path === '/home/home' && form.params.key) {
+      next()
+    }
+    console.log(to, from);
+  }
+})
 </script>
 
 <style lang="scss" scoped>
