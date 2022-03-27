@@ -48,7 +48,7 @@ export const loginBindQQ = (key) => request({
  * @param {*} data 
  * @returns 
  */
- export const loginGithub = (key) => request({
+ export const loginBindGithub = (key) => request({
     url: `/githubAccount/loginBindGithub?code=${key}`,
     method: 'get'
     // data
