@@ -44,6 +44,11 @@ const routes = [
     name: 'bindQQ',
     component: () => import('@/views/Login/bindQQ')
   },
+  {
+    path: '/bindGithub',
+    name: 'bindGithub',
+    component: () => import('@/views/Login/bindGithub')
+  },
   { path: '/:pathMatch(.*)*', redirect: { name: 'home' } },
 ]
 

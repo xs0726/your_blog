@@ -44,6 +44,17 @@ export const loginBindQQ = (key) => request({
 })
 
 /**
+ * @title Github登录成功后再次请求接口
+ * @param {*} data 
+ * @returns 
+ */
+ export const loginGithub = (key) => request({
+    url: `/githubAccount/loginBindGithub?code=${key}`,
+    method: 'get'
+    // data
+})
+
+/**
  * @title 第三方注册
  * @param {*} data 
  * @returns 

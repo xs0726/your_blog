@@ -31,10 +31,10 @@ const init = async () => {
           message.error(msg)
           router.push({name: 'bindQQ', params: data})
         }
-      break;
+        break;
       case 'wx':
         // todo
-      break;
+        break;
       case 'github':
         // github
         const res = await loginByGithub(route.query.code)
@@ -43,7 +43,7 @@ const init = async () => {
           store.commit('app/setUserInfo', res.data.user)
           router.go(0)
         }
-      break;
+        break;
     }
   }
 }
