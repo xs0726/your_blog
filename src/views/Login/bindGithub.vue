@@ -68,7 +68,7 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { reactive, ref } from "vue";
-import { getCode, loginGithub } from "../../api/login";
+import { getCode, loginBindGithub  } from "../../api/login";
 import { useStore } from "vuex";
 import { Encrypt } from "../../utils/aes";
 import { message } from "ant-design-vue";
