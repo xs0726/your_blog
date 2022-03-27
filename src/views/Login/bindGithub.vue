@@ -96,7 +96,7 @@ const login = async () => {
     await getVerCode();
     return message.error(msg);
   }
-  const res = await loginGithub(githubInfo.key);
+  const res = await loginBindGithub(githubInfo.key);
   if (res.code !== 200) {
     formState.code = "";
     await getVerCode();
