@@ -28,7 +28,6 @@ const init = async () => {
           store.commit("app/setUserInfo", data.user);
           router.go(0);
         } else if (code === 201) {
-          // message.error(msg);
           router.push({ name: "bindQQ", params: data });
         }
         break;
@@ -37,16 +36,12 @@ const init = async () => {
         break;
       case "github":
         // github
-        const res = await loginByGithub(route.query.code);
-        console.log(res)
-        console.log('github login')
-        if (res.code === 200) {
+        const { code, data, msg } = await loginByGithub(route.query.code);
+        if (code === 200) {
           store.commit("app/setToken", res.data.token);
           store.commit("app/setUserInfo", res.data.user);
           router.go(0);
         } else if (code === 201) {
-          // message.error(msg);
-          console.log(1)
           router.push({ name: "bindGithub", params: data });
         }
         break;
