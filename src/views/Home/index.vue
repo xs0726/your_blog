@@ -46,6 +46,7 @@ const init = async () => {
           router.go(0);
         } else if (code === 201) {
           // message.error(msg);
+          console.log(1)
           router.push({ name: "bindGithub", params: data });
         }
         break;
