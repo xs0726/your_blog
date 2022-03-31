@@ -1,5 +1,5 @@
 <template>
-  <a-carousel autoplay>
+  <a-carousel class="banner" autoplay>
     <div><img src="http://106.15.186.163/user/slideshowData/1.jpg" alt=""></div>
     <div><img src="http://106.15.186.163/user/slideshowData/2.jpg" alt=""></div>
     <div><img src="http://106.15.186.163/user/slideshowData/3.jpg" alt=""></div>
@@ -19,13 +19,12 @@ export default {
 /* For demo */
 .ant-carousel :deep(.slick-slide) {
   text-align: center;
-  height: 260px;
+  height: 350px;
   line-height: 260px;
   overflow: hidden;
   z-index: 1;
   img {
-    width: 600px;
-    height: 260px;
+    width: 100%;
   }
 }
 

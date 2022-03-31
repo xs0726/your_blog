@@ -5,90 +5,79 @@
         <div class="banner">
           <Banner />
         </div>
-        <div class="guide">
-          <ul>
-            <li>
-              <img class="guideImg" src="@/assets/guide/guide_1.jpeg" alt />
-            </li>
-            <li>
-              <img class="guideImg" src="@/assets/guide/guide_2.jpeg" alt />
-            </li>
-            <li>
-              <img class="guideImg" src="@/assets/guide/guide_3.jpeg" alt />
-            </li>
-            <li>
-              <img
-                @click="router.push('/home/detail')"
-                class="guideImg"
-                src="@/assets/guide/guide_4.jpeg"
-                alt
-              />
-            </li>
-          </ul>
-        </div>
+<!--#region-->
+<!--        <div class="guide">-->
+<!--          <ul>-->
+<!--            <li>-->
+<!--              <img class="guideImg" src="@/assets/guide/guide_1.jpeg" alt />-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <img class="guideImg" src="@/assets/guide/guide_2.jpeg" alt />-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <img class="guideImg" src="@/assets/guide/guide_3.jpeg" alt />-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <img-->
+<!--                @click="router.push('/home/detail')"-->
+<!--                class="guideImg"-->
+<!--                src="@/assets/guide/guide_4.jpeg"-->
+<!--                alt-->
+<!--              />-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </div>-->
+<!--#endregion-->
       </div>
       <div class="recommend">
-        <a-card title="推荐" style="width: 860px;margin-right: 10px">
-          <a-card-grid class="recommendCardGrid">
-            <img
-              style="width: 170px;height: 130px"
-              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-              alt
-            />
-            <div class="tag">
-              <a-tag color="pink">前端</a-tag>
-              <a-tag color="red">JavaScript</a-tag>
-              <a-tag color="orange">vue</a-tag>
-              <a-tag color="orange">vue</a-tag>
-              <a-tag color="orange">vue</a-tag>
-              <a-tag color="orange">vue</a-tag>
-            </div>
-            <div
-              class="title"
-            >watch和computed的区别watch和computed的区别watch和computed的区别watch和computed的区别watch和computed的区别</div>
-            <div class="browse">
-              <div class="time">
-                <span>
-                  <field-time-outlined />
-                </span>
-                <span>2022-02-18</span>
-              </div>
-              <div class="browseBox">
-                <span>
-                  <eye-outlined />
-                </span>
-                <span class="browseCount">60 浏览量</span>
-              </div>
-            </div>
-          </a-card-grid>
-          <a-card-grid class="recommendCardGrid">Content</a-card-grid>
-          <a-card-grid class="recommendCardGrid">Content</a-card-grid>
-          <a-card-grid class="recommendCardGrid">Content</a-card-grid>
-          <a-card-grid class="recommendCardGrid">Content</a-card-grid>
-          <a-card-grid class="recommendCardGrid">Content</a-card-grid>
-          <a-card-grid class="recommendCardGrid">Content</a-card-grid>
-          <a-card-grid class="recommendCardGrid">Content</a-card-grid>
+        <a-card style="width: 860px;margin-right: 10px">
+<!--#region-->
+<!--          <a-card-grid class="recommendCardGrid">-->
+<!--            <img-->
+<!--              style="width: 170px;height: 130px"-->
+<!--              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"-->
+<!--              alt-->
+<!--            />-->
+<!--            <div class="tag">-->
+<!--              <a-tag color="pink">前端</a-tag>-->
+<!--              <a-tag color="red">JavaScript</a-tag>-->
+<!--              <a-tag color="orange">vue</a-tag>-->
+<!--              <a-tag color="orange">vue</a-tag>-->
+<!--              <a-tag color="orange">vue</a-tag>-->
+<!--              <a-tag color="orange">vue</a-tag>-->
+<!--            </div>-->
+<!--            <div-->
+<!--              class="title"-->
+<!--            >watch和computed的区别watch和computed的区别watch和computed的区别watch和computed的区别watch和computed的区别</div>-->
+<!--            <div class="browse">-->
+<!--              <div class="time">-->
+<!--                <span>-->
+<!--                  <field-time-outlined />-->
+<!--                </span>-->
+<!--                <span>2022-02-18</span>-->
+<!--              </div>-->
+<!--              <div class="browseBox">-->
+<!--                <span>-->
+<!--                  <eye-outlined />-->
+<!--                </span>-->
+<!--                <span class="browseCount">60 浏览量</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </a-card-grid>-->
+<!--          <a-card-grid class="recommendCardGrid">Content</a-card-grid>-->
+<!--          <a-card-grid class="recommendCardGrid">Content</a-card-grid>-->
+<!--          <a-card-grid class="recommendCardGrid">Content</a-card-grid>-->
+<!--          <a-card-grid class="recommendCardGrid">Content</a-card-grid>-->
+<!--          <a-card-grid class="recommendCardGrid">Content</a-card-grid>-->
+<!--          <a-card-grid class="recommendCardGrid">Content</a-card-grid>-->
+<!--          <a-card-grid class="recommendCardGrid">Content</a-card-grid>-->
+<!--endregion-->
+          <div slot="title">
+            <TabList />
+          </div>
         </a-card>
-        <div class="rankin">
-          <a-card title="排行" :bordered="false" style="width: 250px">
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-          </a-card>
+        <div class="leftCard">
+          <About />
         </div>
       </div>
     </div>
@@ -97,6 +86,8 @@
 
 <script setup>
 import Banner from '../../components/Home/Banner'
+import TabList from '../../components/Home/TabList'
+import About from '../../components/Home/About'
 import { EyeOutlined, FieldTimeOutlined } from '@ant-design/icons-vue'
 import router from '../../router'
 </script>
@@ -110,8 +101,8 @@ import router from '../../router'
   .first {
     display: flex;
     .banner {
-      width: 600px;
-      height: 260px;
+      width: 100%;
+      height: 350px;
       background-color: #fff;
       margin-bottom: 10px;
     }
