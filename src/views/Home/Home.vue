@@ -125,33 +125,113 @@ import router from '../../router'
     }
   }
   .recommend {
+    width: 100%;
     display: flex;
-    .recommendCardGrid {
-      width: 25%;
-      height: 300px;
-      text-align: center;
-      .tag {
-        height: 48px;
+    .content {
+      min-height: 400px;
+      height: auto;
+      width: 800px;
+      margin-bottom: 40px;
+      .tabBox {
+        padding: 20px;
+        border-radius: 6px;
+        background: #fff;
+        .tabLi {
+          .tab-item {
+            padding: 6px 20px;
+            background: rgb(238, 238, 238);
+            margin-right: 4px;
+            border-radius: 4px;
+            color: #666;
+            cursor: pointer;
+          }
+          .tab-active {
+            background: #5b99fd;
+            color: #222;
+          }
+        }
+        .tab-content {
+          margin-top: 8px;
+          min-height: 120px;
+          height: auto;
+          border: 2px solid #2378ff;
+          font-size: 0;
+          .textarea {
+            border: 0;
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            height: 100%;
+          }
+        }
+      }
+      .sx {
+        padding: 20px;
+        border-radius: 6px;
+        background: #fff;
         margin: 10px 0;
-        overflow: hidden;
+        .sx-item {
+          padding: 4px 14px;
+          border-radius: 6px;
+          font-size: 14px;
+          background: #eee;
+          cursor: pointer;
+          margin-right: 4px;
+        }
+        .sx-active {
+          background: #77abff;
+          color: #fff;
+        }
       }
-      .title {
-        height: 45px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        display: -webkit-box;
+      .container {
+        padding: 20px;
+        border-radius: 6px;
+        background: #fff;
+        .zx{
+          background: rgb(213, 213, 213);
+          padding: 4px 10px;
+          margin-bottom: 6px;
+          border-radius: 4px;
+        }
       }
-      .browse {
-        display: flex;
-        text-align: right;
-        font-size: 12px;
-        justify-content: space-between;
-        color: #7f8085;
-        margin-top: 5px;
-        .browseCount {
-          margin-left: 5px;
+    }
+    .rankin {
+      flex: 1;
+      margin-left: 10px;
+      box-sizing: border-box;
+      position: sticky;
+      top: 60px;
+      height: 500px;
+      .slj {
+        border-radius: 10px;
+        height: 120px;
+        background: rgb(255, 255, 255);
+
+        .sljBtn {
+          background: #2378ff;
+          color: #fff;
+          border-radius: 4px;
+          font-size: 16px;
+          text-align: center;
+          width: 80%;
+          margin: auto;
+          padding: 8px 0;
+        }
+      }
+      .more {
+        background: rgb(255, 255, 255);
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 16px;
+        height: 300px;
+        .more-title {
+          font-weight: bold;
+          font-size: 18px;
+        }
+        .more-img {
+          height: 200px;
+          margin-top: 10px;
+          background: rgb(165, 165, 165);
         }
       }
     }
