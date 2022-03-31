@@ -101,7 +101,7 @@ const login = async () => {
   }
   switch (loginType) {
     case 'wx':
-      const { wxCode, wMessage } = await loginByWeChatBind(qqInfo)
+      const { wxCode, wMessage } = await loginByWeChatBind(route.query.code)
       if (wxCode !== 200) {
         formState.code = "";
         await getVerCode();
