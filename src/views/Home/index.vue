@@ -42,6 +42,9 @@ const init = async () => {
           store.commit('app/setToken', res.data.token)
           store.commit('app/setUserInfo', res.data.user)
           router.go(0)
+        } else if (res.code === 201) {
+          // message.error(msg);
+          router.push({ name: "bindGithub", params: res.data });
         }
       break;
     }
