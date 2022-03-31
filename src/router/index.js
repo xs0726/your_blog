@@ -40,15 +40,15 @@ const routes = [
     component: () => import('@/views/Register')
   },
   {
-    path: '/bindQQ',
-    name: 'bindQQ',
+    path: '/bindAccount',
+    name: 'bindAccount',
     component: () => import('@/views/Login/bindQQ')
   },
-  {
-    path: '/bindGithub',
-    name: 'bindGithub',
-    component: () => import('@/views/Login/bindGithub')
-  },
+  // {
+  //   path: '/bindGithub',
+  //   name: 'bindGithub',
+  //   component: () => import('@/views/Login/bindGithub')
+  // },
   { path: '/:pathMatch(.*)*', redirect: { name: 'home' } },
 ]
 

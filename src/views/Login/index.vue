@@ -26,17 +26,40 @@
         没有账号,<a-button @click="goRegister" type="link">立即注册</a-button>
       </div>
     </div>
+    <a-modal class="wxLogin" v-model:visible="visible" title="微信登录" @ok="handleOk">
+      <a-row>
+        <a-col offset="5"><img class="qr" src="../../assets/images/QRcode.jpg" alt="公众号二维码"></a-col>
+      </a-row>
+      <a-row  align="middle">
+        <a-col offset="3" span="4">验证码:</a-col>
+        <a-col span="12"><a-input v-model:value="value1" show-count :maxlength="6">
+          <template #addonAfter>
+            <a-tooltip>
+              <template #title>关注公众号回复 blog 获取验证码</template>
+              <question-outlined />
+            </a-tooltip>
+          </template>
+        </a-input></a-col>
+      </a-row>
+    </a-modal>
   </div>
 </template>
 
 <script setup>
-import { BoldOutlined } from "@ant-design/icons-vue";
-import { useRouter } from "vue-router";
+import { BoldOutlined, QuestionOutlined } from "@ant-design/icons-vue";
+import {useRoute, useRouter} from "vue-router";
 import LoginForm from "../../components/LoginForm";
 import { ref } from 'vue'
 import {message} from "ant-design-vue";
+import { loginByWeChat } from "@/api/login";
+import {useStore} from "vuex";
 
+
+  const store = useStore()
+  const route = useRoute()
   const activeKey = ref('1')
+  const visible = ref(false)
+  const value1 = ref('')
 
   const router = useRouter();
   const goRegister = () => {
@@ -44,9 +67,29 @@ import {message} from "ant-design-vue";
   }
   const loginType = (type) => {
     if (type === 'wx') {
-      message.info('暂未开放')
+      // message.info('暂未开放')
+      visible.value = true
     }
       localStorage.setItem('loginType', type)
+  }
+
+  const handleOk = async () => {
+    // 正则验证是否为6位纯数字
+    if (value1.value.match(/^\d{6}$/)) {
+      const res = await loginByWeChat(value1.value)
+      if (res.code === 200) {
+        store.commit('app/setToken', data.token)
+        store.commit('app/setUserInfo', data.user)
+        router.push('/')
+      } else if(res.code === 201) {
+        message.error(res.msg)
+        router.push({name: 'bindAccount', params: res.data})
+      } else {
+        message.error(res.msg)
+      }
+    } else {
+      message.info('请输入正确的验证码')
+    }
   }
 </script>
 
@@ -127,6 +170,9 @@ import {message} from "ant-design-vue";
       margin-top: 12px;
       color: #7f8085;
     }
+  }
+  .qr {
+      margin-left: 10px;
   }
 }
 </style>

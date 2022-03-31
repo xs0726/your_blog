@@ -34,8 +34,8 @@ export const userRegister = (data) => {
 }
 /**
  * @title QQ登录成功后再次请求接口
- * @param {*} data 
- * @returns 
+ * @param {*} data
+ * @returns
  */
 export const loginBindQQ = (key) => request({
     url: `/qqAccount/loginBindQQ?code=${key}`,
@@ -45,8 +45,8 @@ export const loginBindQQ = (key) => request({
 
 /**
  * @title Github登录成功后再次请求接口
- * @param {*} data 
- * @returns 
+ * @param {*} data
+ * @returns
  */
  export const loginBindGithub = (key) => request({
     url: `/githubAccount/loginBindGithub?code=${key}`,
@@ -56,11 +56,22 @@ export const loginBindQQ = (key) => request({
 
 /**
  * @title 第三方注册
- * @param {*} data 
- * @returns 
+ * @param {*} data
+ * @returns
  */
 export const registerByThr = (data) => request({
     url: `/user/registerByThr`,
+    method: 'post',
+    data
+})
+
+export const loginByWeChat = (key) => request({
+    url: `weChatAccount/loginByWeChat?code=${key}`,
+    method: 'get'
+})
+
+export const loginByWeChatBind = (data) => request({
+    url: ` weChatAccount/loginBindWeChat`,
     method: 'post',
     data
 })

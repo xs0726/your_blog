@@ -29,7 +29,9 @@ const init = async () => {
           router.go(0)
         } else if (res.code === 201) {
           message.error(msg)
-          router.push({name: 'bindQQ', params: res.data})
+          router.push({name: 'bindAccount', params: res.data})
+        } else {
+          message.error(msg)
         }
       break;
       case 'wx':
@@ -44,7 +46,9 @@ const init = async () => {
           router.go(0)
         } else if (res.code === 201) {
           // message.error(msg);
-          router.push({ name: "bindGithub", params: res.data });
+          router.push({ name: "bindAccount", params: res.data });
+        } else {
+          message.error(res.message)
         }
       break;
     }
