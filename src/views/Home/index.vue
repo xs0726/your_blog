@@ -29,7 +29,7 @@ const init = async () => {
           router.go(0)
         } else if (code === 201) {
           message.error(msg)
-          router.push({name: 'bindAccount', params: res.data})
+          await router.push({name: 'bindAccount', params: data})
         } else {
           message.error(msg)
         }

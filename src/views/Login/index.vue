@@ -83,7 +83,7 @@ import {useStore} from "vuex";
         router.push('/')
       } else if(res.code === 201) {
         message.error(res.msg)
-        router.push({name: 'bindAccount', params: res.data})
+        router.push({name: 'bindAccount', query: {code: res.data}})
       } else {
         message.error(res.msg)
       }
