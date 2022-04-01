@@ -22,7 +22,7 @@ const init = async () => {
     switch (localStorage.getItem('loginType')) {
       case 'qq':
         // qq
-        const {code,data,message:msg} = await loginByQQ(route.query.code)
+        const {code,data,msg} = await loginByQQ(route.query.code)
         if (code === 200) {
           store.commit('app/setToken', data.token)
           store.commit('app/setUserInfo', data.user)
@@ -45,10 +45,10 @@ const init = async () => {
           store.commit('app/setUserInfo', res.data.user)
           router.go(0)
         } else if (res.code === 201) {
-          // message.error(msg);
+          message.error(res.msg);
           router.push({ name: "bindAccount", params: res.data });
         } else {
-          message.error(res.message)
+          message.error(res.msg)
         }
       break;
     }
