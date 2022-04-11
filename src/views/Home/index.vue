@@ -26,7 +26,7 @@ const init = async () => {
         if (code === 200) {
           store.commit('app/setToken', data.token)
           store.commit('app/setUserInfo', data.user)
-          router.go(0)
+          // router.go(0)
         } else if (code === 201) {
           message.error(msg)
           await router.push({name: 'bindAccount', params: data})
@@ -36,6 +36,7 @@ const init = async () => {
       break;
       case 'wx':
         // todo
+        router.push({ name: "bindAccount", params: route.query.code });
       break;
       case 'github':
         // github
@@ -43,7 +44,7 @@ const init = async () => {
         if (res.code === 200) {
           store.commit('app/setToken', res.data.token)
           store.commit('app/setUserInfo', res.data.user)
-          router.go(0)
+          // router.go(0)
         } else if (res.code === 201) {
           message.error(res.msg);
           router.push({ name: "bindAccount", params: res.data });
@@ -67,7 +68,7 @@ watermark
   background-size: 100% 100%;
   background-clip: content-box;
   .content {
-    width: 1142px;
+    width: 1170px;
     margin: 0 auto;
   }
 }

@@ -7,7 +7,8 @@
       </div>
       <div class="bindQQ_avatar">
         <div class="avatar1">
-          <img class="avatar1_img" :src="loginType === 'wx' ? Wxurl : qqInfo.url" alt="" />
+          <img v-if="loginType === 'wx'" class="avatar1_img" src="../../assets/images/WeChat.png" alt="" />
+          <img v-else class="avatar1_img" :src="qqInfo.url" alt="" />
         </div>
         <div class="line"></div>
         <div class="avatar2">
@@ -78,7 +79,7 @@ const router = useRouter();
 const qqInfo = route.params;
 
 const loginType = localStorage.getItem('loginType')
-const Wxurl = '../../assets/images/WeChat.png'
+// const Wxurl = '../../assets/images/m13.png'
 
 let formState = reactive({
   username: "",
@@ -127,7 +128,7 @@ const login = async () => {
   }
   localStorage.setItem("BLOG-USERINFO", JSON.stringify(formState));
   message.success("登录成功");
-  router.push("home");
+  router.push("/");
 };
 
 // 表单校验规则
@@ -167,7 +168,7 @@ import { defineComponent } from "vue";
 // console.log(route);
 export default defineComponent({
   beforeRouteEnter(to, from, next) {
-    if (from.path === "/home/home" && from.query.code) {
+    if ((from.path === "/home/home" || from.path === '/login') && from.query.code) {
       next();
     }
     next("/");
