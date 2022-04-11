@@ -6,7 +6,7 @@
         <h1>博客用户登录</h1>
       </div>
       <div class="icon">
-        <BoldOutlined />
+        <a style="color: white" href="http://decunt.com"><BoldOutlined /></a>
       </div>
       <div class="tips">代码改变世界</div>
       <a-tabs v-model:activeKey="activeKey" centered>
@@ -80,10 +80,10 @@ import {useStore} from "vuex";
       if (res.code === 200) {
         store.commit('app/setToken', data.token)
         store.commit('app/setUserInfo', data.user)
-        router.push('/')
+        await router.push('/')
       } else if(res.code === 201) {
         message.error(res.msg)
-        router.push({name: 'bindAccount', query: {code: res.data}})
+        await router.push({ path: "/", query: { code: res.data } })
       } else {
         message.error(res.msg)
       }
