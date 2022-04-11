@@ -71,7 +71,7 @@ export const loginByWeChat = (key) => request({
 })
 
 export const loginByWeChatBind = (data) => request({
-    url: ` weChatAccount/loginBindWeChat`,
+    url: `weChatAccount/loginBindWeChat`,
     method: 'post',
     data
 })
