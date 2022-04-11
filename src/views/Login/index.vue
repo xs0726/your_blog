@@ -32,7 +32,7 @@
       </a-row>
       <a-row  align="middle">
         <a-col offset="3" span="4">验证码:</a-col>
-        <a-col span="12"><a-input v-model:value="value1" show-count :maxlength="6">
+        <a-col span="12"><a-input v-model:value="wxVerifyCode" show-count :maxlength="6">
           <template #addonAfter>
             <a-tooltip>
               <template #title>关注公众号回复 blog 获取验证码</template>
@@ -59,7 +59,7 @@ import {useStore} from "vuex";
   const route = useRoute()
   const activeKey = ref('1')
   const visible = ref(false)
-  const value1 = ref('')
+  const wxVerifyCode = ref('')
 
   const router = useRouter();
   const goRegister = () => {
@@ -75,8 +75,8 @@ import {useStore} from "vuex";
 
   const handleOk = async () => {
     // 正则验证是否为6位纯数字
-    if (value1.value.match(/^\d{6}$/)) {
-      const res = await loginByWeChat(value1.value)
+    if (wxVerifyCode.value.match(/^\d{6}$/)) {
+      const res = await loginByWeChat(wxVerifyCode.value)
       if (res.code === 200) {
         store.commit('app/setToken', data.token)
         store.commit('app/setUserInfo', data.user)
