@@ -1,65 +1,30 @@
 <template>
   <div class="TabListContent">
-    <div class="entry">
+    <div class="entry" v-for="(item) in data.List" :key="item.arcView">
       <div class="meta-container">
-        <div class="author">xs</div>
-        <div class="date">2021</div>
-        <div class="tag_list">
-          <div class="tag">vue</div>
-          <div class="tag">html</div>
+        <div class="author">{{item.arcAuthor}}</div>
+        <div class="date">{{item.date}}</div>
+        <div class="tag_list" v-for="l in item.tags" :key="l">
+          <div class="tag">{{l}}</div>
         </div>
       </div>
       <div class="content-wrapper">
         <div class="title-row">
-          <div class="title" title="vivo 商品中台的可视化微前端实践">vivo 商品中台的可视化微前端实践</div>
+          <div class="title" :title="item.arcHeadline">{{item.arcHeadline}}</div>
         </div>
-        <div class="abstract">
-          一、背景 在电商领域内，商品是一个重要组成部分，与其对应的商品管理系统，则负责商品的新建、编辑、复制等功能。随着商品管理系统的成熟稳定和业务上的扩展需求，催化出了商品中台的诞生。它可以将现有商品功能最
-        </div>
+        <div class="abstract">{{item.arcBrief}}</div>
         <ul class="action-list">
           <li class="item view">
             <eye-outlined />
-            <span>1112</span>
+            <span>{{item.arcView}}</span>
           </li>
           <li class="item like">
             <like-outlined />
-            <span>123</span>
+            <span>{{item.arcLike}}</span>
           </li>
           <li class="item comment">
             <comment-outlined />
-            <span>22</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="entry">
-      <div class="meta-container">
-        <div class="author">xs</div>
-        <div class="date">2021</div>
-        <div class="tag_list">
-          <div class="tag">vue</div>
-          <div class="tag">html</div>
-        </div>
-      </div>
-      <div class="content-wrapper">
-        <div class="title-row">
-          <div class="title" title="vivo 商品中台的可视化微前端实践">vivo 商品中台的可视化微前端实践</div>
-        </div>
-        <div class="abstract">
-          一、背景 在电商领域内，商品是一个重要组成部分，与其对应的商品管理系统，则负责商品的新建、编辑、复制等功能。随着商品管理系统的成熟稳定和业务上的扩展需求，催化出了商品中台的诞生。它可以将现有商品功能最
-        </div>
-        <ul class="action-list">
-          <li class="item view">
-            <eye-outlined />
-            <span>1112</span>
-          </li>
-          <li class="item like">
-            <like-outlined />
-            <span>123</span>
-          </li>
-          <li class="item comment">
-            <comment-outlined />
-            <span>22</span>
+            <span>{{item.arcComment}}</span>
           </li>
         </ul>
       </div>
@@ -68,7 +33,22 @@
 </template>
 
 <script setup>
-import { EyeOutlined,LikeOutlined,CommentOutlined} from '@ant-design/icons-vue'
+import {
+  EyeOutlined,
+  LikeOutlined,
+  CommentOutlined,
+} from '@ant-design/icons-vue'
+import { getFavArc } from '@/api/home'
+import { reactive } from 'vue'
+const data = reactive({
+  List: [],
+})
+getFavArc()
+  .then((result) => {
+    console.log(result)
+    data.List = result.data
+  })
+  .catch((err) => {})
 </script>
 
 <style lang="scss" scoped>
@@ -116,7 +96,7 @@ import { EyeOutlined,LikeOutlined,CommentOutlined} from '@ant-design/icons-vue'
         width: 1px;
         height: 14px;
         background: #e5e6eb;
-        content: " ";
+        content: ' ';
       }
       &::after {
         position: absolute;
@@ -127,7 +107,7 @@ import { EyeOutlined,LikeOutlined,CommentOutlined} from '@ant-design/icons-vue'
         width: 1px;
         height: 14px;
         background: #e5e6eb;
-        content: " ";
+        content: ' ';
       }
     }
     .tag_list {

@@ -30,3 +30,9 @@ export const loginByQQ = (code) => {
         method: 'get'
     })
 }
+export const getFavArc = () => {
+    return request({
+        url: '/article/getFavArc',
+        method: 'get',
+    })
+}
