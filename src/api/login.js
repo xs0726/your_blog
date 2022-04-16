@@ -64,3 +64,5 @@ export const registerByThr = (data) => request({
     method: 'post',
     data
 })
+
+//校验手机号
