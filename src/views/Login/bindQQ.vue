@@ -118,7 +118,7 @@ const login = async () => {
       }
       break;
     case 'github':
-      const {githubCode,gMessage} = await loginBindGithub(githubInfo.key);
+      const {githubCode,gMessage} = await loginBindGithub(qqInfo.key);
       if (githubCode !== 200) {
         formState.code = "";
         await getVerCode();
