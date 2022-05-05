@@ -137,7 +137,7 @@ watch(
 
 const lxqrcode = () => {
   if (!timer2.value) return
-  setInterval(() => {
+  let time = setInterval(() => {
     timer2.value = false
     qrcodeCheckCode(qrCode.value)
       .then((res) => {
