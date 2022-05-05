@@ -101,6 +101,7 @@ const isCode = ref(false)
 const router = useRouter()
 const qrCodeUrl = ref()
 const timer = ref(true)
+const timer2 = ref(true)
 const qrCode = ref('') //接口返回的qrcode码  做轮询用
 const switchIscode = () => {
   if (timer.value) {
@@ -135,12 +136,17 @@ watch(
 )
 
 const lxqrcode = () => {
-  let time = ''
-  time = setInterval(() => {
-    qrcodeCheckCode(qrCode.value )
+  if (!timer2.value) return
+  setInterval(() => {
+    timer2.value = false
+    qrcodeCheckCode(qrCode.value)
       .then((res) => {
         console.log(res)
         if (res.data.status == 1) switchIscode()
+        if (res.data.status == 2) {
+          timer2.value = true
+          clearInterval(time)
+        }
       })
       .catch(() => {
         clearInterval(time)
