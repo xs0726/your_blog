@@ -79,3 +79,7 @@ export const qrcodeGgenerate = (data) => request({
     method: 'post',
     data
 })
+export const qrcodeCheckCode = (key) => request({
+    url: `qrcode/checkCode?code=${key}`,
+    method: 'get',
+})

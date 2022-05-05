@@ -88,7 +88,7 @@ import { useRoute, useRouter } from 'vue-router'
 import LoginForm from '../../components/LoginForm'
 import { ref, watch, nextTick } from 'vue'
 import { message } from 'ant-design-vue'
-import { loginByWeChat, qrcodeGgenerate } from '@/api/login'
+import { loginByWeChat, qrcodeGgenerate, qrcodeCheckCode } from '@/api/login'
 import { useStore } from 'vuex'
 import QRCode from 'qrcodejs2'
 
@@ -101,13 +101,15 @@ const isCode = ref(false)
 const router = useRouter()
 const qrCodeUrl = ref()
 const timer = ref(true)
+const qrCode = ref('') //接口返回的qrcode码  做轮询用
 const switchIscode = () => {
   if (timer.value) {
     timer.value = false
     setTimeout(() => {
       timer.value = true
-    }, 10000)
+    }, 5000)
     qrcodeGgenerate().then((res) => {
+      qrCode.value = res.data
       qrCodeUrl.value.innerHTML = ''
       var qrcode = new QRCode(qrCodeUrl.value, {
         text: res.data, // 需要转换为二维码的内容
@@ -120,15 +122,31 @@ const switchIscode = () => {
     })
     return
   }
-    message.info('请稍后再试！')
+  message.info('请稍后再试！')
 }
 watch(
   () => isCode.value,
   (n) => {
-    if (n == true) switchIscode()
+    if (n == true) {
+      switchIscode()
+      lxqrcode()
+    }
   }
 )
 
+const lxqrcode = () => {
+  let time = ''
+  time = setInterval(() => {
+    qrcodeCheckCode(qrCode.value )
+      .then((res) => {
+        console.log(res)
+        if (res.data.status == 1) switchIscode()
+      })
+      .catch(() => {
+        clearInterval(time)
+      })
+  }, 1500)
+}
 const goRegister = () => {
   router.push('register')
 }

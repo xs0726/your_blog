@@ -26,7 +26,7 @@ service.interceptors.response.use(res => {
         return Promise.reject(new Error(data.message))
     }
 }, error => {
-    error.response &&  message.error(error.response.data.message)
+    error.response &&  message.error(error.response.data.message || "服务错误，请稍后再试！")
     return Promise.reject(new Error(error.response.data.message))
 })
 
