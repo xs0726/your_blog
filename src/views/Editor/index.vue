@@ -222,10 +222,10 @@ const submit = () => {
   height: 100%;
   .editor {
     height: 100%;
-    ::v-deep .bytemd {
+    :deep(.bytemd) {
       height: 100%;
     }
-    ::v-deep .CodeMirror {
+    :deep(.CodeMirror) {
       background: #f8f9fa;
     }
   }
