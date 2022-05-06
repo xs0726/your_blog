@@ -45,7 +45,6 @@ const data = reactive({
 })
 getFavArc()
   .then((result) => {
-    console.log(result)
     data.List = result.data
   })
   .catch((err) => {})

@@ -9,6 +9,10 @@ import 'ant-design-vue/dist/antd.css';
 import 'normalize.css'
 // 全局样式
 import "@/assets/styles/index.scss"
+// 掘金富文本样式
+import 'bytemd/dist/index.css'
+import 'highlight.js/styles/vs.css'
+import 'juejin-markdown-themes/dist/juejin.min.css'
 
 const app = createApp(App)
 

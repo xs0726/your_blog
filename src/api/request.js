@@ -14,6 +14,7 @@ service.interceptors.request.use(config => {
     config.headers['traceId'] = randomWord(false, 32)
     return config
 }, error => {
+    console.log(error)
     return Promise.reject(new Error(error))
 })
 
@@ -22,12 +23,12 @@ service.interceptors.response.use(res => {
     if (status === 200 || status === 201) {
         return data
     } else {
-        // message.error('数据库异常,请联系管理员');
-        return Promise.reject(new Error(data.message))
+        console.log(res)
+        return Promise.reject(new Error(data.msg))
     }
 }, error => {
-    error.response &&  message.error(error.response.data.message)
-    return Promise.reject(new Error(error.response.data.message))
+    error.response &&  message.error(error.response.data.msg)
+    return Promise.reject(new Error(error.response.data.msg))
 })
 
 export default service

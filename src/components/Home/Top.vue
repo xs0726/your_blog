@@ -30,25 +30,20 @@
         </div>
         <a-dropdown>
           <span class="welcome">
-            欢迎您,
-            <span>{{ userInfo.username }}</span>
-            <span class="iconDown">
-              <setting-outlined />
-            </span>
+            欢迎您,<span>{{ userInfo.username }}</span>
           </span>
           <template #overlay>
             <a-menu>
               <a-menu-item>
-                <a href="javascript:;" @click="modalVisible.settingModal = true"
-                  >账号设置</a
-                >
+                <a href="javascript:;" @click="router.push('/editor')">写文章</a>
               </a-menu-item>
               <a-menu-item>
-                <a
-                  href="javascript:;"
+                <a href="javascript:;" @click="modalVisible.settingModal = true">账号设置</a>
+              </a-menu-item>
+              <a-menu-item>
+                <a href="javascript:;"
                   @click="modalVisible.passwordModal = true"
-                  >密码修改</a
-                >
+                  >密码修改</a>
               </a-menu-item>
               <a-menu-item>
                 <a href="javascript:;" @click="logout">退出登录</a>
