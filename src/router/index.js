@@ -44,11 +44,11 @@ const routes = [
     name: 'bindAccount',
     component: () => import('@/views/Login/bindQQ')
   },
-  // {
-  //   path: '/bindGithub',
-  //   name: 'bindGithub',
-  //   component: () => import('@/views/Login/bindGithub')
-  // },
+  {
+    path: '/editor',
+    name: 'editor',
+    component: () => import('@/views/Editor')
+  },
   { path: '/:pathMatch(.*)*', redirect: { name: 'home' } },
 ]
 

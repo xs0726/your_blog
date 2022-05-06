@@ -11,7 +11,7 @@
 import {ref} from "vue";
 import TabListContent from "./TabListContent";
 
-const activeKey = ref('2')
+const activeKey = ref('1')
 </script>
 
 <style scoped>

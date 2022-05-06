@@ -73,7 +73,7 @@ import {message} from "ant-design-vue";
           uuid: uuid.value,
           verificationCode: formState.code
         }
-        const {code, message:msg} = await store.dispatch('app/login', params)
+        const {code, msg} = await store.dispatch('app/login', params)
         if (code !== 200) {
           formState.code = ''
           await getVerCode()
