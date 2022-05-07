@@ -128,7 +128,7 @@ const switchIscode = () => {
 watch(
   () => isCode.value,
   (n) => {
-    if (n == true) {
+    if (n) {
       switchIscode()
       lxqrcode()
     }
@@ -142,16 +142,25 @@ const lxqrcode = () => {
     qrcodeCheckCode(qrCode.value)
       .then((res) => {
         console.log(res)
-        if (res.data.status == 1) switchIscode()
-        if (res.data.status == 2) {
-          timer2.value = true
-          clearInterval(time)
+        const responseCode = res.data.status
+        //TODO 点击二维码登录的页面调整为 http://42.192.64.144/qr/login 这样的
+        switch (responseCode){
+          case 1:
+            //TODO 增加提示过期的样式 提供一个按钮 用户点击即刷新二维码
+            break;
+          case 2:
+            timer2.value = true
+            clearInterval(time)
+            break;
+          case 3:
+            //TODO 增加扫描成功的样式 增加提示语 扫码成功，请在手机端确认
+
         }
       })
       .catch(() => {
         clearInterval(time)
       })
-  }, 1500)
+  }, 1000)
 }
 const goRegister = () => {
   router.push('register')
