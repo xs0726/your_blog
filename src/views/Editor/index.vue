@@ -17,7 +17,7 @@
       </div>
     </header>
     <div class="main">
-      <Editor class="editor" v-model:value="content" mode='split' :plugins="plugins" :locale='zhHans' @change="handleChange" />
+      <Editor :uploadImages="uploadImages" class="editor" v-model:value="content" mode='split' :plugins="plugins" :locale='zhHans' @change="handleChange" />
     </div>
     <a-drawer
         v-model:visible="visible"
@@ -71,6 +71,22 @@
   </div>
 </template>
 
+<script>
+import { defineComponent  } from 'vue'
+
+const token = localStorage.getItem('BLOG_USER_TOKEN')
+
+export default defineComponent({
+  beforeRouteEnter(to, from, next) {
+    if (token) {
+       next();
+    }
+    next("/");
+   }
+
+})
+</script>
+
 <script setup>
 import {  UserOutlined } from "@ant-design/icons-vue";
 import { Editor } from '@bytemd/vue-next'
@@ -83,6 +99,7 @@ import math from '@bytemd/plugin-math'
 import mermaid from '@bytemd/plugin-mermaid'
 import {reactive, ref} from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
 
 const router = useRouter();
 
@@ -97,8 +114,10 @@ const plugins = [
   mermaid()
 ]
 const content = ref('')
+// md编辑内容
 const handleChange = (v) => {
   content.value = v
+  console.log(v)
 }
 
 // 发布侧弹框
@@ -150,6 +169,32 @@ const tagValidate = (rule, value) => {
     return Promise.resolve()
   }
 }
+// md 图片上传
+const uploadImages = async  (files) => {
+  // console.log(files)
+  // const res = await upload(files)
+  return [
+    {
+      title: files.map((i) => i.name),
+      url: 'http'
+      // url: res.url
+    },
+  ];
+}
+const upload = async (files) => {
+  let formData = new FormData();
+  formData.append('file[]', files[0])
+  const res = await axios({
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      showLoad: 1,
+    },
+    url: '/api/system/common/upload.html',
+    data: formData,
+  })
+  return res.data.data[0]
+}
 // 关闭侧面弹框
 const onclose = () => {
   form.value.clearValidate()
@@ -157,11 +202,7 @@ const onclose = () => {
 }
 // 提交发布文章表单
 const submit = () => {
-  // form.value.validateFields(valid => {
-  //   if (!valid) return false
-  //   console.log(formState)
-  // })
-  console.log(form.value)
+  console.log(formState)
 }
 </script>
 

@@ -163,9 +163,6 @@ getVerCode();
 
 <script>
 import { defineComponent } from "vue";
-// import { useRoute} from "vue-router";
-// const route = useRoute()
-// console.log(route);
 export default defineComponent({
   beforeRouteEnter(to, from, next) {
     if ((from.path === "/home/home" || from.path === '/login') && from.query.code) {
