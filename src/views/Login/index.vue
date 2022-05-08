@@ -45,10 +45,11 @@
         <div class="code-login fsc" v-show="isCode">
           <div class="codeImg2">
             <div class="code-ma" ref="qrCodeUrl" />
-            <div class="shuaxinImg fsc" v-show="isExpired">
-              <img class="lxImg" @click="switchIscode"
+            <div class="shuaxinImg fsc" v-show="isExpired || responseCode === 2">
+              <img v-if="responseCode === 1" class="lxImg" @click="switchIscode"
                 src="data:image/png;base64,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"
                 alt="">
+              <check-circle-outlined v-else-if="responseCode === 2" style="font-size: 70px;color: green" />
             </div>
           </div>
           <div class="codeTips">{{ showTips }}</div>
@@ -82,7 +83,7 @@
 </template>
 
 <script setup>
-import { BoldOutlined, QuestionOutlined } from '@ant-design/icons-vue'
+import { BoldOutlined, QuestionOutlined, CheckCircleOutlined } from '@ant-design/icons-vue'
 import { useRoute, useRouter } from 'vue-router'
 import LoginForm from '../../components/LoginForm'
 import { ref, watch, nextTick } from 'vue'
@@ -143,14 +144,15 @@ watch(
   }
 )
 
+const responseCode = ref(0)
 const lxqrcode = () => {
   if (!timer2.value) return
   let time = setInterval(() => {
     timer2.value = false
     qrcodeCheckCode(qrCode.value)
       .then((res) => {
-        const responseCode = res.data.status
-        switch (responseCode) {
+        responseCode.value = res.data.status
+        switch (responseCode.value) {
           case 0:
             showTips.value = "请关注微信小程序 客博的你 扫码登录";
             break
