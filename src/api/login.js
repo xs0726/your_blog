@@ -74,7 +74,7 @@ export const loginByWeChatBind = (data) => request({
     method: 'post',
     data
 })
-export const qrcodeGgenerate = (data) => request({
+export const qrcodeGenerate = (data) => request({
     url: `qrcode/generate`,
     method: 'post',
     data

@@ -79,7 +79,6 @@ const router = useRouter();
 const qqInfo = route.params;
 
 const loginType = localStorage.getItem('loginType')
-// const Wxurl = '../../assets/images/m13.png'
 
 let formState = reactive({
   username: "",
