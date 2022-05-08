@@ -89,12 +89,10 @@ const init = async () => {
   if (route.query.code) {
     switch (localStorage.getItem('loginType')) {
       case 'qq':
-        // qq
         const {code,data,msg} = await loginByQQ(route.query.code)
         if (code === 200) {
           store.commit('app/setToken', data.token)
           store.commit('app/setUserInfo', data.user)
-          // router.go(0)
         } else if (code === 201) {
           message.error(msg)
           await router.push({name: 'bindAccount', params: data})
@@ -103,16 +101,13 @@ const init = async () => {
         }
       break;
       case 'wx':
-        // todo
         router.push({ name: "bindAccount", params: route.query.code });
       break;
       case 'github':
-        // github
         const res = await loginByGithub(route.query.code)
         if (res.code === 200) {
           store.commit('app/setToken', res.data.token)
           store.commit('app/setUserInfo', res.data.user)
-          // router.go(0)
         } else if (res.code === 201) {
           message.error(res.msg);
           router.push({ name: "bindAccount", params: res.data });
@@ -145,9 +140,6 @@ const gotop = () => {
 
 <style lang="scss" scoped>
 .home {
-  //width: 100%;
-  //height: 100%;
-  //overflow-y: auto;
   background: url('../../../src/assets/homeBg.jpg');
   background-size: 100% 100%;
   background-clip: content-box;
