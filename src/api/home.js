@@ -30,9 +30,18 @@ export const loginByQQ = (code) => {
         method: 'get'
     })
 }
+
+// 最热文章
 export const getFavArc = () => {
     return request({
         url: '/article/getFavArc',
+        method: 'get',
+    })
+}
+// 最新文章
+export const getLastArc = () => {
+    return request({
+        url: '/article/getLastArc',
         method: 'get',
     })
 }

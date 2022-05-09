@@ -128,7 +128,6 @@ const toggleMenu = () => {
 const gotop = () => {
   const timer = setInterval(() => {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-    console.log(scrollTop)
     if (scrollTop > 0) {
       window.scrollTo(0, scrollTop - 100)
     } else {
