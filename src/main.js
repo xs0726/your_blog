@@ -13,6 +13,10 @@ import "@/assets/styles/index.scss"
 import 'bytemd/dist/index.css'
 import 'highlight.js/styles/vs.css'
 import 'juejin-markdown-themes/dist/juejin.min.css'
+import {log} from "./utils/util";
+
+
+log('BLOG', '0.1.0');
 
 const app = createApp(App)
 

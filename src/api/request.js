@@ -3,18 +3,16 @@ import { message } from 'ant-design-vue';
 import { randomWord } from "../utils/util";
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_API ,
+    withCredentials: true,  //跨域携带cookie
     timeout: 6000
 })
 
 service.interceptors.request.use(config => {
     const token = localStorage.BLOG_USER_TOKEN ? localStorage.BLOG_USER_TOKEN : ''
-    if (token) {
-        config.headers['token'] = token
-    }
+    token && (config.headers['token'] = token)
     config.headers['traceId'] = randomWord(false, 32)
     return config
 }, error => {
-    console.log(error)
     return Promise.reject(new Error(error))
 })
 
@@ -23,7 +21,6 @@ service.interceptors.response.use(res => {
     if (status === 200 || status === 201) {
         return data
     } else {
-        console.log(res)
         return Promise.reject(new Error(data.msg))
     }
 }, error => {

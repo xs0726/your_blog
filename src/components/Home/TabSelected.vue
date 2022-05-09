@@ -1,6 +1,6 @@
 <template>
   <div class="TabListContent">
-    <div class="entry" v-for="(item) in data" :key="item.arcId" @click="goDetails(item)">
+    <div class="entry" v-for="(item) in favArcList" :key="item.arcId">
       <div class="meta-container">
         <div class="author">{{item.arcAuthor}}</div>
         <div class="date">{{item.date}}</div>
@@ -38,24 +38,18 @@ import {
   LikeOutlined,
   CommentOutlined,
 } from '@ant-design/icons-vue'
-import { getLastArc } from '@/api/home'
-import {useRouter} from "vue-router";
+import { getFavArc } from '@/api/home'
 import { ref } from 'vue'
 
-const router = useRouter()
-
-// 初始化数据，获取最新文章
-const data = ref([])
-getLastArc()
-  .then((result) => {
-    data.value = result.data
-  })
-  .catch((err) => {})
-
-// 打开文章详情页
-const goDetails = (item) => {
-  window.open(`/home/detail?arcId=${item.arcId}`)
+// 初始化数据，获取精选文章
+const favArcList = ref([])
+const getFavArcList = async () => {
+  const res = await getFavArc()
+  if (res.code === 200) {
+    favArcList.value = res.data
+  }
 }
+getFavArcList()
 
 </script>
 
