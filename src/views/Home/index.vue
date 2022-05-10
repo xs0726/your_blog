@@ -2,7 +2,7 @@
   <div class="home" ref="home">
     <Top />
     <div class="content">
-      <router-view />
+      <router-view v-wechat-title="route.meta.title" />
     </div>
     <div class="backTop">
       <div class="menu">

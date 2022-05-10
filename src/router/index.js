@@ -15,12 +15,18 @@ const routes = [
       {
         path: 'home',
         name: 'home',
-        component: () => import('../views/Home/Home')
+        component: () => import('../views/Home/Home'),
+        meta: {
+          title: '你的blog'
+        }
       },
       {
         path: 'about',
         name: 'about',
-        component: () => import('../views/About')
+        component: () => import('../views/About'),
+        meta: {
+          title: '关于我'
+        }
       },
       {
         path: 'detail',
@@ -33,21 +39,33 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import('@/views/Login'),
+    meta: {
+      title: '登录'
+    }
   },
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/views/Register')
+    component: () => import('@/views/Register'),
+    meta: {
+      title: '注册'
+    }
   },
   {
     path: '/bindAccount',
     name: 'bindAccount',
-    component: () => import('@/views/Login/bindQQ')
+    component: () => import('@/views/Login/bindQQ'),
+    meta: {
+      title: '绑定账号'
+    }
   },
   {
     path: '/editor',
     name: 'editor',
-    component: () => import('@/views/Editor')
+    component: () => import('@/views/Editor'),
+    meta: {
+      title: '发布文章'
+    }
   },
   { path: '/:pathMatch(.*)*', redirect: { name: 'home' } },
 ]

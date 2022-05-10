@@ -1,9 +1,15 @@
 <template>
-  <router-view></router-view>
+  <router-view v-wechat-title="route.meta.title"></router-view>
 </template>
 
+<script setup>
+import {useRoute} from "vue-router";
+
+const route = useRoute();
+</script>
+
 <style lang="scss">
-html { 
+html {
   font-size: calc(100vw / 10);
 }
 ::-webkit-scrollbar {

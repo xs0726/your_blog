@@ -54,7 +54,14 @@ getLastArc()
 
 // 打开文章详情页
 const goDetails = (item) => {
-  window.open(`/home/detail?arcId=${item.arcId}`)
+  let win = window.open(`/home/detail?arcId=${item.arcId}`)
+  const loop = setInterval(function () {
+    if (win.closed) {
+      clearInterval(loop);
+    } else {
+      win.document.title = item.arcHeadline
+    }
+  }, 1000);
 }
 
 </script>

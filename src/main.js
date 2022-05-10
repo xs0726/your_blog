@@ -13,6 +13,9 @@ import "@/assets/styles/index.scss"
 import 'bytemd/dist/index.css'
 import 'highlight.js/styles/vs.css'
 import 'juejin-markdown-themes/dist/juejin.min.css'
+
+import VueWechatTitle from 'vue-wechat-title'
+
 import {log} from "./utils/util";
 
 
@@ -23,4 +26,5 @@ const app = createApp(App)
 app.use(router)
 app.use(Antd);
 app.use(store)
+app.use(VueWechatTitle)
 app.mount('#app')
