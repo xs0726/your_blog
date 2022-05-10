@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" ref="home">
     <Top />
     <div class="content">
       <router-view />
@@ -74,16 +74,11 @@ import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import router from "../../router";
 import watermark from '@/utils/watermark'
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 
 const store = useStore()
 const route = useRoute()
 
-// document监听滚动事件
-const scroll = ref(0)
-window.addEventListener('scroll', () => {
-  scroll.value = document.documentElement.scrollTop
-})
 
 const init = async () => {
   if (route.query.code) {
@@ -124,12 +119,20 @@ const toggleMenu = () => {
   const menu = document.querySelector('.menu')
   menu.classList.toggle('active')
 }
+// document监听滚动事件
+const scroll = ref(0)
+const home = ref(null)
+onMounted(() => {
+  home.value.addEventListener('scroll', () => {
+    scroll.value = home.value.scrollTop
+  })
+})
 // 缓慢回到顶部
 const gotop = () => {
   const timer = setInterval(() => {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-    if (scrollTop > 0) {
-      window.scrollTo(0, scrollTop - 100)
+    // const scrollTop = home.value.scrollTop
+    if (scroll.value > 0) {
+      home.value.scrollTo(0, scroll.value - 100)
     } else {
       clearInterval(timer)
     }
@@ -139,13 +142,16 @@ const gotop = () => {
 
 <style lang="scss" scoped>
 .home {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
   background: url('../../../src/assets/homeBg.jpg');
   background-size: 100% 100%;
   background-clip: content-box;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
+  //min-width: 100%;
+  //min-height: 100%;
+  //width: auto;
+  //height: auto;
   .content {
     width: 1170px;
     margin: 0 auto;

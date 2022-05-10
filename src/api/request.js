@@ -3,7 +3,7 @@ import { message } from 'ant-design-vue';
 import { randomWord } from "../utils/util";
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_API ,
-    withCredentials: true,  //跨域携带cookie
+    // withCredentials: true,  //跨域携带cookie
     timeout: 6000
 })
 

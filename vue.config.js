@@ -19,7 +19,7 @@ module.exports = {
           msTileImage: 'favicon.ico'
       }
   },
-  // lintOnSave: false,  // 取消ESLint 的书写规范限制
+  lintOnSave: false,  // 取消ESLint 的书写规范限制
 
   devServer: { // Vue 服务器的配置文件
     //   host: "localhost",
