@@ -23,6 +23,8 @@ module.exports = {
 
   lintOnSave: false,  // 取消ESLint 的书写规范限制
 
+  productionSourceMap: false, // 取消生产环境的 source map
+
   // Vue 服务器的配置文件
   devServer: {
     // host: "localhost",
