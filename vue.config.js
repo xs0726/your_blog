@@ -2,7 +2,7 @@
 
 const CompressionPlugin = require("compression-webpack-plugin");
 
-// Vue 项目的配置文件
+// Vue 项目的配置文件 
 
 //反向代理  proxy 设置一个代理对象   处理后端和前端数据请求的跨域问题
 // 1.解决跨域
