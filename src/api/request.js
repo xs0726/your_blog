@@ -1,11 +1,13 @@
 import axios from "axios";
 import { message } from 'ant-design-vue';
 import { randomWord } from "../utils/util";
-const service = axios.create({
+
+export const configDefault = {
     baseURL: process.env.VUE_APP_BASE_API ,
     // withCredentials: true,  //跨域携带cookie
     timeout: 6000
-})
+}
+const service = axios.create(configDefault)
 
 service.interceptors.request.use(config => {
     const token = localStorage.BLOG_USER_TOKEN ? localStorage.BLOG_USER_TOKEN : ''

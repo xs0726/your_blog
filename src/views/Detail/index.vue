@@ -144,9 +144,13 @@
 <script setup>
 import { CommentOutlined, FieldTimeOutlined, LikeFilled } from '@ant-design/icons-vue'
 import {ref} from "vue";
+import $api from "@/api";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
 // 点赞数量
 const likeCount = ref(200)
+// ref
 const like = ref(null)
 // 点赞状态
 const likeStatus = ref(true)
@@ -161,6 +165,7 @@ const giveLike = () => {
     likeCount.value--
     like.value.classList.remove('active')
   }
+  $api.articlePraise({arcId: route.query.arcId})
 }
 
 // 评论内容

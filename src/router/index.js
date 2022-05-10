@@ -17,7 +17,7 @@ const routes = [
         name: 'home',
         component: () => import('../views/Home/Home'),
         meta: {
-          title: '你的blog'
+          title: '你的博客'
         }
       },
       {

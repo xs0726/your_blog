@@ -66,32 +66,33 @@
         name="basic"
         :label-col="{ span: 4 }"
         :wrapper-col="{ span: 20 }"
+        @finish="editorUserInfo"
         autocomplete="off"
       >
-        <a-form-item label="用户名" name="username">
-          <a-input v-model:value="settingFormState.username" />
-        </a-form-item>
+<!--        <a-form-item label="用户名" name="username">-->
+<!--          <a-input v-model:value="settingFormState.username" />-->
+<!--        </a-form-item>-->
 
-        <a-form-item label="手机号" name="phone">
-          <a-input
-            v-model:value="settingFormState.phone"
-            :disabled="!editPhoneFlag.flag"
-          >
-            <template #addonAfter>
-              <span style="cursor: pointer" @click="changeFlag">{{
-                editPhoneFlag.flag ? "取消" : "修改"
-              }}</span>
-            </template>
-          </a-input>
-        </a-form-item>
+<!--        <a-form-item label="手机号" name="phone">-->
+<!--          <a-input-->
+<!--            v-model:value="settingFormState.phone"-->
+<!--            :disabled="!editPhoneFlag.flag"-->
+<!--          >-->
+<!--            <template #addonAfter>-->
+<!--              <span style="cursor: pointer" @click="changeFlag">{{-->
+<!--                editPhoneFlag.flag ? "取消" : "修改"-->
+<!--              }}</span>-->
+<!--            </template>-->
+<!--          </a-input>-->
+<!--        </a-form-item>-->
 
         <a-form-item v-if="editPhoneFlag.flag" label="验证码" name="code">
           <a-input v-model:value="settingFormState.code" />
         </a-form-item>
 
-        <a-form-item label="邮箱地址" name="email">
-          <a-input v-model:value="settingFormState.email" />
-        </a-form-item>
+<!--        <a-form-item label="邮箱地址" name="email">-->
+<!--          <a-input v-model:value="settingFormState.email" />-->
+<!--        </a-form-item>-->
 
         <a-form-item label="用户头像">
           <a-upload
@@ -100,6 +101,8 @@
             list-type="picture-card"
             :show-upload-list="false"
             class="avatar-uploader"
+            :remove="handleRemove"
+            :before-upload="beforeUpload"
           >
             <img v-if="imageUrl" :src="imageUrl" alt="avatar" />
             <div v-else>
@@ -166,6 +169,7 @@ import { useStore } from "vuex";
 import { message } from "ant-design-vue";
 import { Encrypt } from "../../utils/aes";
 import { useRoute } from "vue-router";
+import $api from '@/api'
 //
 const store = useStore();
 const route = useRoute();
@@ -257,17 +261,17 @@ const submitPwd = async (v) => {
 
 // 推出登录
 const logout = async () => {
+  await logoutApi();
   delete localStorage.BLOG_USER_TOKEN;
   delete localStorage.BLOG_USER_INFO;
   store.commit("app/setToken", "");
   store.commit("app/setUserInfo", "");
-  await logoutApi();
+  message.success('退出成功')
   await router.replace("/login");
 };
 
 let searchValue = ref("");
 
-let imageUrl = ref("");
 
 const editPhoneFlag = reactive({
   flag: false,
@@ -287,6 +291,32 @@ const init = async () => {
   // }
 };
 init();
+
+const fileList = ref([]);
+// 上传前处理
+const beforeUpload = (file) => {
+  // 不允许上传多个文件
+  fileList.value = [file];
+  return false;
+}
+// 移除文件
+const handleRemove = (file) => {
+  const index = fileList.value.indexOf(file);
+  const newFileList = fileList.value.slice();
+  newFileList.splice(index, 1);
+  fileList.value = newFileList;
+}
+let imageUrl = ref("");
+const editorUserInfo = async () => {
+  const file = fileList.value[0];
+  if (!file) {
+    return message.error('请选择文件');
+  }
+  const fileData = new FormData()
+  fileData.append('file', file)
+  const res = await $api.uploadAvatar(fileData)
+  console.log(res)
+}
 </script>
 
 <style lang="scss" scoped>
