@@ -146,6 +146,7 @@ import { CommentOutlined, FieldTimeOutlined, LikeFilled } from '@ant-design/icon
 import {ref} from "vue";
 import $api from "@/api";
 import { useRoute } from "vue-router";
+import {useViewArc} from "../../Hooks/article/useLikeArc";
 
 const route = useRoute();
 // 点赞数量
@@ -155,7 +156,9 @@ const like = ref(null)
 // 点赞状态
 const likeStatus = ref(true)
 // 点赞
-const giveLike = () => {
+const giveLike = async () => {
+  const res = await $api.articlePraise({arcId: route.query.arcId})
+  if (res.code !== 200) return false
   if (likeStatus.value) {
     likeStatus.value = false
     likeCount.value++
@@ -165,8 +168,15 @@ const giveLike = () => {
     likeCount.value--
     like.value.classList.remove('active')
   }
-  $api.articlePraise({arcId: route.query.arcId})
 }
+
+// 浏览量 5s +1
+const viewchange = () => {
+  setTimeout(() => {
+    useViewArc(route.query.arcId)
+  }, 5000)
+}
+viewchange()
 
 // 评论内容
 const commentValue = ref('')

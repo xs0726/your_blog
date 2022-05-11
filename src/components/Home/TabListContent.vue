@@ -1,34 +1,38 @@
 <template>
   <div class="TabListContent">
-    <div class="entry" v-for="(item) in data" :key="item.arcId" @click="goDetails(item)">
-      <div class="meta-container">
-        <div class="author">{{item.arcAuthor}}</div>
-        <div class="date">{{item.date}}</div>
-        <div class="tag_list" v-for="l in item.tags" :key="l">
-          <div class="tag">{{l}}</div>
+      <template v-if="data.length > 0">
+        <div class="entry" v-for="(item) in data" :key="item.arcId" @click="goDetails(item)">
+          <div class="meta-container">
+            <div class="author">{{item.arcAuthor}}</div>
+            <div class="date">{{item.date}}</div>
+            <div class="tag_list" v-for="l in item.tags" :key="l">
+              <div class="tag">{{l}}</div>
+            </div>
+          </div>
+          <div class="content-wrapper">
+            <div class="title-row">
+              <div class="title" :title="item.arcHeadline">{{item.arcHeadline}}</div>
+            </div>
+            <div class="abstract">{{item.arcBrief}}</div>
+            <ul class="action-list">
+              <li class="item view">
+                <eye-outlined />
+                <span>{{item.arcView}}</span>
+              </li>
+              <li class="item like">
+                <like-filled style="color: #3d60e5" v-if="item.isLike" />
+                <like-outlined class="outlined" v-else />
+                <span>{{item.arcLike}}</span>
+              </li>
+              <li class="item comment">
+                <comment-outlined />
+                <span>{{item.arcComment}}</span>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div class="content-wrapper">
-        <div class="title-row">
-          <div class="title" :title="item.arcHeadline">{{item.arcHeadline}}</div>
-        </div>
-        <div class="abstract">{{item.arcBrief}}</div>
-        <ul class="action-list">
-          <li class="item view">
-            <eye-outlined />
-            <span>{{item.arcView}}</span>
-          </li>
-          <li class="item like">
-            <like-outlined />
-            <span>{{item.arcLike}}</span>
-          </li>
-          <li class="item comment">
-            <comment-outlined />
-            <span>{{item.arcComment}}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
+      </template>
+      <a-skeleton v-else />
   </div>
 </template>
 
@@ -37,10 +41,13 @@ import {
   EyeOutlined,
   LikeOutlined,
   CommentOutlined,
+  LikeFilled
 } from '@ant-design/icons-vue'
 import { getLastArc } from '@/api/home'
 import {useRouter} from "vue-router";
 import { ref } from 'vue'
+import {useEnterArc, useLikeArc} from "../../Hooks/article/useLikeArc";
+
 
 const router = useRouter()
 
@@ -52,17 +59,17 @@ getLastArc()
   })
   .catch((err) => {})
 
-// 打开文章详情页
+// 打开文章详情页 hooks
 const goDetails = (item) => {
-  let win = window.open(`/home/detail?arcId=${item.arcId}`)
-  const loop = setInterval(function () {
-    if (win.closed) {
-      clearInterval(loop);
-    } else {
-      win.document.title = item.arcHeadline
-    }
-  }, 1000);
+  useEnterArc(item)
 }
+
+// 用户点过赞的文章id hooks
+const likeArcRes = useLikeArc(data)
+data.value = likeArcRes.value
+
+
+// getLikeArcList()
 
 </script>
 
@@ -174,13 +181,15 @@ const goDetails = (item) => {
       .item {
         display: flex;
         align-items: center;
-        margin-right: 8px;
         position: relative;
         margin-right: 20px;
-        font-size: 13px;
+        font-size: 15px;
         line-height: 20px;
         color: #4e5969;
         flex-shrink: 0;
+      }
+      .like:hover {
+        color: #3d60e5;
       }
     }
   }

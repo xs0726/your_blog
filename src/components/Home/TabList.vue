@@ -1,5 +1,5 @@
 <template>
-  <a-tabs v-model:activeKey="activeKey">
+  <a-tabs destroyInactiveTabPane v-model:activeKey="activeKey">
     <a-tab-pane key="1" tab="最新">
       <TabListContent />
     </a-tab-pane>

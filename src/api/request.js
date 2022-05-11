@@ -1,6 +1,9 @@
 import axios from "axios";
 import { message } from 'ant-design-vue';
 import { randomWord } from "../utils/util";
+import {useRouter} from 'vue-router';
+import useLogout from "../Hooks/useLogout";
+const router = useRouter();
 
 export const configDefault = {
     baseURL: process.env.VUE_APP_BASE_API ,
@@ -24,6 +27,10 @@ service.interceptors.response.use(res => {
         return data
     } else {
         return Promise.reject(new Error(data.msg))
+    }
+    if (res.data.code === 1101) {
+        useLogout()
+        router.push('/login')
     }
 }, error => {
     error.response &&  message.error(error.response.data.msg)

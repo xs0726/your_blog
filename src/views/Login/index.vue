@@ -168,8 +168,7 @@ const lxqrcode = () => {
             break;
           case 3:
             clearInterval(time)
-            store.commit('app/setToken', res.data.data.token)
-            store.commit('app/setUserInfo', res.data.data.user)
+            useGetUserInfo(res)
             message.success('登录成功')
             router.push('/')
         }

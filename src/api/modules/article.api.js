@@ -7,5 +7,22 @@ export default ({ request, baseURL }) => ({
       method: 'GET',
       params
     })
+  },
+
+  // 获取当前用户点赞文章
+  getArtLiked(){
+    return request({
+      url: `${baseURL}/artLiked/get`,
+      method: 'GET'
+    })
+  },
+
+  // 浏览文章
+  viewArc(params) {
+    return request({
+      url: `${baseURL}/article/v`,
+      method: 'GET',
+      params
+    })
   }
 })
