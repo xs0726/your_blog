@@ -50,7 +50,7 @@ import {useEnterArc, useLikeArc} from "../../Hooks/article/useLikeArc";
 // 初始化数据，获取精选文章
 const favArcList = ref([])
 const getFavArcList = async () => {
-  const res = await getFavArc()
+  const res = await getFavArc({bLabel: '', bType: ''})
   if (res.code === 200) {
     favArcList.value = res.data
   }

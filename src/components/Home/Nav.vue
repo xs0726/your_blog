@@ -24,12 +24,12 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 const navList = [
   {
-    name: "首页",
+    name: "首 页",
     path: "home",
     children: [],
   },
   {
-    name: "编程",
+    name: "后 端",
     path: "",
     children: [
       {
@@ -37,11 +37,11 @@ const navList = [
         path: "",
       },
       {
-        name: "python",
+        name: "Python",
         path: "",
       },
       {
-        name: "C语言",
+        name: "C",
         path: "",
       },
       {
@@ -55,43 +55,123 @@ const navList = [
       {
         name: "C#",
         path: "",
-      },
-      {
-        name: "JavaScript",
-        path: "",
-      },
-      {
-        name: "Vue",
-        path: "",
-      },
-      {
-        name: "React",
-        path: "",
-      },
+      }
     ],
   },
   {
-    name: "资讯",
+    name: "前 端",
     path: "",
     children: [
       {
-        name: "新闻",
+        name: "HTML",
       },
       {
-        name: "体育",
+        name: "Css",
       },
+      {
+        name: "JavaScript",
+      },
+      {
+        name: "Vue",
+      },
+      {
+        name: "React",
+      },
+      {
+        name: "Node",
+      },
+      {
+        name: "Webpack",
+      }
     ],
   },
   {
-    name: "留言板",
+    name: "服务器",
     path: "",
-    children: [],
+    children: [
+      {
+        name: "Linux",
+      },
+      {
+        name: "Nginx",
+      },
+      {
+        name: "Apache",
+      },
+      {
+        name: "Tomcat",
+      }
+    ],
   },
   {
-    name: "关于",
-    path: "about",
-    children: [],
+    name: "数据库",
+    path: "",
+    children: [
+      {
+        name: "MySQL",
+      },
+      {
+        name: "MongoDB",
+      },
+      {
+        name: "Redis",
+      },
+      {
+        name: "Oracle",
+      },
+      {
+        name: "SQL Server",
+      }
+    ],
   },
+  {
+    name: "开发工具",
+    path: "",
+    children: [
+      {
+        name: "Git",
+      },
+      {
+        name: "SVN",
+      },
+      {
+        name: "Sublime",
+      },
+      {
+        name: "VsCode",
+      },
+      {
+        name: "Eclipse",
+      },
+      {
+        name: "PhpStorm",
+      },
+      {
+        name: "PyCharm",
+      },
+      {
+        name: "WebStorm",
+      },
+      {
+        name: "IntelliJ",
+      }
+    ],
+  },
+  {
+    name: "面试题",
+    path: "",
+    children: []
+  },
+  {
+    name: "阅 读",
+    path: "",
+    children: []
+  },
+  {
+    name: "成长之路",
+    path: "",
+    children: []
+  }
 ];
 </script>
 
@@ -120,11 +200,11 @@ const navList = [
           }
         }
         .layer {
-          width: 100%;
+          width: 50%;
           background-color: #fff;
           margin: 0 auto;
           position: fixed;
-          left: 0;
+          left: 180px;
           top: 50px;
           height: 0;
           overflow: hidden;

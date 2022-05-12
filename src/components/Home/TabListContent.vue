@@ -53,7 +53,7 @@ const router = useRouter()
 
 // 初始化数据，获取最新文章
 const data = ref([])
-getLastArc()
+getLastArc({bLabel: '', bType: ''})
   .then((result) => {
     data.value = result.data
   })

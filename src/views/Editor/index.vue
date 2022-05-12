@@ -42,14 +42,14 @@
             :rules="[{ required: true, message: '请选择一个分类' }]"
         >
           <a-radio-group v-model:value="formState.classify" button-style="solid">
-            <a-radio-button value="后端">后端</a-radio-button>
-            <a-radio-button value="前端">前端</a-radio-button>
-            <a-radio-button value="Android">Android</a-radio-button>
-            <a-radio-button value="iOS">iOS</a-radio-button>
-            <a-radio-button value="人工智能">人工智能</a-radio-button>
-            <a-radio-button value="开发工具">开发工具</a-radio-button>
-            <a-radio-button value="代码人生">代码人生</a-radio-button>
-            <a-radio-button value="阅读">阅读</a-radio-button>
+            <a-radio-button value="1">后端</a-radio-button>
+            <a-radio-button value="2">前端</a-radio-button>
+            <a-radio-button value="3">服务器</a-radio-button>
+            <a-radio-button value="4">数据库</a-radio-button>
+            <a-radio-button value="5">开发工具</a-radio-button>
+            <a-radio-button value="6">面试题</a-radio-button>
+            <a-radio-button value="7">阅读</a-radio-button>
+            <a-radio-button value="8">成长之路</a-radio-button>
           </a-radio-group>
         </a-form-item>
 
@@ -99,7 +99,8 @@ import math from '@bytemd/plugin-math'
 import mermaid from '@bytemd/plugin-mermaid'
 import {reactive, ref} from "vue";
 import { useRouter } from "vue-router";
-import axios from "axios";
+import $api from '@/api'
+import {message} from "ant-design-vue";
 
 const router = useRouter();
 
@@ -130,29 +131,30 @@ const formState = reactive({
 })
 // 标签tagOptions
 const tagOptions = [
-  { label: 'vue', value: 'vue' },
-  { label: 'react', value: 'react' },
-  { label: 'node', value: 'node' },
-  { label: 'webpack', value: 'webpack' },
-  { label: 'css', value: 'css' },
-  { label: 'html', value: 'html' },
-  { label: 'js', value: 'js' },
-  { label: 'java', value: 'java' },
-  { label: 'python', value: 'python' },
-  { label: 'php', value: 'php' },
-  { label: 'ruby', value: 'ruby' },
-  { label: 'go', value: 'go' },
-  { label: 'rust', value: 'rust' },
-  { label: 'scala', value: 'scala' },
-  { label: 'swift', value: 'swift' },
-  { label: 'kotlin', value: 'kotlin' },
-  { label: 'c', value: 'c' },
-  { label: 'c++', value: 'c++' },
-  { label: 'c#', value: 'c#' },
-  { label: 'javaScript', value: 'javaScript' },
-  { label: 'typescript', value: 'typescript' },
-  { label: 'python3', value: 'python3' },
-  { label: 'php7', value: 'php7' }
+  { label: 'Java', value: '1' },
+  { label: 'Python', value: '2' },
+  { label: 'C', value: '3' },
+  { label: 'Go', value: '4' },
+  { label: 'C++', value: '5' },
+  { label: 'C#', value: '6' },
+  { label: 'HTML', value: '7' },
+  { label: 'Css', value: '8' },
+  { label: 'JavaScript', value: '9' },
+  { label: 'Vue', value: '10' },
+  { label: 'React', value: '11' },
+  { label: 'Node', value: '12' },
+  { label: 'Webpack', value: '13' },
+  { label: 'Linux', value: '14' },
+  { label: 'Nginx', value: '15' },
+  { label: 'Apache', value: '16' },
+  { label: 'Tomcat', value: '17' },
+  { label: 'MySQL', value: '18' },
+  { label: 'MongoDB', value: '19' },
+  { label: 'Redis', value: '20' },
+  { label: 'Oracle', value: '21' },
+  { label: 'SQL Server', value: '22' },
+  { label: 'Git', value: '23' },
+  { label: 'SVN', value: '24' }
 ]
 const afterVisibleChange = (bool) => {
   console.log('visible', bool);
@@ -171,29 +173,21 @@ const tagValidate = (rule, value) => {
 }
 // md 图片上传
 const uploadImages = async  (files) => {
-  // console.log(files)
-  // const res = await upload(files)
+  const res = await upload(files)
   return [
     {
       title: files.map((i) => i.name),
-      url: 'http'
-      // url: res.url
+      // url: 'http'
+      url: `http://106.15.186.163${res}`
     },
   ];
 }
 const upload = async (files) => {
   let formData = new FormData();
-  formData.append('file[]', files[0])
-  const res = await axios({
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-      showLoad: 1,
-    },
-    url: '/api/system/common/upload.html',
-    data: formData,
-  })
-  return res.data.data[0]
+  formData.append('file', files[0])
+  const res = await $api.uploadArc(formData)
+  if (res.code !== 200) return message.error(res.msg)
+  return res.data
 }
 // 关闭侧面弹框
 const onclose = () => {
@@ -276,4 +270,5 @@ const submit = () => {
   text-align: center;
   margin: 5px;
 }
+
 </style>

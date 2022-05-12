@@ -24,5 +24,14 @@ export default ({ request, baseURL }) => ({
       method: 'GET',
       params
     })
+  },
+
+  // 上传文章图片
+  uploadArc(params) {
+    return request({
+      url: `${baseURL}/article/uploadArcPic`,
+      method: 'POST',
+      data: params
+    })
   }
 })
