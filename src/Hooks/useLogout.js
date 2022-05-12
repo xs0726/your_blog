@@ -1,6 +1,7 @@
 import store from '../store';
+import router from "../router";
+import { toRaw} from "vue";
 
-// const store = useStore();
 
 export default function useLogout() {
   // 清除所有登录信息
@@ -8,4 +9,5 @@ export default function useLogout() {
   delete localStorage.BLOG_USER_INFO;
   store.commit("app/setToken", "");
   store.commit("app/setUserInfo", "");
+  router.push('/login?callbackurl=' + encodeURIComponent(toRaw(router).currentRoute.value.fullPath) )
 }

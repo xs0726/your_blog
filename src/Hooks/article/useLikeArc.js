@@ -4,10 +4,12 @@
 import {ref} from "vue";
 import {forEach, includes} from "lodash";
 import $api from '@/api'
+import store from '@/store'
 
 export function useLikeArc(data) {
   // 用户点过赞的文章id
-  const likeArcListId = ref([])
+  if (store.state.app.token) {
+    const likeArcListId = ref([])
     $api.getArtLiked().then(res => {
       if (res.code !== 200) return
       likeArcListId.value = res.data
@@ -15,6 +17,7 @@ export function useLikeArc(data) {
         item.isLike = includes(likeArcListId.value, item.arcId)
       })
     })
+  }
   return data
 }
 

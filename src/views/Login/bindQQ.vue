@@ -69,7 +69,7 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { reactive, ref } from "vue";
-import { getCode, loginBindGithub, loginBindQQ, loginBindWeChat} from "../../api/login";
+import { getCode, loginBindGithub, loginBindQQ, loginByWeChat} from "../../api/login";
 import { useStore } from "vuex";
 import { Encrypt } from "../../utils/aes";
 import { message } from "ant-design-vue";
@@ -101,7 +101,7 @@ const login = async () => {
   }
   switch (loginType) {
     case 'wx':
-      const { wxCode, wMessage } = await loginBindWeChat(route.query.code)
+      const { wxCode, wMessage } = await loginByWeChat(route.query.code)
       if (wxCode !== 200) {
         formState.code = "";
         await getVerCode();

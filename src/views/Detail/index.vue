@@ -143,7 +143,7 @@
 
 <script setup>
 import { CommentOutlined, FieldTimeOutlined, LikeFilled } from '@ant-design/icons-vue'
-import {ref} from "vue";
+import {onUnmounted, ref} from "vue";
 import $api from "@/api";
 import { useRoute } from "vue-router";
 import {useViewArc} from "../../Hooks/article/useLikeArc";
@@ -171,12 +171,15 @@ const giveLike = async () => {
 }
 
 // 浏览量 5s +1
-const viewchange = () => {
-  setTimeout(() => {
-    useViewArc(route.query.arcId)
-  }, 5000)
-}
-viewchange()
+const viewChangeTime = setTimeout(() => {
+  useViewArc(route.query.arcId)
+}, 5000)
+
+
+// 关闭页面取消定时器
+onUnmounted(() => {
+  clearTimeout(viewChangeTime)
+})
 
 // 评论内容
 const commentValue = ref('')
