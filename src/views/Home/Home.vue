@@ -63,7 +63,6 @@ import router from '../../router'
   .recommend {
     width: 100%;
     display: flex;
-    background: #000;
   }
 }
 </style>

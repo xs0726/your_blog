@@ -7,7 +7,7 @@
           <router-link :to="`/home/${nav.path}`">{{ nav.name }}</router-link>
           <div v-if="nav.children.length" class="layer">
             <ul >
-              <li v-for="(sub, index) in nav.children" :key="index">
+              <li v-for="(sub, index) in nav.children" :key="index" @click="goPosts(sub)">
                 {{ sub.name }}
               </li>
             </ul>
@@ -19,9 +19,10 @@
 </template>
 
 <script setup>
-import router from "../../router";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import {forEach, includes} from "lodash";
 const route = useRoute();
+const router = useRouter();
 const navList = [
   {
     name: "首 页",
@@ -34,27 +35,27 @@ const navList = [
     children: [
       {
         name: "Java",
-        path: "",
+        id: "1",
       },
       {
         name: "Python",
-        path: "",
+        id: "2",
       },
       {
         name: "C",
-        path: "",
+        id: "3",
       },
       {
         name: "Go",
-        path: "",
+        id: "4",
       },
       {
         name: "C++",
-        path: "",
+        id: "5",
       },
       {
         name: "C#",
-        path: "",
+        id: "6",
       }
     ],
   },
@@ -64,24 +65,31 @@ const navList = [
     children: [
       {
         name: "HTML",
+        id: '7'
       },
       {
         name: "Css",
+        id: '8'
       },
       {
         name: "JavaScript",
+        id: '9'
       },
       {
         name: "Vue",
+        id: '10'
       },
       {
         name: "React",
+        id: '11'
       },
       {
         name: "Node",
+        id: '12'
       },
       {
         name: "Webpack",
+        id: '13'
       }
     ],
   },
@@ -91,15 +99,19 @@ const navList = [
     children: [
       {
         name: "Linux",
+        id: '14'
       },
       {
         name: "Nginx",
+        id: '15'
       },
       {
         name: "Apache",
+        id: '16'
       },
       {
         name: "Tomcat",
+        id: '17'
       }
     ],
   },
@@ -109,18 +121,23 @@ const navList = [
     children: [
       {
         name: "MySQL",
+        id: '18'
       },
       {
         name: "MongoDB",
+        id: '19'
       },
       {
         name: "Redis",
+        id: '20'
       },
       {
         name: "Oracle",
+        id: '21'
       },
       {
         name: "SQL Server",
+        id: '22'
       }
     ],
   },
@@ -130,30 +147,39 @@ const navList = [
     children: [
       {
         name: "Git",
+        id: '23'
       },
       {
         name: "SVN",
+        id: '24'
       },
       {
         name: "Sublime",
+        id: '25'
       },
       {
         name: "VsCode",
+        id: '26'
       },
       {
         name: "Eclipse",
+        id: '27'
       },
       {
         name: "PhpStorm",
+        id: '28'
       },
       {
         name: "PyCharm",
+        id: '29'
       },
       {
         name: "WebStorm",
+        id: '30'
       },
       {
         name: "IntelliJ",
+        id: '31'
       }
     ],
   },
@@ -173,6 +199,10 @@ const navList = [
     children: []
   }
 ];
+
+const goPosts = (item) => {
+  router.push({ name: 'posts', params: { id: item.id } })
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,11 +1,11 @@
 <template>
   <a-carousel class="banner" autoplay>
-    <div><img src="http://106.15.186.163/user/slideshowData/1.jpg" alt=""></div>
-    <div><img src="http://106.15.186.163/user/slideshowData/2.jpg" alt=""></div>
-    <div><img src="http://106.15.186.163/user/slideshowData/3.jpg" alt=""></div>
-    <div><img src="http://106.15.186.163/user/slideshowData/4.jpg" alt=""></div>
-    <div><img src="http://106.15.186.163/user/slideshowData/5.jpg" alt=""></div>
-    <div><img src="http://106.15.186.163/user/slideshowData/6.jpg" alt=""></div>
+    <div><img src="https://www.decunt.com/user/slideshowData/1.jpg" alt=""></div>
+    <div><img src="https://www.decunt.com/user/slideshowData/2.jpg" alt=""></div>
+    <div><img src="https://www.decunt.com/user/slideshowData/3.jpg" alt=""></div>
+    <div><img src="https://www.decunt.com/user/slideshowData/4.jpg" alt=""></div>
+    <div><img src="https://www.decunt.com/user/slideshowData/5.jpg" alt=""></div>
+    <div><img src="https://www.decunt.com/user/slideshowData/6.jpg" alt=""></div>
   </a-carousel>
 </template>
 
