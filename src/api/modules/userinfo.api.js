@@ -3,7 +3,7 @@ export default ({ request, baseURL }) => ({
   // 上传头像
   uploadAvatar(data) {
     return request({
-      url: `${baseURL}/video/uploadHeadShot`,
+      url: `${baseURL}/userCenter/uploadImg`,
       method: 'POST',
       data
     })

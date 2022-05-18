@@ -182,6 +182,7 @@ const modalVisible = reactive({
 });
 
 const pwdRef = ref(null);
+let avatarImg = ref("")
 
 // 关闭弹框
 const closeSettingModal = () => {
@@ -259,7 +260,7 @@ const submitPwd = async (v) => {
   }
 };
 
-// 推出登录
+// 退出登录
 const logout = async () => {
   await logoutApi();
   delete localStorage.BLOG_USER_TOKEN;
@@ -281,7 +282,7 @@ const changeFlag = () => {
 };
 
 const token = ref("");
-const avatarImg = `http://106.15.186.163/user/headImg/9/headShot.jpg`;
+avatarImg.value = userInfo.headShot === 1 ? `http://106.15.186.163/user/headImg/` + userInfo.userId + `/` + userInfo.headUrl : "https://www.decunt.com/user/slideshowData/4.jpg";
 const init = async () => {
   // console.log(route.query.)
   // token.value = localStorage.getItem('BLOG_USER_TOKEN') || ''
@@ -315,7 +316,9 @@ const editorUserInfo = async () => {
   const fileData = new FormData()
   fileData.append('file', file)
   const res = await $api.uploadAvatar(fileData)
-  console.log(res)
+  if (res.data.code == 200){
+    avatarImg.value = `http://106.15.186.163/user/headImg/` + userInfo.userId + `/` + res.data
+  }
 }
 </script>
 
