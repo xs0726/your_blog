@@ -21,7 +21,7 @@
       </div>
       <div v-else class="userinfo">
         <div class="avatar">
-          <img v-if="userInfo.userId" :src="avatarImg" alt />
+          <img v-if="Boolean(userInfo.headShot)" :src="userInfo.headUrl" alt />
           <a-avatar v-else style="background-color: #87d068">
             <template #icon>
               <UserOutlined />
@@ -30,12 +30,15 @@
         </div>
         <a-dropdown>
           <span class="welcome">
-            欢迎您,<span>{{ userInfo.username }}</span>
+            欢迎您,<span class="username">{{ userInfo.username }}</span>
           </span>
           <template #overlay>
             <a-menu>
               <a-menu-item>
                 <a href="javascript:;" @click="router.push('/editor')">写文章</a>
+              </a-menu-item>
+              <a-menu-item>
+                <router-link to="/personal">我的主页</router-link>
               </a-menu-item>
               <a-menu-item>
                 <a href="javascript:;" @click="modalVisible.settingModal = true">账号设置</a>
@@ -411,6 +414,9 @@ const editorUserInfo = async () => {
         font-size: 14px;
         //color: #1890ff;
         cursor: pointer;
+        .username {
+          text-align: center;
+        }
       }
       .avatar {
         width: 30px;
@@ -436,9 +442,6 @@ const editorUserInfo = async () => {
       padding: 10px;
       border-radius: 5px;
       font-size: 14px;
-      .username {
-        text-align: center;
-      }
       ul {
         li {
           height: 40px;
