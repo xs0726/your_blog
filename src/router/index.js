@@ -64,7 +64,27 @@ const routes = [
       title: '发布文章'
     }
   },
-  { path: '/:pathMatch(.*)*', redirect: { name: 'home' } },
+  {
+    path: '/personal',
+    name: 'personal',
+    component: () => import('@/views/Personal'),
+    meta: {
+      title: '个人主页'
+    }
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/404'),
+    meta: {
+      title: '找不到页面'
+    }
+  },
+  // {
+  //   path: '*',
+  //   redirect: { name: '404' }
+  // },
+  { path: '/:pathMatch(.*)*', redirect: { name: '404' } },
 ]
 
 const router = new createRouter({

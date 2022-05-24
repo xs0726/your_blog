@@ -1,5 +1,7 @@
 <template>
-  <router-view v-wechat-title="route.meta.title"></router-view>
+  <div class="app">
+    <router-view v-wechat-title="route.meta.title"></router-view>
+  </div>
 </template>
 
 <script setup>
@@ -9,6 +11,14 @@ const route = useRoute();
 </script>
 
 <style lang="scss">
+.app {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background: url('./assets/homeBg.jpg') no-repeat;
+  background-size: 100% 100%;
+  background-clip: content-box;
+}
 html {
   font-size: calc(100vw / 10);
 }
