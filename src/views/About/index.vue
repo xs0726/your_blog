@@ -46,8 +46,18 @@ import {
   CommentOutlined,
   LikeFilled
 } from '@ant-design/icons-vue'
+import {useRoute} from "vue-router";
+
+const route = useRoute();
 
 const data = []
+
+const init = () => {
+  if (Object.keys(route.params).length > 1) {
+    data.unshift(route.params)
+  }
+}
+init()
 </script>
 
 <style lang="scss" scoped>
@@ -133,7 +143,7 @@ const data = []
       .content-wrapper {
         //display: flex;
         padding-bottom: 12px;
-        border-bottom: 1px solid #e5e6eb;
+        //border-bottom: 1px solid #e5e6eb;
         margin-top: 10px;
         width: 100%;
         .title-row {
