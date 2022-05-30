@@ -27,11 +27,20 @@ export default ({ request, baseURL }) => ({
   },
 
   // 上传文章图片
-  uploadArc(params) {
+  uploadArcImg(params) {
     return request({
       url: `${baseURL}/article/uploadArcPic`,
       method: 'POST',
       data: params
     })
-  }
+  },
+
+  // 上传文章
+  uploadArticle(params) {
+    return request({
+      url: `${baseURL}/article/issueArc`,
+      method: 'POST',
+      data: params
+    })
+  },
 })

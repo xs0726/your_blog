@@ -42,14 +42,14 @@
             :rules="[{ required: true, message: '请选择一个分类' }]"
         >
           <a-radio-group v-model:value="formState.classify" button-style="solid">
-            <a-radio-button value="1">后端</a-radio-button>
-            <a-radio-button value="2">前端</a-radio-button>
-            <a-radio-button value="3">服务器</a-radio-button>
-            <a-radio-button value="4">数据库</a-radio-button>
-            <a-radio-button value="5">开发工具</a-radio-button>
-            <a-radio-button value="6">面试题</a-radio-button>
-            <a-radio-button value="7">阅读</a-radio-button>
-            <a-radio-button value="8">成长之路</a-radio-button>
+            <a-radio-button :value="1">后端</a-radio-button>
+            <a-radio-button :value="2">前端</a-radio-button>
+            <a-radio-button :value="3">服务器</a-radio-button>
+            <a-radio-button :value="4">数据库</a-radio-button>
+            <a-radio-button :value="5">开发工具</a-radio-button>
+            <a-radio-button :value="6">面试题</a-radio-button>
+            <a-radio-button :value="7">阅读</a-radio-button>
+            <a-radio-button :value="8">成长之路</a-radio-button>
           </a-radio-group>
         </a-form-item>
 
@@ -101,8 +101,13 @@ import {reactive, ref} from "vue";
 import { useRouter } from "vue-router";
 import $api from '@/api'
 import {message} from "ant-design-vue";
+import {useStore} from "vuex";
+import moment from "moment";
 
 const router = useRouter();
+const store = useStore();
+
+const userInfo = store.state.app.userInfo;
 
 const title = ref('')
 
@@ -118,7 +123,6 @@ const content = ref('')
 // md编辑内容
 const handleChange = (v) => {
   content.value = v
-  console.log(v)
 }
 
 // 发布侧弹框
@@ -185,7 +189,7 @@ const uploadImages = async  (files) => {
 const upload = async (files) => {
   let formData = new FormData();
   formData.append('file', files[0])
-  const res = await $api.uploadArc(formData)
+  const res = await $api.uploadArcImg(formData)
   if (res.code !== 200) return message.error(res.msg)
   return res.data
 }
@@ -195,8 +199,33 @@ const onclose = () => {
   visible.value = false
 }
 // 提交发布文章表单
-const submit = () => {
-  console.log(formState)
+const submit = async () => {
+  const params = {
+    headline: title.value,
+    type: formState.classify,
+    label: formState.tag + '',
+    digest: formState.abstract,
+    content: content.value
+  }
+  const res = await $api.uploadArticle(params)
+  if (res.code !== 200) return message.error(res.msg)
+  onclose()
+  message.success('发布成功')
+  await router.push({
+    name: `posts`,
+    params: {
+      id: formState.tag[0],
+      arcAuthor: userInfo.username,
+      arcBrief: formState.abstract,
+      arcComment: 0,
+      arcHeadline: title.value,
+      arcLike: 0,
+      arcView: 0,
+      date: moment().format('YYYY-MM-DD'),
+      arcType: formState.classify,
+      labels: formState.tag + ''
+    }
+  })
 }
 </script>
 
