@@ -130,13 +130,14 @@ import {Viewer} from '@bytemd/vue-next'
 import {onUnmounted, reactive, ref} from "vue";
 import $api from "@/api";
 import { useRoute } from "vue-router";
-import {useViewArc} from "../../Hooks/article/useLikeArc";
+import {useLikeArcList, useViewArc} from "../../Hooks/article/useLikeArc";
 import gfm from "@bytemd/plugin-gfm";
 import highlight from "@bytemd/plugin-highlight-ssr";
 import mediumZoom from "@bytemd/plugin-medium-zoom";
 import gemoji from "@bytemd/plugin-gemoji";
 import math from "@bytemd/plugin-math";
 import mermaid from "@bytemd/plugin-mermaid";
+import {includes} from "lodash";
 
 const plugins = [
   gfm(),
@@ -156,8 +157,6 @@ const like = ref(null)
 const likeStatus = ref(true)
 // 点赞
 const giveLike = async () => {
-  const res = await $api.articlePraise({arcId: route.query.arcId})
-  if (res.code !== 200) return false
   if (likeStatus.value) {
     likeStatus.value = false
     likeCount.value++
@@ -167,7 +166,19 @@ const giveLike = async () => {
     likeCount.value--
     like.value.classList.remove('active')
   }
+  const res = await $api.articlePraise({arcId: route.query.arcId})
+  if (res.code !== 200) return false
 }
+
+// 当前文章当前用户是否点赞过
+const isLike = async () => {
+  const res = await $api.getArtLiked()
+  if (includes(res.data, route.query.arcId)) {
+    like.value.classList.add('active')
+    likeStatus.value = false
+  }
+}
+isLike()
 
 // 浏览量 5s +1
 const viewChangeTime = setTimeout(() => {
