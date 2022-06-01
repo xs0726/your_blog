@@ -13,7 +13,7 @@
           <div class="title-row">
             <div class="title" :title="item.arcHeadline">{{item.arcHeadline}}</div>
           </div>
-          <div class="abstract">{{item.arcBrief}}</div>
+          <div class="abstract">{{item.arcDigest}}</div>
           <ul class="action-list">
             <li class="item view">
               <eye-outlined />
@@ -194,5 +194,8 @@ favArcList.value = likeArcRes.value
       }
     }
   }
+}
+.anticon {
+  margin: 0 5px;
 }
 </style>

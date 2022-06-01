@@ -5,10 +5,10 @@ export const classify = [
   { label: '前端', value: 2 },
   { label: '服务器', value: 3 },
   { label: '数据库', value: 4 },
-  { label: '开发工具', value: 5 },
-  { label: '面试题', value: 6 },
-  { label: '阅读', value: 7 },
-  { label: '成长之路', value: 8 }
+  { label: '开发工具', value: 5 }
+  // { label: '面试题', value: 6 }
+  // { label: '阅读', value: 7 },
+  // { label: '成长之路', value: 8 }
 ]
 
 // 标签

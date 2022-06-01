@@ -4,14 +4,14 @@
       <ul>
         <!--        <li><router-link to="/">首页</router-link></li>-->
         <li class="fsc" v-for="(nav, index) in navList" :key="index">
-          <router-link :to="`/home/${nav.path}`">{{ nav.name }}</router-link>
-          <div v-if="nav.children.length" class="layer">
-            <ul >
-              <li v-for="(sub, index) in nav.children" :key="index" @click="goPosts(sub)">
-                {{ sub.name }}
-              </li>
-            </ul>
-          </div>
+          <router-link :to="nav.id ? `/home/posts/${nav.id}` : `/home/${nav.path}`">{{ nav.name }}</router-link>
+<!--          <div v-if="nav.children.length" class="layer">-->
+<!--            <ul >-->
+<!--              <li v-for="(sub, index) in nav.children" :key="index" @click="goPosts(sub)">-->
+<!--                {{ sub.name }}-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
         </li>
       </ul>
     </div>
@@ -21,6 +21,7 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import {forEach, includes} from "lodash";
+import {onMounted, ref} from "vue";
 const route = useRoute();
 const router = useRouter();
 const navList = [
@@ -32,6 +33,7 @@ const navList = [
   {
     name: "后 端",
     path: "",
+    id: 1,
     children: [
       {
         name: "Java",
@@ -62,6 +64,7 @@ const navList = [
   {
     name: "前 端",
     path: "",
+    id: 2,
     children: [
       {
         name: "HTML",
@@ -96,6 +99,7 @@ const navList = [
   {
     name: "服务器",
     path: "",
+    id: 3,
     children: [
       {
         name: "Linux",
@@ -118,6 +122,7 @@ const navList = [
   {
     name: "数据库",
     path: "",
+    id: 4,
     children: [
       {
         name: "MySQL",
@@ -144,6 +149,7 @@ const navList = [
   {
     name: "开发工具",
     path: "",
+    id: 5,
     children: [
       {
         name: "Git",
@@ -182,27 +188,29 @@ const navList = [
         id: '31'
       }
     ],
-  },
-  {
-    name: "面试题",
-    path: "",
-    children: []
-  },
-  {
-    name: "阅 读",
-    path: "",
-    children: []
-  },
-  {
-    name: "成长之路",
-    path: "",
-    children: []
   }
+  // {
+  //   name: "面试题",
+  //   path: "",
+  //   id: 6,
+  //   children: []
+  // }
+  // {
+  //   name: "阅 读",
+  //   path: "",
+  //   children: []
+  // },
+  // {
+  //   name: "成长之路",
+  //   path: "",
+  //   children: []
+  // }
 ];
 
 const goPosts = (item) => {
   router.push({ name: 'posts', params: { id: item.id } })
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -220,6 +228,7 @@ const goPosts = (item) => {
         font-size: 14px;
         height: 100%;
         cursor: pointer;
+        margin: 0 10px;
         a {
           color: #000;
           &:hover {

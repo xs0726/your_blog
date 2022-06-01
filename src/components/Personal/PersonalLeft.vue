@@ -10,7 +10,7 @@
         </a-avatar>
       </div>
       <div class="userinfo-name">{{ userInfo.username }}</div>
-      <div class="userinfo-signature">123</div>
+      <div class="userinfo-signature">暂无个人简介</div>
     </div>
   </div>
 </template>
@@ -28,10 +28,11 @@ const userInfo = store.state.app.userInfo
 <style lang="scss" scoped>
 .PersonalLeft {
   width: 100%;
-  height: 100%;
+  //height: 100%;
   padding: 20px;
   border-radius: 5px;
   background: #fff;
+  margin-bottom: 20px;
   .userinfo {
     display: flex;
     flex-direction: column;
