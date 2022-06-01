@@ -47,14 +47,16 @@
             <a-radio-button :value="3">服务器</a-radio-button>
             <a-radio-button :value="4">数据库</a-radio-button>
             <a-radio-button :value="5">开发工具</a-radio-button>
-            <a-radio-button :value="6">面试题</a-radio-button>
-            <a-radio-button :value="7">阅读</a-radio-button>
-            <a-radio-button :value="8">成长之路</a-radio-button>
+<!--            <a-radio-button :value="6">面试题</a-radio-button>-->
+<!--            <a-radio-button :value="7">阅读</a-radio-button>-->
+<!--            <a-radio-button :value="8">成长之路</a-radio-button>-->
           </a-radio-group>
         </a-form-item>
 
         <a-form-item name="tag" label="添加标签" :rules="[{ required: true, validator: tagValidate, trigger: 'change' }]">
-          <a-select v-model:value="formState.tag" mode="multiple" :options="tagOptions" />
+          <a-select v-model:value="formState.tag" mode="multiple">
+            <a-select-option v-for="(item, index) in tagOptions" :key="item.index" :value="item.id">{{ item.labelName }}</a-select-option>
+          </a-select>
         </a-form-item>
 
         <a-form-item name="abstract" label="编辑摘要">
@@ -134,35 +136,16 @@ const formState = reactive({
   abstract: ''
 })
 // 标签tagOptions
-const tagOptions = [
-  { label: 'Java', value: '1' },
-  { label: 'Python', value: '2' },
-  { label: 'C', value: '3' },
-  { label: 'Go', value: '4' },
-  { label: 'C++', value: '5' },
-  { label: 'C#', value: '6' },
-  { label: 'HTML', value: '7' },
-  { label: 'Css', value: '8' },
-  { label: 'JavaScript', value: '9' },
-  { label: 'Vue', value: '10' },
-  { label: 'React', value: '11' },
-  { label: 'Node', value: '12' },
-  { label: 'Webpack', value: '13' },
-  { label: 'Linux', value: '14' },
-  { label: 'Nginx', value: '15' },
-  { label: 'Apache', value: '16' },
-  { label: 'Tomcat', value: '17' },
-  { label: 'MySQL', value: '18' },
-  { label: 'MongoDB', value: '19' },
-  { label: 'Redis', value: '20' },
-  { label: 'Oracle', value: '21' },
-  { label: 'SQL Server', value: '22' },
-  { label: 'Git', value: '23' },
-  { label: 'SVN', value: '24' }
-]
-const afterVisibleChange = (bool) => {
-  console.log('visible', bool);
-};
+const tagOptions = ref([])
+
+// 获取标签
+const getTag = async () => {
+  const res = await $api.getArticleTag()
+  if (res.code === 200) {
+    tagOptions.value = res.data
+  }
+}
+getTag()
 const form = ref(null)
 // 选择标签
 const tagValidate = (rule, value) => {
@@ -214,7 +197,7 @@ const submit = async () => {
   await router.push({
     name: `posts`,
     params: {
-      id: formState.tag[0],
+      id: formState.classify,
       arcAuthor: userInfo.username,
       arcBrief: formState.abstract,
       arcComment: 0,

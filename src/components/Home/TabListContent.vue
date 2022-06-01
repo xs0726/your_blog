@@ -5,6 +5,7 @@
           <div class="meta-container">
             <div class="author">{{item.arcAuthor}}</div>
             <div class="date">{{item.date}}</div>
+<!--            <div class="label">架构</div>-->
             <div class="tag_list" v-for="l in item.tags" :key="l">
               <div class="tag">{{l}}</div>
             </div>
@@ -13,7 +14,7 @@
             <div class="title-row">
               <div class="title" :title="item.arcHeadline">{{item.arcHeadline}}</div>
             </div>
-            <div class="abstract">{{item.arcBrief}}</div>
+            <div class="abstract">{{item.arcDigest}}</div>
             <ul class="action-list">
               <li class="item view">
                 <eye-outlined />
@@ -193,5 +194,8 @@ data.value = likeArcRes.value
       }
     }
   }
+}
+.anticon {
+  margin: 0 5px;
 }
 </style>

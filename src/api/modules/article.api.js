@@ -43,4 +43,30 @@ export default ({ request, baseURL }) => ({
       data: params
     })
   },
+
+  // 文章标签
+  getArticleTag(params) {
+    return request({
+      url: `${baseURL}/labelData/labelData`,
+      method: 'GET',
+      params
+    })
+  },
+
+  // 文章列表
+  getArticleList(params) {
+    return request({
+      url: `${baseURL}/article/search/tag`,
+      method: 'POST',
+      data: params
+    })
+  },
+
+  // 文章详情
+  getArticleDetail(id) {
+    return request({
+      url: `${baseURL}/article/getArc/${id}/info`,
+      method: 'GET'
+    })
+  }
 })

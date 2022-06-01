@@ -2,10 +2,11 @@
   <div class="posts">
     <div class="postsLeft">
       <template v-if="data.length > 0">
-        <div class="entry" v-for="(item) in data" :key="item.arcId">
+        <div class="entry" v-for="(item) in data" :key="item.arcId" @click="goDetails(item)">
           <div class="meta-container">
             <div class="author">{{item.arcAuthor}}</div>
             <div class="date">{{item.date}}</div>
+<!--            <div class="label">架构</div>-->
             <div class="tag_list" v-for="l in item.tags" :key="l">
               <div class="tag">{{l}}</div>
             </div>
@@ -14,7 +15,7 @@
             <div class="title-row">
               <div class="title" :title="item.arcHeadline">{{item.arcHeadline}}</div>
             </div>
-            <div class="abstract">{{item.arcBrief}}</div>
+            <div class="abstract">{{item.arcDigest}}</div>
             <ul class="action-list">
               <li class="item view">
                 <eye-outlined />
@@ -33,7 +34,7 @@
           </div>
         </div>
       </template>
-      <a-skeleton v-else />
+      <a-empty description="暂无数据"  v-else />
     </div>
     <div class="postsRight"></div>
   </div>
@@ -46,15 +47,50 @@ import {
   CommentOutlined,
   LikeFilled
 } from '@ant-design/icons-vue'
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
+import {classify} from '@/utils/dict'
+import {forEach} from "lodash";
+import {ref, watch} from "vue";
+import $api from "@/api";
+import {message} from "ant-design-vue";
+import {useEnterArc} from "../../Hooks/article/useLikeArc";
 
 const route = useRoute();
+const router = useRouter();
 
-const data = []
+const data = ref([])
 
-const init = () => {
+// 获取文章列表
+const getData = async () => {
+  const res = await $api.getArticleList({
+    bType: route.params.id,
+    bLabel: '',
+    pageNum: 1,
+    pageSize: 15
+  })
+  if (res.code !== 200) return message.error(res.msg)
+  data.value = res.data.list
+}
+
+// 监听路由变化 修改title
+watch(() =>router.currentRoute.value.path,(newValue,oldValue)=> {
+  forEach(classify, item => {
+    if (item.value === route.params.id * 1) {
+      window.document.title = item.label
+    }
+  })
+  if (!newValue.includes('/home/posts/')) return
+  getData()
+},{ immediate: true })
+
+// 打开文章详情页 hooks
+const goDetails = (item) => {
+  useEnterArc(item)
+}
+
+const init = async () => {
   if (Object.keys(route.params).length > 1) {
-    data.unshift(route.params)
+    data.value.unshift({...route.params})
   }
 }
 init()
@@ -74,7 +110,7 @@ init()
       display: flex;
       flex-direction: column;
       width: 100%;
-      height: 100%;
+      //height: 100%;
       padding: 12px 20px 0;
       border-radius: 10px;
       cursor: pointer;
@@ -139,6 +175,13 @@ init()
             color: #86909c;
           }
         }
+        .label {
+          flex-shrink: 0;
+          font-size: 13px;
+          line-height: 22px;
+          padding: 0 8px;
+          color: #86909c;
+        }
       }
       .content-wrapper {
         //display: flex;
@@ -198,5 +241,8 @@ init()
     border-radius: 5px;
     background-color: #fff;
   }
+}
+.anticon {
+  margin: 0 5px;
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <a-tabs destroyInactiveTabPane v-model:activeKey="activeKey">
-    <a-tab-pane key="1" tab="最新">
-      <TabListContent />
-    </a-tab-pane>
-    <a-tab-pane key="2" tab="精选">
+    <a-tab-pane key="1" tab="精选">
       <TabSelected />
+    </a-tab-pane>
+    <a-tab-pane key="2" tab="最新">
+      <TabListContent />
     </a-tab-pane>
   </a-tabs>
 </template>
