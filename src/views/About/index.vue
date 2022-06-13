@@ -35,6 +35,7 @@
         </div>
       </template>
       <a-empty description="暂无数据"  v-else />
+      <div v-if="loading" style="text-align: center"><a-spin /></div>
     </div>
     <div class="postsRight"></div>
   </div>
@@ -50,28 +51,43 @@ import {
 import {useRoute, useRouter} from "vue-router";
 import {classify} from '@/utils/dict'
 import {forEach} from "lodash";
-import {ref, watch} from "vue";
+import {ref, watch, watchEffect} from "vue";
 import $api from "@/api";
 import {message} from "ant-design-vue";
 import {useEnterArc} from "../../Hooks/article/useLikeArc";
+import {useStore} from "vuex";
 
 const route = useRoute();
 const router = useRouter();
+const store = useStore();
 
 const data = ref([])
+const loading = ref(false)
 
+const scroll = store.state.app.scroll
+let pageSize = 15
+// const total = ref(10000)
 // 获取文章列表
 const getData = async () => {
+  loading.value = true
   const res = await $api.getArticleList({
     bType: route.params.id,
     bLabel: '',
     pageNum: 1,
-    pageSize: 15
+    pageSize
   })
   if (res.code !== 200) return message.error(res.msg)
   data.value = res.data.list
+  // total.value = res.data.total
+  loading.value = false
 }
 
+watchEffect(() => {
+  if (store.state.app.scroll) {
+    pageSize += 10
+    getData()
+  }
+})
 // 监听路由变化 修改title
 watch(() =>router.currentRoute.value.path,(newValue,oldValue)=> {
   forEach(classify, item => {

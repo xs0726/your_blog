@@ -125,6 +125,13 @@ const home = ref(null)
 onMounted(() => {
   home.value.addEventListener('scroll', () => {
     scroll.value = home.value.scrollTop
+    let windowHeight = window.screen.height
+    let windowClientHeight = document.body.clientHeight
+    if (windowHeight + windowClientHeight <= scroll.value) {
+      store.commit('app/setScroll', true)
+    } else {
+      store.commit('app/setScroll', false)
+    }
   })
 })
 // 缓慢回到顶部
