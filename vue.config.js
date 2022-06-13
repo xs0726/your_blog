@@ -29,7 +29,7 @@ module.exports = {
       inline: true,
       proxy: {
           '/api': {
-              target: 'http://106.15.186.163:8080',
+              target: 'http://106.15.186.163/blog',
               changeOrigin: true,
               pathRewrite: {
                   '^/api': ''
