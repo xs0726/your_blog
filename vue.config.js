@@ -26,21 +26,21 @@ module.exports = {
   productionSourceMap: false, // 取消生产环境的 source map
 
   // Vue 服务器的配置文件
-  devServer: {
-    // host: "localhost",
-    port: '2101',
-    open: true, // 自动打开浏览器
-    hot: true, // 自动更新 热更新
-    inline: true,
-    proxy: {
-      '/api': {
-        target: 'http://106.15.186.163:8080',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': ''
-        }
+  devServer: { // Vue 服务器的配置文件
+    //   host: "localhost",
+      port: '2101',
+      open: true, // 自动打开浏览器
+      hot: true, // 自动更新 热更新
+      inline: true,
+      proxy: {
+          '/api': {
+              target: 'http://106.15.186.163/blog',
+              changeOrigin: true,
+              pathRewrite: {
+                  '^/api': ''
+              }
+          }
       }
-    }
   },
   css: {  // 处理css
     loaderOptions: {   // 加载器 处理样式
