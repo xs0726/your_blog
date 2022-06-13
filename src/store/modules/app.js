@@ -7,6 +7,7 @@ export default {
     state: () => ({
         token: localStorage.getItem('BLOG_USER_TOKEN') || '',
         userInfo: JSON.parse(localStorage.getItem('BLOG_USER_INFO')) || null,
+        scroll: false
     }),
     mutations: {
         setToken (state, token) {
@@ -16,6 +17,9 @@ export default {
         setUserInfo (state, payload) {
             state.userInfo = payload
             localStorage.setItem('BLOG_USER_INFO', JSON.stringify(payload))
+        },
+        setScroll (state, payload) {
+            state.scroll = payload
         }
     },
     actions: {
