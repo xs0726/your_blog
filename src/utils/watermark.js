@@ -3,7 +3,7 @@ import watermark from 'watermark-dom'
 watermark.init({
     watermark_id: 'wm_div_id',          //水印总体的id
     watermark_prefix: 'mask_div_id',    //小水印的id前缀
-    watermark_txt:"BLOG",               //水印的内容
+    watermark_txt:"你的BLOG",               //水印的内容
     watermark_x:20,                     //水印起始位置x轴坐标
     watermark_y:20,                     //水印起始位置Y轴坐标
     watermark_rows:0,                   //水印行数

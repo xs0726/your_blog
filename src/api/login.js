@@ -48,7 +48,7 @@ export const loginBindQQ = (key) => request({
  * @param {*} data
  * @returns
  */
- export const loginBindGithub = (key) => request({
+export const loginBindGithub = (key) => request({
     url: `/githubAccount/loginBindGithub?code=${key}`,
     method: 'get'
     // data
@@ -70,8 +70,17 @@ export const loginByWeChat = (key) => request({
     method: 'get'
 })
 
-export const loginBindWeChat = (data) => request({
-    url: ` weChatAccount/loginBindWeChat`,
+export const loginByWeChatBind = (data) => request({
+    url: `weChatAccount/loginBindWeChat`,
     method: 'post',
     data
+})
+export const qrcodeGenerate = (data) => request({
+    url: `qrcode/generate`,
+    method: 'post',
+    data
+})
+export const qrcodeCheckCode = (key) => request({
+    url: `qrcode/checkCode?code=${key}`,
+    method: 'get',
 })

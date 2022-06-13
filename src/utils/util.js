@@ -66,3 +66,17 @@ export function isAccount (s) {
         return Promise.reject('请输入4-12位字母加数字!')
     }
 }
+
+const _console = console;
+const createLog = (util) => (...args) => {
+    const fun = _console[util] ? _console[util] : _console.log;
+    fun.apply(void 0, args);
+};
+
+export const log = (title, version) => {
+    createLog('log')(
+        `%c ${title} %c V${version} `,
+        'padding: 2px 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060; font-weight: bold;',
+        'padding: 2px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e; font-weight: bold;'
+    );
+}

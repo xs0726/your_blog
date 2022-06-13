@@ -1,39 +1,38 @@
 <template>
   <div class="TabListContent">
-      <template v-if="data.length > 0">
-        <div class="entry" v-for="(item) in data" :key="item.arcId" @click="goDetails(item)">
-          <div class="meta-container">
-            <div class="author">{{item.arcAuthor}}</div>
-            <div class="date">{{item.date}}</div>
-<!--            <div class="label">架构</div>-->
-            <div class="tag_list" v-for="l in item.tags" :key="l">
-              <div class="tag">{{l}}</div>
-            </div>
-          </div>
-          <div class="content-wrapper">
-            <div class="title-row">
-              <div class="title" :title="item.arcHeadline">{{item.arcHeadline}}</div>
-            </div>
-            <div class="abstract">{{item.arcDigest}}</div>
-            <ul class="action-list">
-              <li class="item view">
-                <eye-outlined />
-                <span>{{item.arcView}}</span>
-              </li>
-              <li class="item like">
-                <like-filled style="color: #3d60e5" v-if="item.isLike" />
-                <like-outlined class="outlined" v-else />
-                <span>{{item.arcLike}}</span>
-              </li>
-              <li class="item comment">
-                <comment-outlined />
-                <span>{{item.arcComment}}</span>
-              </li>
-            </ul>
+    <template v-if="favArcList.length > 0">
+      <div class="entry" v-for="(item) in favArcList" :key="item.arcId" @click="goDetails(item)">
+        <div class="meta-container">
+          <div class="author">{{item.arcAuthor}}</div>
+          <div class="date">{{item.date}}</div>
+          <div class="tag_list" v-for="l in item.tags" :key="l">
+            <div class="tag">{{l}}</div>
           </div>
         </div>
-      </template>
-      <a-skeleton v-else />
+        <div class="content-wrapper">
+          <div class="title-row">
+            <div class="title" :title="item.arcHeadline">{{item.arcHeadline}}</div>
+          </div>
+          <div class="abstract">{{item.arcDigest}}</div>
+          <ul class="action-list">
+            <li class="item view">
+              <eye-outlined />
+              <span>{{item.arcView}}</span>
+            </li>
+            <li class="item like">
+              <like-filled style="color: #3d60e5" v-if="item.isLike" />
+              <like-outlined class="outlined" v-else />
+              <span>{{item.arcLike}}</span>
+            </li>
+            <li class="item comment">
+              <comment-outlined />
+              <span>{{item.arcComment}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </template>
+    <a-skeleton v-else />
   </div>
 </template>
 
@@ -44,33 +43,31 @@ import {
   CommentOutlined,
   LikeFilled
 } from '@ant-design/icons-vue'
-import { getLastArc } from '@/api/home'
-import {useRouter} from "vue-router";
-import { ref } from 'vue'
+import { getFavArc } from '@/api/home'
+import { ref, watch } from 'vue'
 import {useEnterArc, useLikeArc} from "../../Hooks/article/useLikeArc";
 
-
-const router = useRouter()
-
-// 初始化数据，获取最新文章
-const data = ref([])
-getLastArc({bLabel: '', bType: ''})
-  .then((result) => {
-    data.value = result.data
-  })
-  .catch((err) => {})
+// 初始化数据，获取精选文章
+const favArcList = ref([])
+const getFavArcList = async () => {
+  const res = await getFavArc({bLabel: '', bType: ''})
+  if (res.code === 200) {
+    favArcList.value = res.data
+  }
+}
+getFavArcList()
 
 // 打开文章详情页 hooks
 const goDetails = (item) => {
   useEnterArc(item)
 }
 
+
+
 // 用户点过赞的文章id hooks
-const likeArcRes = useLikeArc(data)
-data.value = likeArcRes.value
+const likeArcRes = useLikeArc(favArcList)
+favArcList.value = likeArcRes.value
 
-
-// getLikeArcList()
 
 </script>
 
@@ -188,6 +185,9 @@ data.value = likeArcRes.value
         line-height: 20px;
         color: #4e5969;
         flex-shrink: 0;
+        .active {
+          color: #3d60e5;
+        }
       }
       .like:hover {
         color: #3d60e5;

@@ -42,11 +42,12 @@ import {reactive, ref} from "vue";
 import { getCode } from "../api/login";
 // import { message } from 'ant-design-vue';
 import { Encrypt } from "../utils/aes";
-// import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex'
 import {message} from "ant-design-vue";
 
-  // const router = new useRouter()
+  const route = useRoute()
+  const router = useRouter()
   const store = useStore()
 
 // 登录表单数据
@@ -73,11 +74,14 @@ import {message} from "ant-design-vue";
           uuid: uuid.value,
           verificationCode: formState.code
         }
-        const {code, message:msg} = await store.dispatch('app/login', params)
+        const {code, msg} = await store.dispatch('app/login', params)
         if (code !== 200) {
           formState.code = ''
           await getVerCode()
           return message.error(msg)
+        }
+        if (route.query.callbackurl) {
+          router.push(route.query.callbackurl)
         }
         localStorage.setItem('BLOG-USERINFO', JSON.stringify(formState))
         message.success('登录成功')

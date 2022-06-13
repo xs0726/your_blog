@@ -15,12 +15,15 @@ const routes = [
       {
         path: 'home',
         name: 'home',
-        component: () => import('../views/Home/Home')
+        component: () => import('../views/Home/Home'),
+        meta: {
+          title: '你的博客-专属于你的博客'
+        }
       },
       {
-        path: 'about',
-        name: 'about',
-        component: () => import('../views/About')
+        path: 'posts/:id',
+        name: 'posts',
+        component: () => import('../views/About'),
       },
       {
         path: 'detail',
@@ -33,23 +36,55 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import('@/views/Login'),
+    meta: {
+      title: '登录'
+    }
   },
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/views/Register')
+    component: () => import('@/views/Register'),
+    meta: {
+      title: '注册'
+    }
   },
   {
     path: '/bindAccount',
     name: 'bindAccount',
-    component: () => import('@/views/Login/bindQQ')
+    component: () => import('@/views/Login/bindQQ'),
+    meta: {
+      title: '绑定账号'
+    }
+  },
+  {
+    path: '/editor',
+    name: 'editor',
+    component: () => import('@/views/Editor'),
+    meta: {
+      title: '发布文章'
+    }
+  },
+  {
+    path: '/personal',
+    name: 'personal',
+    component: () => import('@/views/Personal'),
+    meta: {
+      title: '个人主页'
+    }
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/404'),
+    meta: {
+      title: '找不到页面'
+    }
   },
   // {
-  //   path: '/bindGithub',
-  //   name: 'bindGithub',
-  //   component: () => import('@/views/Login/bindGithub')
+  //   path: '*',
+  //   redirect: { name: '404' }
   // },
-  { path: '/:pathMatch(.*)*', redirect: { name: 'home' } },
+  { path: '/:pathMatch(.*)*', redirect: { name: '404' } },
 ]
 
 const router = new createRouter({

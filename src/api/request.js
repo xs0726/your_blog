@@ -1,16 +1,18 @@
 import axios from "axios";
 import { message } from 'ant-design-vue';
 import { randomWord } from "../utils/util";
-const service = axios.create({
+import useLogout from "../Hooks/useLogout";
+
+export const configDefault = {
     baseURL: process.env.VUE_APP_BASE_API ,
+    // withCredentials: true,  //跨域携带cookie
     timeout: 6000
-})
+}
+const service = axios.create(configDefault)
 
 service.interceptors.request.use(config => {
     const token = localStorage.BLOG_USER_TOKEN ? localStorage.BLOG_USER_TOKEN : ''
-    if (token) {
-        config.headers['token'] = token
-    }
+    token && (config.headers['token'] = token)
     config.headers['traceId'] = randomWord(false, 32)
     return config
 }, error => {
@@ -22,12 +24,14 @@ service.interceptors.response.use(res => {
     if (status === 200 || status === 201) {
         return data
     } else {
-        // message.error('数据库异常,请联系管理员');
-        return Promise.reject(new Error(data.message))
+        return Promise.reject(new Error(data.msg))
     }
 }, error => {
-    error.response &&  message.error(error.response.data.message)
-    return Promise.reject(new Error(error.response.data.message))
+    if (error.response.data.code === 1101) {
+        useLogout()
+    }
+    error.response &&  message.error(error.response.data.msg)
+    return Promise.reject(new Error(error.response.data.msg))
 })
 
 export default service

@@ -4,14 +4,14 @@
       <ul>
         <!--        <li><router-link to="/">首页</router-link></li>-->
         <li class="fsc" v-for="(nav, index) in navList" :key="index">
-          <router-link :to="`/home/${nav.path}`">{{ nav.name }}</router-link>
-          <div v-if="nav.children.length" class="layer">
-            <ul >
-              <li v-for="(sub, index) in nav.children" :key="index">
-                {{ sub.name }}
-              </li>
-            </ul>
-          </div>
+          <router-link :to="nav.id ? `/home/posts/${nav.id}` : `/home/${nav.path}`">{{ nav.name }}</router-link>
+<!--          <div v-if="nav.children.length" class="layer">-->
+<!--            <ul >-->
+<!--              <li v-for="(sub, index) in nav.children" :key="index" @click="goPosts(sub)">-->
+<!--                {{ sub.name }}-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
         </li>
       </ul>
     </div>
@@ -19,80 +19,198 @@
 </template>
 
 <script setup>
-import router from "../../router";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import {forEach, includes} from "lodash";
+import {onMounted, ref} from "vue";
 const route = useRoute();
+const router = useRouter();
 const navList = [
   {
-    name: "首页",
+    name: "首 页",
     path: "home",
     children: [],
   },
   {
-    name: "编程",
+    name: "后 端",
     path: "",
+    id: 1,
     children: [
       {
         name: "Java",
-        path: "",
+        id: "1",
       },
       {
-        name: "python",
-        path: "",
+        name: "Python",
+        id: "2",
       },
       {
-        name: "C语言",
-        path: "",
+        name: "C",
+        id: "3",
       },
       {
         name: "Go",
-        path: "",
+        id: "4",
       },
       {
         name: "C++",
-        path: "",
+        id: "5",
       },
       {
         name: "C#",
-        path: "",
+        id: "6",
+      }
+    ],
+  },
+  {
+    name: "前 端",
+    path: "",
+    id: 2,
+    children: [
+      {
+        name: "HTML",
+        id: '7'
+      },
+      {
+        name: "Css",
+        id: '8'
       },
       {
         name: "JavaScript",
-        path: "",
+        id: '9'
       },
       {
         name: "Vue",
-        path: "",
+        id: '10'
       },
       {
         name: "React",
-        path: "",
+        id: '11'
       },
+      {
+        name: "Node",
+        id: '12'
+      },
+      {
+        name: "Webpack",
+        id: '13'
+      }
     ],
   },
   {
-    name: "资讯",
+    name: "服务器",
     path: "",
+    id: 3,
     children: [
       {
-        name: "新闻",
+        name: "Linux",
+        id: '14'
       },
       {
-        name: "体育",
+        name: "Nginx",
+        id: '15'
       },
+      {
+        name: "Apache",
+        id: '16'
+      },
+      {
+        name: "Tomcat",
+        id: '17'
+      }
     ],
   },
   {
-    name: "留言板",
+    name: "数据库",
     path: "",
-    children: [],
+    id: 4,
+    children: [
+      {
+        name: "MySQL",
+        id: '18'
+      },
+      {
+        name: "MongoDB",
+        id: '19'
+      },
+      {
+        name: "Redis",
+        id: '20'
+      },
+      {
+        name: "Oracle",
+        id: '21'
+      },
+      {
+        name: "SQL Server",
+        id: '22'
+      }
+    ],
   },
   {
-    name: "关于",
-    path: "about",
-    children: [],
-  },
+    name: "开发工具",
+    path: "",
+    id: 5,
+    children: [
+      {
+        name: "Git",
+        id: '23'
+      },
+      {
+        name: "SVN",
+        id: '24'
+      },
+      {
+        name: "Sublime",
+        id: '25'
+      },
+      {
+        name: "VsCode",
+        id: '26'
+      },
+      {
+        name: "Eclipse",
+        id: '27'
+      },
+      {
+        name: "PhpStorm",
+        id: '28'
+      },
+      {
+        name: "PyCharm",
+        id: '29'
+      },
+      {
+        name: "WebStorm",
+        id: '30'
+      },
+      {
+        name: "IntelliJ",
+        id: '31'
+      }
+    ],
+  }
+  // {
+  //   name: "面试题",
+  //   path: "",
+  //   id: 6,
+  //   children: []
+  // }
+  // {
+  //   name: "阅 读",
+  //   path: "",
+  //   children: []
+  // },
+  // {
+  //   name: "成长之路",
+  //   path: "",
+  //   children: []
+  // }
 ];
+
+const goPosts = (item) => {
+  router.push({ name: 'posts', params: { id: item.id } })
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -110,6 +228,7 @@ const navList = [
         font-size: 14px;
         height: 100%;
         cursor: pointer;
+        margin: 0 10px;
         a {
           color: #000;
           &:hover {
@@ -120,11 +239,11 @@ const navList = [
           }
         }
         .layer {
-          width: 100%;
+          width: 50%;
           background-color: #fff;
           margin: 0 auto;
           position: fixed;
-          left: 0;
+          left: 180px;
           top: 50px;
           height: 0;
           overflow: hidden;

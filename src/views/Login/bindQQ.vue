@@ -7,7 +7,8 @@
       </div>
       <div class="bindQQ_avatar">
         <div class="avatar1">
-          <img class="avatar1_img" :src="loginType === 'wx' ? Wxurl : qqInfo.url" alt="" />
+          <img v-if="loginType === 'wx'" class="avatar1_img" src="../../assets/images/WeChat.png" alt="" />
+          <img v-else class="avatar1_img" :src="qqInfo.url" alt="" />
         </div>
         <div class="line"></div>
         <div class="avatar2">
@@ -68,7 +69,7 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { reactive, ref } from "vue";
-import { getCode, loginBindGithub, loginBindQQ, loginBindWeChat} from "../../api/login";
+import { getCode, loginBindGithub, loginBindQQ, loginByWeChat} from "../../api/login";
 import { useStore } from "vuex";
 import { Encrypt } from "../../utils/aes";
 import { message } from "ant-design-vue";
@@ -78,7 +79,6 @@ const router = useRouter();
 const qqInfo = route.params;
 
 const loginType = localStorage.getItem('loginType')
-const Wxurl = '../../assets/images/WeChat.png'
 
 let formState = reactive({
   username: "",
@@ -101,7 +101,7 @@ const login = async () => {
   }
   switch (loginType) {
     case 'wx':
-      const { wxCode, wMessage } = await loginBindWeChat(route.query.code)
+      const { wxCode, wMessage } = await loginByWeChat(route.query.code)
       if (wxCode !== 200) {
         formState.code = "";
         await getVerCode();
@@ -117,7 +117,7 @@ const login = async () => {
       }
       break;
     case 'github':
-      const {githubCode,gMessage} = await loginBindGithub(githubInfo.key);
+      const {githubCode,gMessage} = await loginBindGithub(qqInfo.key);
       if (githubCode !== 200) {
         formState.code = "";
         await getVerCode();
@@ -127,7 +127,7 @@ const login = async () => {
   }
   localStorage.setItem("BLOG-USERINFO", JSON.stringify(formState));
   message.success("登录成功");
-  router.push("home");
+  router.push("/");
 };
 
 // 表单校验规则
@@ -162,12 +162,9 @@ getVerCode();
 
 <script>
 import { defineComponent } from "vue";
-// import { useRoute} from "vue-router";
-// const route = useRoute()
-// console.log(route);
 export default defineComponent({
   beforeRouteEnter(to, from, next) {
-    if (from.path === "/home/home" && from.query.code) {
+    if ((from.path === "/home/home" || from.path === '/login') && from.query.code) {
       next();
     }
     next("/");
